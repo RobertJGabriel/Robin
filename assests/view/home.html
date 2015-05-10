@@ -34,6 +34,7 @@
             <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a data-toggle="modal" data-target="#complete-dialog">Settings</a></li>
+                <li><a data-toggle="modal" data-target="#password-dialog">Set Password</a></li>
               <li class="divider"></li>
               <li><a href="http://www.projectbird.com">Projectbird</a></li>
             </ul>
@@ -52,7 +53,23 @@
         
         
         
+<div id="password-dialog" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Please Enter your Password </h4>
+      </div>
         
+      <div class="modal-body">
+      <input type="password" name="password"  class="form-control"  placeholder="TEST TETS TS " id="passwordSet">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</div>
         
         
         
@@ -77,7 +94,28 @@
 </div>
 
         
+<div id="settings-dialog" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Block Websites</h4>
+      </div>
         
+      <div class="modal-body">
+      <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
+          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
+          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
+          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
+          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
+          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</div>
         
         
         
