@@ -135,7 +135,7 @@ function setPassword(password) {
 
 
 function alerts(status, message) {
-    $("#alert >div").remove();
+
     if (status == 'true') {
       var div = document.createElement("div");
           div.setAttribute("class", "alert alert-dismissable alert-success");
@@ -165,6 +165,7 @@ function alerts(status, message) {
           div.appendChild(button);
           div.innerHTML = "Oh snap something is wrong ";
       document.getElementById("alert").appendChild(div);
+         setTimeout(removeAlert, 2000)
              $('#complete-dialog').modal('hide');
 
     } else if (status == 'passwordchanged') {
@@ -183,4 +184,6 @@ function alerts(status, message) {
     }
   }
 
-
+function removeAlert(){
+    $("#alert > div").remove();
+}
