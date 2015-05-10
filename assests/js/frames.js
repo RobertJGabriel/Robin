@@ -16,6 +16,18 @@ $("#searchTerm").keyup(function (e) {
  });
 
 
+
+
+$("#password").keyup(function (e) {
+    if ($("#password:focus") && (e.keyCode === 13)) {
+      checkSetPassword();
+    }
+ });
+
+
+
+
+
 $("#refresh").click(function(){
     document.getElementById('iframe').src = document.getElementById('iframe').src;
  });
