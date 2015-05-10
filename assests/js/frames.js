@@ -8,21 +8,24 @@ frame.height = "100%";
 
 
 
-$(document).keyup(function (e) {
-    if ($("#searchTerm:focus") && (e.keyCode === 13)) {
-        frame.src = "https://duckduckgo.com/?q=" + document.getElementById("searchTerm").value + "&ia=meanings";
-        console.log(document.getElementById("searchTerm").value);
-    }
- });
-
-
-
-$(document).keyup(function (e) {
+$("#searchTerm").keyup(function (e) {
     if ($("#searchTerm:focus") && (e.keyCode === 13)) {
         frame.src = "http://www.bing.com/search?q=" + document.getElementById("searchTerm").value ;
         console.log(document.getElementById("searchTerm").value);
     }
  });
+
+
+
+
+$("#password").keyup(function (e) {
+    if ($("#password:focus") && (e.keyCode === 13)) {
+      checkSetPassword();
+    }
+ });
+
+
+
 
 
 $("#refresh").click(function(){
@@ -40,13 +43,34 @@ $("#forword").click(function(){
 
 
 
-
-
 $(document).keyup(function (e) {
     if ($("#passwordSet:focus") && (e.keyCode === 13)) {
         setPassword(document.getElementById("passwordSet").value);
     }
  });
+
+
+
+
+
+function checkSetPassword(){
+    
+var userInput = document.getElementById("password").value;
+ if (userInput == localStorage.password){
+     alert('sss');
+     $('#complete-dialog').modal('toggle');
+     $('#complete-dialog').modal('show');
+ }else{
+ alert('error');
+ }
+    
+    
+}
+
+
+
+
+
 
 
 function setPassword(password) {
@@ -58,7 +82,6 @@ function setPassword(password) {
         }
 
     } else {
-       
     }
     console.log(localStorage.password);
 }
