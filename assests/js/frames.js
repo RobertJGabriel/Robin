@@ -26,7 +26,7 @@ $(document).keyup(function (e) {
 
 
 $("#refresh").click(function(){
-    document.getElementById('iframe').contentWindow.location.reload();
+    document.getElementById('iframe').src = document.getElementById('iframe').src;
  });
 
 $("#back").click(function(){
@@ -36,6 +36,32 @@ $("#back").click(function(){
 $("#forword").click(function(){
     document.getElementById('iframe').contentWindow.history.go(1);
  });
+
+
+
+
+
+
+$(document).keyup(function (e) {
+    if ($("#passwordSet:focus") && (e.keyCode === 13)) {
+        setPassword(document.getElementById("passwordSet").value);
+    }
+ });
+
+
+function setPassword(password) {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.password) {
+            localStorage.password = password;
+        } else {
+            localStorage.password = password ;
+        }
+
+    } else {
+       
+    }
+    console.log(localStorage.password);
+}
 
 
 
