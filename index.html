@@ -25,7 +25,7 @@
         <li><a href="javascript:void(0)" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a></li>
         <li><a href="javascript:void(0)" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a></li>
         <li><a href="javascript:void(0)" id="refresh"><i class="mdi-navigation-refresh"></i></a></li>
-        <li class="active"><a href="javascript:void(0)"><i class="mdi-action-home"></i></a></li>
+        <li class="active"><a href="javascript:void(0)" id="home"><i class="mdi-action-home"></i></a></li>
         <li class="navbar-form navbar-left" ><input type="text"  id="searchTerm" class="form-control col-lg-8" placeholder="Search"></li>
         </ul>
     
@@ -34,7 +34,7 @@
             <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a data-toggle="modal" data-target="#complete-dialog">Settings</a></li>
-                <li><a data-toggle="modal" data-target="#password-dialog">Set Password</a></li>
+                <li id="setPasswordButton"><a data-toggle="modal" data-target="#password-dialog">Set Password</a></li>
               <li class="divider"></li>
               <li><a href="http://www.projectbird.com">Projectbird</a></li>
             </ul>
@@ -65,7 +65,7 @@
       <input type="password" name="password"  class="form-control"  placeholder="TEST TETS TS " id="passwordSet">
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+        <button class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
@@ -87,7 +87,7 @@
       <input type="password" name="password"  class="form-control"  placeholder="TEST TETS TS " id="password">
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+        <button class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
@@ -114,7 +114,7 @@
           <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+        <button class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>

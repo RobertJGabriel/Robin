@@ -7,6 +7,15 @@ frame.width = window.innerWidth;
 frame.height = "100%";
 
 
+if (localStorage.password != null) {
+    
+    $('#setPasswordButton').remove();
+    
+}
+
+
+
+
 
 $("#searchTerm").keyup(function (e) {
     if ($("#searchTerm:focus") && (e.keyCode === 13)) {
@@ -20,12 +29,15 @@ $("#searchTerm").keyup(function (e) {
 
 $("#password").keyup(function (e) {
     if ($("#password:focus") && (e.keyCode === 13)) {
+        
       checkSetPassword();
     }
  });
 
 
-
+$("#home").click(function(){
+           frame.src = "http://www.bing.com" ;
+ });
 
 
 $("#refresh").click(function(){
@@ -54,12 +66,11 @@ $(document).keyup(function (e) {
 
 
 function checkSetPassword(){
-    
+
 var userInput = document.getElementById("password").value;
  if (userInput == localStorage.password){
-     alert('sss');
-     $('#complete-dialog').modal('toggle');
-     $('#complete-dialog').modal('show');
+     $('#complete-dialog').modal('hide');
+     $('#settings-dialog').modal('show');
  }else{
  alert('error');
  }
