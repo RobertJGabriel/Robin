@@ -2,11 +2,12 @@
 
     <head>
         <title>Robin</title>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
         <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
         <link href="../css/roboto.min.css" rel="stylesheet">
         <link href="../css/material.min.css" rel="stylesheet">
         <link href="../css/ripples.min.css" rel="stylesheet">
+        <link href="../css/restart.css" rel="stylesheet">
 
     </head>
     <body>
@@ -25,11 +26,10 @@
         <li><a href="javascript:void(0)"><i class="mdi-hardware-keyboard-arrow-right"></i></a></li>
         <li><a href="javascript:void(0)"><i class="mdi-navigation-refresh"></i></a></li>
         <li class="active"><a href="javascript:void(0)"><i class="mdi-action-home"></i></a></li>
+        <li class="navbar-form navbar-left" ><input type="text"  id="searchTerm" class="form-control col-lg-8" placeholder="Search"></li>
         </ul>
-        <form class="navbar-form navbar-left">
-          <input type="text" class="form-control col-lg-8" placeholder="Search">
-        </form>
-        <ul class="nav navbar-nav navbar-right">
+    
+        <ul class="nav navbar-nav navbar-right" method="post">
           <li class="dropdown">
             <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -44,7 +44,7 @@
         
         
         
-    <iframe id="iframe" src="http://www.projectbird.com"></iframe>
+    <iframe id="iframe" ></iframe>
         
         
         
@@ -63,16 +63,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Dialog</h4>
+        <h4 class="modal-title">Please Enter your Password </h4>
       </div>
       <div class="modal-body">
-        <p>Fore aut non quem incididunt, varias reprehenderit deserunt quem offendit,
-          cillum proident ne reprehenderit, quem ad laborum, quo possumus praetermissum,
-          si ne illustriora, hic appellat coniunctione, do labore aliqua quo probant. In
-          probant voluptatibus quo mentitum est laboris. Quorum mandaremus graviterque.
-          Mentitum id velit, dolor aut litteris, ea varias illustriora, ita commodo ita
-          ingeniis, iis nulla appellat incurreret, aut irure amet summis pariatur ita ubi
-          quis dolore veniam proident, consequat sed ingeniis.</p>
+      <input type="password" name="password"  class="form-control"  placeholder="TEST TETS TS " id="password">
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" data-dismiss="modal">Dismiss</button>
@@ -88,8 +82,8 @@
         
         
 
-        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
         <script src="../js/frames.js"></script>
         <script src="../js/ripples.min.js"></script>
