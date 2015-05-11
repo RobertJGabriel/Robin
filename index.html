@@ -1,141 +1,152 @@
 <html>
 
-    <head>
-        <title>Robin</title>
-        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
-        <link href="assests/css/roboto.min.css" rel="stylesheet">
-        <link href="assests/css/material.min.css" rel="stylesheet">
-        <link href="assests/css/ripples.min.css" rel="stylesheet">
-        <link href="assests/css/restart.css" rel="stylesheet">
+<head>
+    <title>Robin</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
+    <link href="assests/css/roboto.min.css" rel="stylesheet">
+    <link href="assests/css/material.min.css" rel="stylesheet">
+    <link href="assests/css/ripples.min.css" rel="stylesheet">
+    <link href="assests/css/restart.css" rel="stylesheet">
 
-    </head>
-    <body>
+</head>
+
+<body>
     <div class="navbar navbar-material-light-blue">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      
-      </div>
-      <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
-        <ul class="nav navbar-nav">
-        <li><a href="javascript:void(0)" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a></li>
-        <li><a href="javascript:void(0)" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a></li>
-        <li><a href="javascript:void(0)" id="refresh"><i class="mdi-navigation-refresh"></i></a></li>
-        <li class="active"><a href="javascript:void(0)" id="home"><i class="mdi-action-home"></i></a></li>
-        <li class="navbar-form navbar-left" ><input type="text"  id="searchTerm" class="form-control col-lg-8" placeholder="Search"></li>
-        </ul>
-    
-        <ul class="nav navbar-nav navbar-right" method="post">
-          <li class="dropdown">
-            <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a data-toggle="modal" data-target="#complete-dialog">Settings</a></li>
-                <li id="setPasswordButton"><a data-toggle="modal" data-target="#password-dialog">Set Password</a></li>
-              <li class="divider"></li>
-              <li><a href="http://www.projectbird.com">Projectbird</a></li>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="javascript:void(0)" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a>
+                </li>
+                <li><a href="javascript:void(0)" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a>
+                </li>
+                <li><a href="javascript:void(0)" id="refresh"><i class="mdi-navigation-refresh"></i></a>
+                </li>
+                <li class="active"><a href="javascript:void(0)" id="home"><i class="mdi-action-home"></i></a>
+                </li>
+                <li class="navbar-form navbar-left">
+                    <input type="text" id="searchTerm" onkeydown="search(event)" class="form-control col-lg-8" placeholder="Search">
+                </li>
             </ul>
-          </li>
-        </ul>
-      </div>
+
+            <ul class="nav navbar-nav navbar-right" method="post">
+                <li class="dropdown">
+                    <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a data-toggle="modal" data-target="#complete-dialog">Settings</a>
+                        </li>
+                        <li id="setPasswordButton"><a data-toggle="modal" data-target="#password-dialog">Set Password</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="http://www.projectbird.com">Projectbird</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 
-        
-        
-    <iframe id="iframe" ></iframe>
-        
-        
-        
-        
-        
-        
-        
-<div id="password-dialog" class="modal fade" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Please Enter your Password </h4>
-      </div>
-        
-      <div class="modal-body">
-      <input type="password" name="password"  class="form-control"  placeholder="TEST TETS TS " id="passwordSet">
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary">Save</button>
-      </div>
+
+
+    <iframe id="iframe"></iframe>
+
+
+
+
+
+    <!------------------------------  Set Password --------------------------->
+
+    <div id="password-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">Please Enter your Password you wish to set </h4>
+                </div>
+
+
+                <div class="modal-body">
+                    <input type="password" name="password" class="form-control" placeholder="PASSWORD" id="passwordSet">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="passwordSave">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-        
-        
-        
-        
 
-<div id="complete-dialog" class="modal fade" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Please Enter your Password </h4>
-      </div>
-        
-      <div class="modal-body">
-      <input type="password" name="password"  class="form-control"  placeholder="TEST TETS TS " id="password">
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary">Save</button>
-      </div>
+
+
+    <!------------------------------  Log into settings --------------------------->
+
+    <div id="complete-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" arial-hidden="true">x</button>
+                    <h4 class="modal-title">Please Enter your Password </h4>
+                </div>
+                <div id="alert"></div>
+                <div class="modal-body">
+                    <input type="password" name="password" class="form-control" placeholder="password" id="password">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="passwordTry">Try</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-        
-        
-        
-        
-<div id="settings-dialog" class="modal fade" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Block Websites</h4>
-      </div>
-        
-      <div class="modal-body">
-      <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
-          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
-          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
-          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
-          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
-          <input type="text" name="text"  class="form-control settings"  placeholder="http://www.example.com">
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary">Save</button>
-      </div>
+
+
+    <!------------------------------  settings --------------------------->
+
+    <div id="settings-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">Block Websites</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" name="text" class="form-control settings" placeholder="http://www.example.com">
+                    <input type="text" name="text" class="form-control settings" placeholder="http://www.example.com">
+                    <input type="text" name="text" class="form-control settings" placeholder="http://www.example.com">
+                    <input type="text" name="text" class="form-control settings" placeholder="http://www.example.com">
+                    <input type="text" name="text" class="form-control settings" placeholder="http://www.example.com">
+                    <input type="text" name="text" class="form-control settings" placeholder="http://www.example.com">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="settingsSave">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-        
-        
-        
-        
 
-        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src="assests/js/frames.js"></script>
-        <script src="assests/js/ripples.min.js"></script>
-        <script src="assests/js/material.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // This command is used to initialize some elements and make them work properly
-                $.material.init();
-            });
-        </script>
 
-    </body>
+
+
+
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="assests/js/frames.js"></script>
+    <script src="assests/js/ripples.min.js"></script>
+    <script src="assests/js/material.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // This command is used to initialize some elements and make them work properly
+            $.material.init();
+        });
+    </script>
+
+</body>
 
 </html>
