@@ -103,9 +103,18 @@ function checkSetPassword() {
 
 
 
+function setColors(){
+
+}
+
+function urlCleaner(){
+
+}
 
 
+function loadLocalStorage(){
 
+}
 
 
 function alerts(status, message) {
