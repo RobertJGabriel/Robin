@@ -134,7 +134,7 @@ function saveSettings() {
 
         x++;
     });
-
+    loadLocalStorages();
 }
 
 
