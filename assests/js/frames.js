@@ -184,7 +184,6 @@ function setColors() {
 function urlCleaner(url) {
 
     for (i = 0; i < banndedUrls.length; i++) {
-
         if (banndedUrls[i] != '') {
             var patt = new RegExp(banndedUrls[i]);
             if (patt.test(url)) {
