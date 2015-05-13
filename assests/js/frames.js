@@ -40,14 +40,14 @@ function loadLocalStorages() {
 
 
         if (localStorage.password != null) {
-            removeElements();
+            removeElements('#setPasswordButton');
+        } else {
+            removeElements('#settingsButton');
         }
 
         if (localStorage.catch != null) {
             setColors();
         }
-
-
 
     }
 }
@@ -55,8 +55,10 @@ function loadLocalStorages() {
 
 
 
-function removeElements() {
-    $('#setPasswordButton').remove();
+function removeElements(element) {
+
+
+    $(element).remove();
 }
 
 function addEventListeners() {
