@@ -8,7 +8,7 @@ window.onload = init;
 
 
 function init() {
-
+    iframe();
     loadLocalStorages();
     addEventListeners();
 }
