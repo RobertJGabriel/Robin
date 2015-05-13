@@ -96,12 +96,12 @@ function refresh() {
 }
 
 function goHome() {
-    frame.src = "http://www.bing.com";
+    frame.src = "https://duckduckgo.com/?q=bird";
 }
 
 function search(event) {
     if (event.keyCode === 13) {
-        frame.src = "http://www.bing.com/search?q=" + document.getElementById("searchTerm").value;
+        frame.src = "https://duckduckgo.com/?q=" + document.getElementById("searchTerm").value;
         console.log(document.getElementById("searchTerm").value);
     }
 }
