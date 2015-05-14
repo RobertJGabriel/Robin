@@ -168,11 +168,15 @@ function checkSetPassword() {
         $('#complete-dialog').modal('hide');
         $('#settings-dialog').modal('show');
     } else {
-        alerts('error', '');
+        error();
     }
 }
 
+function error() {
 
+    $('.modal').modal('hide');
+    $('#error-dialog').modal('show');
+}
 
 
 function setColors() {

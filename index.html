@@ -19,21 +19,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
+            <a class="navbar-brand" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a>
+            <a class="navbar-brand" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a>
+            <a class="navbar-brand" id="refresh"><i class="mdi-navigation-refresh"></i></a>
+            <a class="navbar-brand" id="home"><i class="mdi-action-home"></i></a>
         </div>
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="javascript:void(0)" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a>
-                </li>
-                <li><a href="javascript:void(0)" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a>
-                </li>
-                <li><a href="javascript:void(0)" id="refresh"><i class="mdi-navigation-refresh"></i></a>
-                </li>
-                <li class="active"><a href="javascript:void(0)" id="home"><i class="mdi-action-home"></i></a>
-                </li>
-                <li class="navbar-form navbar-left">
+
+                <li>
                     <input type="text" id="searchTerm" onkeydown="search(event)" class="form-control col-lg-8" placeholder="Search">
+                    </a>
                 </li>
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right" method="post">
@@ -134,6 +132,26 @@
 
 
 
+
+    <!------------------------------  settings --------------------------->
+
+    <div id="error-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">error</h4>
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
