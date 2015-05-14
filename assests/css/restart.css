@@ -5,6 +5,12 @@ iframe {
     margin-top: -20px;
     overflow: hidden;
 }
+iframe:hover {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-top: -20px;
+}
 body,
 html {
     height: 100%;
