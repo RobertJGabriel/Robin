@@ -3,11 +3,15 @@ iframe {
     padding: 0;
     border: 0;
     overflow: auto;
+    overflow: -moz-scrollbars-none;
     margin: -20px 0 0 0;
-    padding-right: 300px;
     /* Samakan dengan besar margin negatif */
 }
 body,
 html {
     height: 100%;
+    overflow: -moz-scrollbars-none;
+}
+::-webkit-scrollbar {
+    display: none;
 }
