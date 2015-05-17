@@ -39,6 +39,12 @@ function loadLocalStorages() {
         });
 
 
+        if (localStorage.firstLoad == null) {
+            showPop('about');
+        } else {
+            removePop('about');
+        }
+
         if (localStorage.password != null) {
             removeElements('#setPasswordButton');
         } else {
@@ -52,7 +58,14 @@ function loadLocalStorages() {
     }
 }
 
+function showPop(dialog) {
+    setLocalStorge('firstLoad', 'true');
+    $('#' + dialog + '-dialog').modal('show');
+}
 
+function removePop(dialog) {
+    $('#' + dialog + '-dialog').modal('hide');
+}
 
 
 function removeElements(element) {
@@ -140,7 +153,6 @@ function saveSettings() {
 
 
 function setLocalStorge(x, value) {
-
 
     // Check browser support
     if (typeof (Storage) != "undefined") {
