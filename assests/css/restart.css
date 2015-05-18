@@ -22,3 +22,6 @@ html {
     /* font-size: 18px; */
     line-height: 20px;
 }
+.navbar-toggle {
+    margin-top: 17px!important;
+}
