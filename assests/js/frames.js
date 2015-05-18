@@ -94,8 +94,8 @@ function restart() {
 }
 
 function goback() {
-    alert('goback');
-    // document.getElementById('iframe').contentWindow.history.go(-1);
+
+    document.getElementById('iframe').contentWindow.history.go(-1);
 }
 
 function goForword() {
