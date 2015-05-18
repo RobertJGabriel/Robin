@@ -95,12 +95,12 @@ function restart() {
 
 function goback() {
     alert('goback');
-    //document.getElementById('iframe').contentWindow.history.go(-1);
+    // document.getElementById('iframe').contentWindow.history.go(-1);
 }
 
 function goForword() {
-    alert('goForword');
-    //document.getElementById('iframe').contentWindow.history.go(-1);
+    //alert('goForword');
+    document.getElementById('iframe').contentWindow.history.go(-1);
 }
 
 function refresh() {
