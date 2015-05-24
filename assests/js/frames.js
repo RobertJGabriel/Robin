@@ -1,17 +1,11 @@
 var frame = document.getElementById("iframe");
 
 var banndedUrls = [];
-
+var passUrls = [];
 //localStorage.clear();
-window.onload = init;
 
 
 
-function init() {
-    iframe();
-    loadLocalStorages();
-    addEventListeners();
-}
 
 
 
@@ -21,8 +15,7 @@ function iframe() {
 }
 
 function loadLocalStorages() {
-    var x = 0;
-    var k = 0;
+    var x, k = 0;
     banndedUrls = [];
     if (typeof (Storage) !== "undefined") {
 
@@ -39,7 +32,7 @@ function loadLocalStorages() {
         });
 
 
-        if (localStorage.firstLoad == null) {
+        if (localStorage.firstLoad === null) {
             showPop('about');
         } else {
             removePop('about');
@@ -70,7 +63,6 @@ function removePop(dialog) {
 
 function removeElements(element) {
 
-
     $(element).remove();
 }
 
@@ -84,6 +76,7 @@ function addEventListeners() {
     document.getElementById("settingsSave").addEventListener("click", saveSettings, false);
     document.getElementById("restart").addEventListener("click", restart, false);
     document.getElementById("iframe").addEventListener("load", onSrcChange, false);
+
 }
 
 
@@ -94,9 +87,28 @@ function restart() {
 }
 
 function goback() {
-
-    document.getElementById('iframe').contentWindow.history.go(-1);
+    pastUrl();
+    //    document.getElementById('iframe').contentWindow.history.go(-1);
 }
+
+function pastUrl() {
+
+    var history = passUrls.length - 1;
+    console.log(history);
+    if (history === 1) {
+        alert('None' + history);
+    } else {
+
+        var lasturl = passUrls[history];
+        document.getElementById('iframe').src = lasturl;
+
+    }
+
+
+}
+
+
+
 
 function goForword() {
     //alert('goForword');
@@ -118,6 +130,10 @@ function search(event) {
         console.log(document.getElementById("searchTerm").value);
     }
 }
+
+
+
+
 
 function setPassword() {
     console.log('set password');
@@ -226,7 +242,7 @@ function onSrcChange() {
     console.log('src changed ' + document.getElementById('iframe').src);
     urlCleaner(url);
     iframe();
-
+    passUrls.push(url);
 }
 
 
@@ -284,3 +300,19 @@ function alerts(status, message) {
 function removeAlert() {
     $("#alert > div").remove();
 }
+
+
+
+
+
+
+
+
+
+function init() {
+    iframe();
+    loadLocalStorages();
+    addEventListeners();
+}
+
+window.onload = init;
