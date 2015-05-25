@@ -93,7 +93,7 @@ function goback() {
 
 function pastUrl() {
 
-    var history = passUrls.length - 1;
+    var history = passUrls.length - 2;
     console.log(history);
     if (history === 1) {
         alert('None' + history);
