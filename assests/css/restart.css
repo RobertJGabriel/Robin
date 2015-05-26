@@ -25,3 +25,7 @@ html {
 .navbar-toggle {
     margin-top: 17px!important;
 }
+
+.navbar-collapse.collapse {
+background-image: url(http://files.tested.com/static/site/img/layout/bg-grid-alt.png) !important;
+}
