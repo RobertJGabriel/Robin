@@ -2,7 +2,7 @@ var frame = document.getElementById("iframe");
 var banndedUrls = [];
 var passUrls = [];
 var historyPoint = 0;
-localStorage.clear();
+
 function iframe() {
     frame.width = window.innerWidth;
     frame.height = "100%";
@@ -22,17 +22,18 @@ function loadLocalStorages() {
             }
             x++;
         });
-        if (localStorage.firstLoad === null) {
+        if (localStorage.getItem('firstLoad') === null) {
             showPop('about');
         } else {
             removePop('about');
         }
-        if (localStorage.password !== null) {
+        if (localStorage.getItem('password') !== null) {
             removeElements('#setPasswordButton');
         } else {
             removeElements('#settingsButton');
         }
-        if (localStorage.catch !== null) {
+
+        if (localStorage.getItem('catch') !== null) {
             setColors();
         }
     }
@@ -67,7 +68,7 @@ function addEventListeners() {
 }
 
 function restart() {
-    localStorage.clear();
+
     $('#settings-dialog').modal('hide');
 }
 
@@ -171,14 +172,14 @@ function setColors() {
 }
 
 function urlCleaner(url) {
-    for (i = 0; i < banndedUrls.length; i++) {
+    for (i = 0; i == banndedUrls.length; i++) {
         if (banndedUrls[i] !== '') {
             var patt = new RegExp(banndedUrls[i]);
             if (patt.test(url)) {
                 setColors();
                 redirect();
                 break;
-            }
+            }else{ alert('ss');}
         }
     }
 }
