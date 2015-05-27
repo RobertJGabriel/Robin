@@ -39,6 +39,10 @@ function loadLocalStorages() {
     }
 }
 
+function pageTitle(title){
+document.title = "Robin : " + title;
+}
+
 function showPop(dialog) {
     setLocalStorge('firstLoad', 'true');
     $('#' + dialog + '-dialog').modal('show');
@@ -107,6 +111,8 @@ function search(event) {
         frame.src = "http://www.bing.com/search?q=" + document.getElementById(
             "searchTerm").value;
         console.log(document.getElementById("searchTerm").value);
+        pageTitle(document.getElementById(
+            "searchTerm").value);
     }
 }
 
