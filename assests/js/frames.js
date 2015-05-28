@@ -9,8 +9,9 @@ function iframe() {
 }
 
 function loadLocalStorages() {
-    var x, k = 0;
-    banndedUrls = [];
+    //localStorage.clear();
+    var x = 0;
+    var k = 0;
     if (typeof(Storage) !== "undefined") {
         $('.settings').each(function(i, e) {
             if (localStorage.getItem(x) !== null) {
@@ -32,15 +33,14 @@ function loadLocalStorages() {
         } else {
             removeElements('#settingsButton');
         }
-
         if (localStorage.getItem('catch') !== null) {
             setColors();
         }
     }
 }
 
-function pageTitle(title){
-document.title = "Robin : " + title;
+function pageTitle(title) {
+    document.title = "Robin : " + title;
 }
 
 function showPop(dialog) {
@@ -61,18 +61,19 @@ function addEventListeners() {
     document.getElementById("forword").addEventListener("click", goForword);
     document.getElementById("refresh").addEventListener("click", refresh);
     document.getElementById("home").addEventListener("click", goHome);
-    document.getElementById("passwordSave").addEventListener("click", setPassword,
-        false);
+    document.getElementById("passwordSave").addEventListener("click",
+        setPassword, false);
     document.getElementById("passwordTry").addEventListener("click",
         checkSetPassword, false);
     document.getElementById("settingsSave").addEventListener("click",
         saveSettings, false);
-    document.getElementById("restart").addEventListener("click", restart, false);
-    document.getElementById("iframe").addEventListener("load", onSrcChange, false);
+    document.getElementById("restart").addEventListener("click", restart,
+        false);
+    document.getElementById("iframe").addEventListener("load", onSrcChange,
+        false);
 }
 
 function restart() {
-
     $('#settings-dialog').modal('hide');
 }
 
@@ -99,7 +100,8 @@ function goForword() {
 
 function refresh() {
     console.log('refresh');
-    document.getElementById('iframe').src = document.getElementById('iframe').src;
+    document.getElementById('iframe').src = document.getElementById(
+        'iframe').src;
 }
 
 function goHome() {
@@ -111,8 +113,7 @@ function search(event) {
         frame.src = "http://www.bing.com/search?q=" + document.getElementById(
             "searchTerm").value;
         console.log(document.getElementById("searchTerm").value);
-        pageTitle(document.getElementById(
-            "searchTerm").value);
+        pageTitle(document.getElementById("searchTerm").value);
     }
 }
 
@@ -129,6 +130,7 @@ function setPassword() {
     console.log(localStorage.password);
     $('#password-dialog').modal('hide');
     removeElements();
+    loadLocalStorages();
 }
 
 function saveSettings() {
@@ -174,7 +176,8 @@ function error() {
 }
 
 function setColors() {
-    $('div').addClass('navbar-warning').removeClass('navbar-material-light-blue');
+    $('div').addClass('navbar-warning').removeClass(
+        'navbar-material-light-blue');
 }
 
 function urlCleaner(url) {
@@ -185,7 +188,7 @@ function urlCleaner(url) {
                 setColors();
                 redirect();
                 break;
-            }else{ alert('ss');}
+            } else {}
         }
     }
 }
