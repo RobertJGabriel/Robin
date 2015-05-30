@@ -11,6 +11,10 @@ define(function (require) {
     
     
     
+     var zload = require('../zload');
+    
+    
+    
     
     
     
@@ -22,6 +26,6 @@ define(function (require) {
     // Load library/vendor modules using
     // full IDs, like:
     var print = require('print');
-
+    $.material.init();
     print(messages.getHello());
 });
