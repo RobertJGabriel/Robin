@@ -1,7 +1,7 @@
 $(function() {
 
     $.material.init();
-
+init();
 
 });
 

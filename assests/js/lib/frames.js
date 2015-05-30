@@ -257,4 +257,4 @@ function init() {
     loadLocalStorages();
     addEventListeners();
 }
-window.onload = init;
+
