@@ -105,7 +105,7 @@ function refresh() {
 }
 
 function goHome() {
-    frame.src = "http://www.bing.com/search?q=meh";
+    frame.src = "/assests/view/index.html";
 }
 
 function search(event) {

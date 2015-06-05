@@ -16,7 +16,7 @@
 </head>
 
 <body onresize="iframe()">
-    <div class="navbar navbar-material-light-blue">
+     <div class="navbar navbar-material-light-blue shadow-z-2">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
                 <span class="icon-bar"></span>
@@ -34,9 +34,9 @@
                 <input type="text" id="searchTerm" onkeydown="search(event)" class="form-control col-lg-8" placeholder="Search">
             </div>
             <ul class="nav navbar-nav navbar-right" method="post">
-                <li class="dropdown">
+                <li class="dropdown ">
                     <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu shadow-z-3">
                          <li><a data-toggle="modal" data-target="#about-dialog" >About</a>
                         </li>
                         <li><a data-toggle="modal" data-target="#complete-dialog" id="settingsButton">Settings</a>
@@ -57,7 +57,7 @@
 
 
 
-
+<button class="btn btn-fab btn-fab-mini btn-raised btn-sm btn-success"><i class="mdi-navigation-check"></i></button>
 
 
 
