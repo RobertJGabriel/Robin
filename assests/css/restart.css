@@ -34,7 +34,9 @@ html {
     width: 0px !important ;
     background-color: rebeccapurple;
     height: 30px;
-
+padding-left: 0.1em;
+    padding-right: 0.1em;
+    background-color: white;
 }
 
 .box-change {
@@ -51,4 +53,5 @@ width: 0%;
     -moz-transition: width 2s ease, height 2s ease;
     -o-transition: width 2s ease, height 2s ease;
     transition: width 2s ease, height 2s ease;
+
 }

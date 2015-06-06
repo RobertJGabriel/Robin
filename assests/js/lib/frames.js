@@ -260,7 +260,7 @@ function init() {
 
 $(function() {
     $("#search").click(function() {
-        alert('s');
+
         $(".searcharea").toggleClass("box-change");
     });
 });
