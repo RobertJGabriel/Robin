@@ -27,5 +27,28 @@ html {
 }
 
 .navbar-collapse.collapse {
-background-image: url(http://files.tested.com/static/site/img/layout/bg-grid-alt.png) !important;
+
+}
+
+.box {
+    width: 0px !important ;
+    background-color: rebeccapurple;
+    height: 30px;
+
+}
+
+.box-change {
+    width: 100% !important;
+    height: 40px;
+}
+
+.searcharea{
+width: 0%;
+    height: 0%;
+    background-color: red;
+
+        -webkit-transition: width 2s ease, height 2s ease;
+    -moz-transition: width 2s ease, height 2s ease;
+    -o-transition: width 2s ease, height 2s ease;
+    transition: width 2s ease, height 2s ease;
 }

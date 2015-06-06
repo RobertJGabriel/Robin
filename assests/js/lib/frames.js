@@ -258,3 +258,9 @@ function init() {
     addEventListeners();
 }
 
+$(function() {
+    $("#search").click(function() {
+        alert('s');
+        $(".searcharea").toggleClass("box-change");
+    });
+});
