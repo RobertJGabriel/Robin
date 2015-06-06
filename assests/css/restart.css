@@ -34,20 +34,21 @@ html {
     width: 0px !important ;
     background-color: rebeccapurple;
     height: 30px;
-padding-left: 0.1em;
-    padding-right: 0.1em;
-    background-color: white;
+
 }
 
 .box-change {
     width: 100% !important;
-    height: 40px;
+    height: 60px !important;
+    padding-left: 29px !important;
+    padding-right: 29px !important;
+    background-color: white !important;
+
 }
 
 .searcharea{
 width: 0%;
     height: 0%;
-    background-color: red;
 
         -webkit-transition: width 2s ease, height 2s ease;
     -moz-transition: width 2s ease, height 2s ease;
