@@ -5,8 +5,19 @@ var webTabs = [];
 var historyPoint = 0;
 
 function iframe() {
-    frame.width = window.innerWidth;
-    frame.height = "100%";
+    $("iframe").each(function() {
+
+  $(this).width = window.innerWidth;
+    $(this).height = "100%";
+
+        $(this).bind("load", onSrcChange,
+        false);
+
+
+    });
+
+
+
 }
 
 function loadLocalStorages() {
@@ -28,6 +39,7 @@ function loadLocalStorages() {
             showPop('about');
         } else {
             removePop('about');
+            createTab('Batman');
         }
         if (localStorage.getItem('password') !== null) {
             removeElements('#setPasswordButton');
@@ -70,8 +82,8 @@ function addEventListeners() {
         saveSettings, false);
     document.getElementById("restart").addEventListener("click", restart,
         false);
-    document.getElementById("iframe").addEventListener("load", onSrcChange,
-        false);
+
+
 }
 
 function restart() {
@@ -111,10 +123,9 @@ function goHome() {
 
 function search(event) {
     if (event.keyCode === 13) {
-        frame.src = "http://www.bing.com/search?q=" + document.getElementById("searchTerm").value;
         console.log(document.getElementById("searchTerm").value);
         pageTitle(document.getElementById("searchTerm").value);
-        createTab();
+        createTab(document.getElementById("searchTerm").value);
     }
 }
 
@@ -262,7 +273,7 @@ function init() {
 
 
 
-function createTab(){
+function createTab(url){
 var tabs = document.getElementById('tabs');
 
     var span = document.createElement("section");
@@ -270,25 +281,27 @@ var tabs = document.getElementById('tabs');
 
     var title = document.createElement("h1");
         title.setAttribute("class", "title");
-        title.innerHTML = 'text';
+        title.innerHTML = "http://www.bing.com/search?q=" + url;
 
         span.appendChild(title);
 
-    var iframe = document.createElement("iframe");
-        iframe.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-        span.appendChild(iframe);
-
+    var iframes = document.createElement("iframe");
+        iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+        iframes.setAttribute("src","http://www.bing.com/search?q=" + url);
+        iframes.setAttribute("width",window.innerWidth);
+        iframes.setAttribute("height","100%");
+        span.appendChild(iframes);
 
 tabs.appendChild(span);
 
-
+ iframe();
 
 $('section').on('click', function() {
   $(this).closest('section').prependTo('.contain');
   $('section').removeClass('active');
   $(this).addClass('active');
   $('.contain').removeClass('active');
-})
+});
 }
 
 
