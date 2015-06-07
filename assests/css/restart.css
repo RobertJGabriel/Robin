@@ -26,33 +26,29 @@ html {
     margin-top: 17px!important;
 }
 
-.navbar-collapse.collapse {
 
-}
 
 .box {
+    width: 100% !important;
     width: 0px !important ;
-    background-color: rebeccapurple;
     height: 30px;
-
+display: none;
 }
 
 .box-change {
-    width: 100% !important;
-    height: 60px !important;
+width: 400px !important;
     padding-left: 29px !important;
     padding-right: 29px !important;
-    background-color: white !important;
-
+display: block;
 }
 
 .searcharea{
-width: 0%;
-    height: 0%;
-
-        -webkit-transition: width 2s ease, height 2s ease;
-    -moz-transition: width 2s ease, height 2s ease;
-    -o-transition: width 2s ease, height 2s ease;
-    transition: width 2s ease, height 2s ease;
+width: 0px;
+    height: auto;
+float: left;
+        -webkit-transition: width 2s ease, height 2s ease, display 2s ease;
+    -moz-transition: width 2s ease, height 2s ease, display 2s ease;
+    -o-transition: width 2s ease, height 2s ease, display 2s ease;
+    transition: width 2s ease, height 2s ease, display 2s ease;
 
 }

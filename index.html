@@ -28,12 +28,14 @@
             <a class="navbar-brand" id="refresh"><i class="mdi-navigation-refresh"></i></a>
             <a class="navbar-brand" id="home"><i class="mdi-action-home"></i></a>
              <a class="navbar-brand" id="search"><i class="mdi-action-search"></i></a>
+
+
+            <a class="navbar-brand searcharea" id="search"><input type="text" id="searchTerm" onkeydown="search(event)" class="form-control col-lg-8" placeholder="Search"></a>
+
+
         </div>
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
 
-            <div class="navbar-form navbar-left">
-
-            </div>
             <ul class="nav navbar-nav navbar-right" method="post">
                 <li class="dropdown ">
                     <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
@@ -53,15 +55,7 @@
             </ul>
         </div>
     </div>
-    <div class="searcharea shadow-z-4">
 
-
-  <input type="text" id="searchTerm" onkeydown="search(event)" class="form-control col-lg-8" placeholder="Search">
-
-
-
-
-    </div>
 
 
 
@@ -249,6 +243,7 @@
     </div>
 
 <script data-main="app" src="assests/js/lib/require.js"></script>
+    <script>init();</script>
 </body>
 
 </html>
