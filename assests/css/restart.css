@@ -170,7 +170,7 @@ a.toggle:hover .bar {
 }
 .contain h1 {
   margin: 0;
-  font-size: 64px;
+  font-size: 1em;
   -webkit-transform: translate(0, 40vh);
       -ms-transform: translate(0, 40vh);
           transform: translate(0, 40vh);
@@ -294,3 +294,19 @@ display: none;
   top: -1vh;
 }
 
+
+
+
+
+
+
+
+#tabsq{
+z-index: 2000;
+display: block;
+position: absolute;
+margin-top: -202px;
+float: right !important;
+right: 0;
+margin-right: 30px;
+    }
