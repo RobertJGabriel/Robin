@@ -195,11 +195,14 @@ a.toggle:hover .bar {
 
 .contain.active > *{
 
-padding-top: 40px;
-
 
 
 }
+.contain.active h1{
+
+display: block;
+}
+
 .contain.active + a.toggle {
   top: 30px;
   left: 20px;
@@ -248,6 +251,9 @@ padding-top: 40px;
   z-index: 99;
 }
 
+.title{
+display: none;
+}
 .contain.active section:nth-child(1) {
   top: 36vh;
 }

@@ -1,6 +1,7 @@
 var frame = document.getElementById("iframe");
 var banndedUrls = [];
 var passUrls = [];
+var webTabs = [];
 var historyPoint = 0;
 
 function iframe() {
@@ -110,10 +111,10 @@ function goHome() {
 
 function search(event) {
     if (event.keyCode === 13) {
-        frame.src = "http://www.bing.com/search?q=" + document.getElementById(
-            "searchTerm").value;
+        frame.src = "http://www.bing.com/search?q=" + document.getElementById("searchTerm").value;
         console.log(document.getElementById("searchTerm").value);
         pageTitle(document.getElementById("searchTerm").value);
+        createTab();
     }
 }
 
@@ -258,11 +259,70 @@ function init() {
     addEventListeners();
 }
 
+
+
+
+function createTab(){
+var tabs = document.getElementById('tabs');
+
+    var span = document.createElement("section");
+        span.setAttribute("class", "home hh");
+
+    var title = document.createElement("h1");
+        title.setAttribute("class", "title");
+        title.innerHTML = 'text';
+
+        span.appendChild(title);
+
+    var iframe = document.createElement("iframe");
+        iframe.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+        span.appendChild(iframe);
+
+
+tabs.appendChild(span);
+
+
+
+$('section').on('click', function() {
+  $(this).closest('section').prependTo('.contain');
+  $('section').removeClass('active');
+  $(this).addClass('active');
+  $('.contain').removeClass('active');
+})
+}
+
+
+
+
+
+
+
+
 $(function() {
     $("#search").click(function() {
 
         $(".searcharea").toggleClass("box-change");
     });
+
+
+
+
+
+
+
+$('a.toggle').on('click', function() {
+  $('section').scrollTop(0);
+  $('.contain').toggleClass('active');
+  return false;
+});
+
+$('section').on('click', function() {
+  $(this).closest('section').prependTo('.contain');
+  $('section').removeClass('active');
+  $(this).addClass('active');
+  $('.contain').removeClass('active');
+});
+
 });
 
 
@@ -278,19 +338,3 @@ $(function() {
 
 
 
-
-
-
-
-$('a.toggle').on('click', function() {
-  $('section').scrollTop(0);
-  $('.contain').toggleClass('active');
-  return false;
-})
-
-$('section').on('click', function() {
-  //  $(this).closest('section').prependTo('.contain');
-  $('section').removeClass('active');
-  $(this).addClass('active');
-  $('.contain').removeClass('active');
-})
