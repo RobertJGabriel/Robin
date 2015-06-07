@@ -105,7 +105,7 @@ function refresh() {
 }
 
 function goHome() {
-    frame.src = "/assests/view/index.html";
+    frame.src = "assests/view/index.html";
 }
 
 function search(event) {
