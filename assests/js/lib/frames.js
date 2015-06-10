@@ -277,7 +277,7 @@ function createTab(url){
 var tabs = document.getElementById('tabs');
 
     var span = document.createElement("section");
-        span.setAttribute("class", "home hh");
+        span.setAttribute("class", "home");
 
     var title = document.createElement("h1");
         title.setAttribute("class", "title");
@@ -288,6 +288,7 @@ var tabs = document.getElementById('tabs');
     var iframes = document.createElement("iframe");
         iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
         iframes.setAttribute("src","http://www.bing.com/search?q=" + url);
+    iframes.setAttribute("class","ss");
         iframes.setAttribute("width",window.innerWidth);
         iframes.setAttribute("height","100%");
         span.appendChild(iframes);
@@ -299,7 +300,11 @@ tabs.appendChild(span);
 $('section').on('click', function() {
   $(this).closest('section').prependTo('.contain');
   $('section').removeClass('active');
+    $('.home.active .ss').removeClass('active');
   $(this).addClass('active');
+      $('.home.active .ss').addClass('active');
+
+
   $('.contain').removeClass('active');
 });
 }
@@ -332,7 +337,11 @@ $('a.toggle').on('click', function() {
 $('section').on('click', function() {
   $(this).closest('section').prependTo('.contain');
   $('section').removeClass('active');
+    $('.home.active .ss').removeClass('active');
   $(this).addClass('active');
+      $('.home.active .ss').addClass('active');
+
+
   $('.contain').removeClass('active');
 });
 
