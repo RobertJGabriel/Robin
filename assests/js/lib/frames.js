@@ -1,17 +1,17 @@
-var frame = document.getElementById("iframe");
+var frame = $('.iframe.active');
 var banndedUrls = [];
 var passUrls = [];
 var webTabs = [];
 var historyPoint = 0;
 
 function iframe() {
-    $("iframe").each(function() {
+    $("iframe").each(function () {
 
-  $(this).width = window.innerWidth;
-    $(this).height = "100%";
+        $(this).width = window.innerWidth;
+        $(this).height = "100%";
 
         $(this).bind("load", onSrcChange,
-        false);
+            false);
 
 
     });
@@ -24,8 +24,8 @@ function loadLocalStorages() {
     //localStorage.clear();
     var x = 0;
     var k = 0;
-    if (typeof(Storage) !== "undefined") {
-        $('.settings').each(function(i, e) {
+    if (typeof (Storage) !== "undefined") {
+        $('.settings').each(function (i, e) {
             if (localStorage.getItem(x) !== null) {
                 $(e).val(localStorage.getItem(x));
                 banndedUrls.push(localStorage.getItem(k));
@@ -39,7 +39,7 @@ function loadLocalStorages() {
             showPop('about');
         } else {
             removePop('about');
-            createTab('Batman');
+            createTab('Batman', 'true');
         }
         if (localStorage.getItem('password') !== null) {
             removeElements('#setPasswordButton');
@@ -82,6 +82,8 @@ function addEventListeners() {
         saveSettings, false);
     document.getElementById("restart").addEventListener("click", restart,
         false);
+    document.getElementById("newTab").addEventListener("click", createTab("hshs", "true"),
+        true);
 
 
 }
@@ -103,7 +105,7 @@ function pastUrl(history) {
         alert('None' + history);
     } else {
         var lasturl = passUrls[history];
-        document.getElementById('iframe').src = lasturl;
+        $('.iframe.active').attr('src', lasturl);
     }
 }
 
@@ -113,26 +115,47 @@ function goForword() {
 
 function refresh() {
     console.log('refresh');
-    document.getElementById('iframe').src = document.getElementById(
-        'iframe').src;
+    $('.iframe.active').attr('src', iframe.src);
 }
 
 function goHome() {
-    frame.src = "assests/view/index.html";
+    $('.iframe.active').attr('src', "assests/view/index.html");
 }
 
 function search(event) {
     if (event.keyCode === 13) {
+
+
+
         console.log(document.getElementById("searchTerm").value);
+
+
+        searchResult(document.getElementById("searchTerm").value);
         pageTitle(document.getElementById("searchTerm").value);
-        createTab(document.getElementById("searchTerm").value);
+
     }
+}
+
+
+
+
+
+function searchResult(search) {
+
+
+    if ($('iframe.active').length === 0) {
+        createTab(search, "true");
+    } else {
+        $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search)
+    }
+
+
 }
 
 function setPassword() {
     console.log('set password');
     var password = document.getElementById("passwordSet").value;
-    if (typeof(Storage) !== "undefined") {
+    if (typeof (Storage) !== "undefined") {
         if (localStorage.password) {
             localStorage.password = password;
         } else {
@@ -149,7 +172,7 @@ function saveSettings() {
     console.log('save settings');
     $('#settings-dialog').modal('hide');
     var x = 0;
-    $('.settings').each(function(i, e) {
+    $('.settings').each(function (i, e) {
         setLocalStorge(x, $(e).val());
         x++;
     });
@@ -158,7 +181,7 @@ function saveSettings() {
 
 function setLocalStorge(x, value) {
     // Check browser support
-    if (typeof(Storage) != "undefined") {
+    if (typeof (Storage) != "undefined") {
         // Store
         localStorage.setItem(x, value);
         console.log(localStorage.getItem(x));
@@ -273,40 +296,40 @@ function init() {
 
 
 
-function createTab(url){
-var tabs = document.getElementById('tabs');
+function createTab(url, show) {
+    var tabs = document.getElementById('tabs');
 
     var span = document.createElement("section");
-        span.setAttribute("class", "home");
+    span.setAttribute("class", "home");
 
     var title = document.createElement("h1");
-        title.setAttribute("class", "title");
-        title.innerHTML = "http://www.bing.com/search?q=" + url;
+    title.setAttribute("class", "title");
+    title.innerHTML = "http://www.bing.com/search?q=" + url;
 
-        span.appendChild(title);
+    span.appendChild(title);
 
     var iframes = document.createElement("iframe");
-        iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-        iframes.setAttribute("src","http://www.bing.com/search?q=" + url);
-    iframes.setAttribute("class","ss");
-        iframes.setAttribute("width",window.innerWidth);
-        iframes.setAttribute("height","100%");
-        span.appendChild(iframes);
+    iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+    iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
+    iframes.setAttribute("class", "iframe");
+    iframes.setAttribute("width", window.innerWidth);
+    iframes.setAttribute("height", "100%");
+    span.appendChild(iframes);
 
-tabs.appendChild(span);
+    tabs.appendChild(span);
 
- iframe();
+    iframe();
 
-$('section').on('click', function() {
-  $(this).closest('section').prependTo('.contain');
-  $('section').removeClass('active');
-    $('.home.active .ss').removeClass('active');
-  $(this).addClass('active');
-      $('.home.active .ss').addClass('active');
+    $('section').on('click', function () {
+        $(this).closest('section').prependTo('.contain');
+        $('section').removeClass('active');
+        $('.home.active .iframe').removeClass('active');
+        $(this).addClass('active');
+        $('.home.active .iframe').addClass('active');
 
 
-  $('.contain').removeClass('active');
-});
+        $('.contain').removeClass('active');
+    });
 }
 
 
@@ -316,47 +339,27 @@ $('section').on('click', function() {
 
 
 
-$(function() {
-    $("#search").click(function() {
-
+$(function () {
+    $("#search").click(function () {
         $(".searcharea").toggleClass("box-change");
     });
 
 
+    $('a.toggle').on('click', function () {
+        $('section').scrollTop(0);
+        $('.contain').toggleClass('active');
+        return false;
+    });
+
+    $('section').on('click', function () {
+        $(this).closest('section').prependTo('.contain');
+        $('section').removeClass('active');
+        $('.home.active .iframe').removeClass('active');
+        $(this).addClass('active');
+        $('.home.active .iframe').addClass('active');
 
 
-
-
-
-$('a.toggle').on('click', function() {
-  $('section').scrollTop(0);
-  $('.contain').toggleClass('active');
-  return false;
-});
-
-$('section').on('click', function() {
-  $(this).closest('section').prependTo('.contain');
-  $('section').removeClass('active');
-    $('.home.active .ss').removeClass('active');
-  $(this).addClass('active');
-      $('.home.active .ss').addClass('active');
-
-
-  $('.contain').removeClass('active');
-});
+        $('.contain').removeClass('active');
+    });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
