@@ -62,7 +62,7 @@ function showPop(dialog) {
 }
 
 function removePop(dialog) {
-    $('#' + dialog + '-dialog').modal('hide');
+    //  $('#' + dialog + '-dialog').modal('hide');
 }
 
 function removeElements(element) {
