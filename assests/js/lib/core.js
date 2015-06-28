@@ -7,7 +7,7 @@
      addEventListeners();
      // resizeIframe();
      localStoage();
-     onSrcIframeChange();
+     //   onSrcIframeChange();
      createTab("Google");
  }
 
@@ -54,7 +54,7 @@
 
 
  function searchResult(search) {
-     $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search)
+     $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search);
  }
 
 
@@ -72,7 +72,7 @@
          console.log('iframe bitches');
          $(this).width = window.innerWidth;
          $(this).height = "100%";
-         $(this).bind("load", onSrcIframeChange, false);
+         $(this).bind("load", onSrcIframeChange);
      });
  }
 
@@ -89,7 +89,6 @@
 
 
  function urlCleaner(url) {
-     alert(url);
      console.log('url to blocked' + url);
      for (i = 0; i < banndedUrls.length; i++) {
          if (banndedUrls[i] !== '') {
@@ -106,7 +105,7 @@
 
  function redirect() {
      localStorage.setItem('catch', 'true');
-     document.getElementById('iframe active').attr('src') = 'http://www.bing.com';
+     $('.iframe.active').attr('src', "http://www.bing.com");
  }
 
 
@@ -205,6 +204,8 @@
 
  function restart() {
      $('#settings-dialog').modal('hide');
+     localStorage.removeItem('catch');
+     location.reload();
  }
 
 

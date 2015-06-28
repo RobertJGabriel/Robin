@@ -27,6 +27,17 @@ html {
     display: none;
 }
 
+a,
+a:hover,
+a:focus {
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
 .navbar-brand {
     float: left;
     height: 67px !important;
@@ -65,11 +76,7 @@ html {
 }
 
 p {
-    padding: 0 100px;
-    color: #fff;
     font-size: 18px;
-    line-height: 1.5;
-    font-family: "Merriweather", serif;
 }
 
 a.toggle {
