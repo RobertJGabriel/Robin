@@ -1,13 +1,18 @@
  var passUrls = [];
  var banndedUrls = [];
  var historyPoint = 0;
+ var a1 = [1, 2, 3];
+ var b1 = [4, 5, 6];
+ var c1 = [7, 8, 9];
+ var a = [a1, b1, c1];
+ localStorage.setItem("arr", JSON.stringify(a));
+ var b = JSON.parse(localStorage.getItem("arr"));
+
  load();
 
  function load() {
      addEventListeners();
-     // resizeIframe();
      localStoage();
-     //   onSrcIframeChange();
      createTab("Google");
  }
 
@@ -15,13 +20,25 @@
 
  function goBack() {
 
-
+     var history = passUrls.length - 2;
+     historyPoint = history + 1;
+     pastUrl(history);
+     //    document.getElementById('iframe').contentWindow.history.go(-1);
  }
 
+ function pastUrl(history) {
+     console.log(history);
+     if (history === 0) {
+         alert('None' + history);
+     } else {
+         var lasturl = passUrls[history];
+         $('.iframe.active').attr('src', lasturl);
+     }
+ }
 
  function goForword() {
 
-
+     pastUrl(historyPoint);
  }
 
  function goHome() {
