@@ -1,6 +1,7 @@
  var passUrls = [];
  var banndedUrls = [];
  var historyPoint = 0;
+ var tabsLimit = 4;
  var a1 = [1, 2, 3];
  var b1 = [4, 5, 6];
  var c1 = [7, 8, 9];
@@ -134,42 +135,50 @@
 
 
  function createTab(url) {
-     if (url == '[object MouseEvent]') {
-         url = 'batman';
+
+     var Numb = document.getElementsByTagName("iframe").length;
+     if (Numb !== tabsLimit) {
+
+
+         if (url == '[object MouseEvent]') {
+             url = 'batman';
+         }
+         $('.home').removeClass('active');
+         $('.iframe').removeClass('active');
+         var tabs = document.getElementById('tabs');
+
+         var span = document.createElement("section");
+         span.setAttribute("class", "home active");
+
+         var title = document.createElement("h1");
+         title.setAttribute("class", "title");
+         title.innerHTML = "http://www.bing.com/search?q=" + url;
+
+         span.appendChild(title);
+
+         var iframes = document.createElement("iframe");
+         iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+         iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
+         iframes.setAttribute("class", "iframe active");
+         iframes.setAttribute("width", window.innerWidth);
+         iframes.setAttribute("height", "100%");
+         span.appendChild(iframes);
+
+         tabs.appendChild(span);
+
+         resizeIframe();
+
+         $('section').on('click', function () {
+             $(this).closest('section').prependTo('.contain');
+             $('section').removeClass('active');
+             $('.home.active .iframe').removeClass('active');
+             $(this).addClass('active');
+             $('.home.active .iframe').addClass('active');
+             $('.contain').removeClass('active');
+         });
+     } else {
+         alert('tab Limit reached');
      }
-     $('.home').removeClass('active');
-     $('.iframe').removeClass('active');
-     var tabs = document.getElementById('tabs');
-
-     var span = document.createElement("section");
-     span.setAttribute("class", "home active");
-
-     var title = document.createElement("h1");
-     title.setAttribute("class", "title");
-     title.innerHTML = "http://www.bing.com/search?q=" + url;
-
-     span.appendChild(title);
-
-     var iframes = document.createElement("iframe");
-     iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-     iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
-     iframes.setAttribute("class", "iframe active");
-     iframes.setAttribute("width", window.innerWidth);
-     iframes.setAttribute("height", "100%");
-     span.appendChild(iframes);
-
-     tabs.appendChild(span);
-
-     resizeIframe();
-
-     $('section').on('click', function () {
-         $(this).closest('section').prependTo('.contain');
-         $('section').removeClass('active');
-         $('.home.active .iframe').removeClass('active');
-         $(this).addClass('active');
-         $('.home.active .iframe').addClass('active');
-         $('.contain').removeClass('active');
-     });
  }
 
 
