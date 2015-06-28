@@ -1,8 +1,6 @@
-$(function() {
+$(function () {
 
     $.material.init();
-init();
+    //load();
 
 });
-
-

@@ -4,7 +4,7 @@ define(function (require) {
     // like:
     //   var ripples = require('../jquery-1.11.3');
 
-    var frame = require('../frames');
+    var frame = require('../core');
     var magteroal = require('../material');
     var ripples = require('../ripples');
     var zload = require('../zload');
