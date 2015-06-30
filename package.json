@@ -16,8 +16,7 @@
         "height": 500,
         "position": "mouse",
         "min_width": 800,
-        "min_height": 500,
-        "toolbar": true
+        "min_height": 500
     },
     "webkit": {
         "plugin": true
