@@ -1,360 +1,395 @@
- var passUrls = [];
- var banndedUrls = [];
- var historyPoint = 0;
- var tabsLimit = 4;
- var a1 = [1, 2, 3];
- var b1 = [4, 5, 6];
- var c1 = [7, 8, 9];
- var a = [a1, b1, c1];
- localStorage.setItem("arr", JSON.stringify(a));
- var b = JSON.parse(localStorage.getItem("arr"));
+var banndedUrls = [];
+var tabsLimit = 4; // This is 5 ;)
 
- load();
 
- function load() {
-     addEventListeners();
-     localStoage();
-     createTab("Google");
- }
 
 
+load();
 
- function goBack() {
+function load() {
+    addEventListeners();
+    localStoage();
+    createTab("Google");
+}
 
-     var history = passUrls.length - 2;
-     historyPoint = history + 1;
-     pastUrl(history);
-     //    document.getElementById('iframe').contentWindow.history.go(-1);
- }
 
- function pastUrl(history) {
-     console.log(history);
-     if (history === 0) {
-         alert('None' + history);
-     } else {
-         var lasturl = passUrls[history];
-         $('.iframe.active').attr('src', lasturl);
-     }
- }
 
- function goForword() {
+function goBack() {
+    console.log('go back');
+    //    var history = passUrls.length - 2;
+    //  historyPoint = history + 1;
+    //    pastUrl(history);
+    var iframeId = $('.iframe.active').attr('id');
 
-     pastUrl(historyPoint);
- }
+    switch (iframeId) {
+    case 0:
+        document.getElementById('0').contentWindow.history.back();
+        break;
+    case 1:
+        document.getElementById('1').contentWindow.history.back();
+        break;
+    case 2:
+        document.getElementById('2').contentWindow.history.back();
+        break;
+    case 3:
+        document.getElementById('3').contentWindow.history.back();
+        break;
+    case 4:
+        document.getElementById('4').contentWindow.history.back();
+        break;
+    }
 
- function goHome() {
+}
 
-     $('.iframe.active').attr('src', "assests/view/index.html");
+function pastUrl(history) {
+    console.log(history);
+    if (history === 0) {
+        alert('None' + history);
+    } else {
+        var lasturl = passUrls[history];
+        $('.iframe.active').attr('src', lasturl);
+    }
+}
 
- }
 
 
- function refresh() {
 
-     console.log('refresh');
-     $('.iframe.active').attr('src', $('.iframe.active').attr('src'));
+function goForword() {
+    console.log('go forword');
+    var iframeId = $('.iframe.active').attr('id');
 
- }
+    switch (iframeId) {
+    case 0:
+        document.getElementById('0').contentWindow.history.forward();
+        break;
+    case 1:
+        document.getElementById('1').contentWindow.history.forward();
+        break;
+    case 2:
+        document.getElementById('2').contentWindow.history.forward();
+        break;
+    case 3:
+        document.getElementById('3').contentWindow.history.forward();
+        break;
+    case 4:
+        document.getElementById('4').contentWindow.history.forward();
+        break;
+    }
+}
 
- function setPageTitle(title) {
-     document.title = "Robin : " + title;
- }
+function goHome() {
 
+    $('.iframe.active').attr('src', "assests/view/index.html");
 
- function search(event) {
-     if (event.keyCode === 13) {
-         console.log(document.getElementById("searchTerm").value);
-         searchResult(document.getElementById("searchTerm").value);
-         setPageTitle(document.getElementById("searchTerm").value);
-     }
+}
 
- }
 
+function refresh() {
 
- function searchResult(search) {
-     $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search);
- }
+    console.log('refresh');
+    $('.iframe.active').attr('src', $('.iframe.active').attr('src'));
 
+}
 
+function setPageTitle(title) {
+    document.title = "Robin : " + title;
+}
 
 
- function expand() {
-     $(".searcharea").toggleClass("box-change");
- }
+function search(event) {
+    if (event.keyCode === 13) {
+        console.log(document.getElementById("searchTerm").value);
+        searchResult(document.getElementById("searchTerm").value);
+        setPageTitle(document.getElementById("searchTerm").value);
+    }
 
+}
 
 
+function searchResult(search) {
+    $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search);
+}
 
- function resizeIframe() {
-     $("iframe").each(function () {
-         console.log('iframe bitches');
-         $(this).width = window.innerWidth;
-         $(this).height = "100%";
-         $(this).bind("load", onSrcIframeChange);
-     });
- }
 
 
- function onSrcIframeChange() {
 
-     var url = $('.iframe.active').attr('src');
-     console.log('src changed ' + $('.iframe.active').attr('src'));
-     resizeIframe();
-     urlCleaner(url);
-     passUrls.push(url);
+function expand() {
+    $(".searcharea").toggleClass("box-change");
+}
 
- }
 
 
- function urlCleaner(url) {
-     console.log('url to blocked' + url);
-     for (i = 0; i < banndedUrls.length; i++) {
-         if (banndedUrls[i] !== '') {
-             var patt = new RegExp(banndedUrls[i]);
-             if (patt.test(url)) {
-                 setColors();
-                 redirect();
-                 break;
-             } else {}
-         }
-     }
- }
 
+function resizeIframe() {
+    $("iframe").each(function () {
+        console.log('iframe bitches');
+        $(this).width = window.innerWidth;
+        $(this).height = "100%";
+        $(this).bind("load", onSrcIframeChange);
+    });
+}
 
- function redirect() {
-     localStorage.setItem('catch', 'true');
-     $('.iframe.active').attr('src', "http://www.bing.com");
- }
 
+function onSrcIframeChange() {
+    var iframeId = $('.iframe.active').attr('id');
+    var url = $('.iframe.active').attr('src');
+    console.log('src changed ' + $('.iframe.active').attr('src'));
+    resizeIframe();
+    urlCleaner(url);
 
- function setColors() {
-     $('div').addClass('navbar-warning').removeClass('navbar-material-light-blue');
- }
+}
 
 
+function urlCleaner(url) {
+    console.log('url to blocked' + url);
+    for (i = 0; i < banndedUrls.length; i++) {
+        if (banndedUrls[i] !== '') {
+            var patt = new RegExp(banndedUrls[i]);
+            if (patt.test(url)) {
+                setColors();
+                redirect();
+                break;
+            } else {}
+        }
+    }
+}
 
 
- function createTab(url) {
+function redirect() {
+    localStorage.setItem('catch', 'true');
+    $('.iframe.active').attr('src', "http://www.bing.com");
+}
 
-     var Numb = document.getElementsByTagName("iframe").length;
-     if (Numb !== tabsLimit) {
 
+function setColors() {
+    $('div').addClass('navbar-warning').removeClass('navbar-material-light-blue');
+}
 
-         if (url == '[object MouseEvent]') {
-             url = 'batman';
-         }
-         $('.home').removeClass('active');
-         $('.iframe').removeClass('active');
-         var tabs = document.getElementById('tabs');
 
-         var span = document.createElement("section");
-         span.setAttribute("class", "home active");
 
-         var title = document.createElement("h1");
-         title.setAttribute("class", "title");
-         title.innerHTML = "http://www.bing.com/search?q=" + url;
 
-         span.appendChild(title);
+function createTab(url) {
 
-         var iframes = document.createElement("iframe");
-         iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-         iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
-         iframes.setAttribute("class", "iframe active");
-         iframes.setAttribute("width", window.innerWidth);
-         iframes.setAttribute("height", "100%");
-         span.appendChild(iframes);
+    var Numb = document.getElementsByTagName("iframe").length;
+    if (Numb !== tabsLimit) {
 
-         tabs.appendChild(span);
 
-         resizeIframe();
+        if (url == '[object MouseEvent]') {
+            url = 'batman';
+        }
+        $('.home').removeClass('active');
+        $('.iframe').removeClass('active');
+        var tabs = document.getElementById('tabs');
 
-         $('section').on('click', function () {
-             $(this).closest('section').prependTo('.contain');
-             $('section').removeClass('active');
-             $('.home.active .iframe').removeClass('active');
-             $(this).addClass('active');
-             $('.home.active .iframe').addClass('active');
-             $('.contain').removeClass('active');
-         });
-     } else {
-         alert('tab Limit reached');
-     }
- }
+        var span = document.createElement("section");
+        span.setAttribute("class", "home active");
 
+        var title = document.createElement("h1");
+        title.setAttribute("class", "title");
+        title.innerHTML = "http://www.bing.com/search?q=" + url;
 
+        span.appendChild(title);
 
+        var iframes = document.createElement("iframe");
+        iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+        iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
+        iframes.setAttribute("class", "iframe active");
+        iframes.setAttribute("id", Numb);
+        iframes.setAttribute("width", window.innerWidth);
+        iframes.setAttribute("height", "100%");
+        span.appendChild(iframes);
 
+        tabs.appendChild(span);
 
- function expandTabs() {
+        resizeIframe();
 
-     $('section').scrollTop(0);
-     $('.contain').toggleClass('active');
+        $('section').on('click', function () {
+            $(this).closest('section').prependTo('.contain');
+            $('section').removeClass('active');
+            $('.home.active .iframe').removeClass('active');
+            $(this).addClass('active');
+            $('.home.active .iframe').addClass('active');
+            $('.contain').removeClass('active');
+        });
+    } else {
+        alert('tab Limit reached');
+    }
+}
 
- }
 
 
 
- function addEventListeners() {
-     document.getElementById("back").addEventListener("click", goBack);
-     document.getElementById("forword").addEventListener("click", goForword);
-     document.getElementById("refresh").addEventListener("click", refresh);
-     document.getElementById("home").addEventListener("click", goHome);
-     document.getElementById("search").addEventListener("click", expand);
-     document.getElementById("newTab").addEventListener("click", createTab);
-     $('a.toggle').on('click', expandTabs);
 
+function expandTabs() {
 
+    $('section').scrollTop(0);
+    $('.contain').toggleClass('active');
 
+}
 
-     document.getElementById("passwordSave").addEventListener("click", setPassword, false);
-     document.getElementById("passwordTry").addEventListener("click", checkSetPassword, false);
-     document.getElementById("settingsSave").addEventListener("click", saveSettings, false);
-     document.getElementById("restart").addEventListener("click", restart, false);
 
 
+function addEventListeners() {
+    document.getElementById("back").addEventListener("click", goBack);
+    document.getElementById("forword").addEventListener("click", goForword);
+    document.getElementById("refresh").addEventListener("click", refresh);
+    document.getElementById("home").addEventListener("click", goHome);
+    document.getElementById("search").addEventListener("click", expand);
+    document.getElementById("newTab").addEventListener("click", createTab);
+    $('a.toggle').on('click', expandTabs);
 
- }
 
 
 
- function showPop(dialog) {
-     setLocalStorge('firstLoad', 'true');
-     $('#' + dialog + '-dialog').modal('show');
- }
+    document.getElementById("passwordSave").addEventListener("click", setPassword, false);
+    document.getElementById("passwordTry").addEventListener("click", checkSetPassword, false);
+    document.getElementById("settingsSave").addEventListener("click", saveSettings, false);
+    document.getElementById("restart").addEventListener("click", restart, false);
 
- function removePop(dialog) {
 
-     $('#' + dialog + '-dialog').modal('hide');
- }
 
+}
 
- function restart() {
-     $('#settings-dialog').modal('hide');
-     localStorage.removeItem('catch');
-     location.reload();
- }
 
 
- function removeElements(element) {
-     $(element).remove();
- }
+function showPop(dialog) {
+    setLocalStorge('firstLoad', 'true');
+    $('#' + dialog + '-dialog').modal('show');
+}
 
+function removePop(dialog) {
 
+    $('#' + dialog + '-dialog').modal('hide');
+}
 
 
+function restart() {
+    $('#settings-dialog').modal('hide');
+    localStorage.removeItem('catch');
+    location.reload();
+}
 
- function setPassword() {
-     console.log('set password');
-     var password = document.getElementById("passwordSet").value;
-     if (typeof (Storage) !== "undefined") {
-         if (localStorage.password) {
-             localStorage.password = password;
-         } else {
-             localStorage.password = password;
-         }
-     }
-     console.log(localStorage.password);
-     $('#password-dialog').modal('hide');
-     removeElements('#setPasswordButton');
-     localStoage();
- }
 
- function saveSettings() {
-     console.log('save settings');
-     $('#settings-dialog').modal('hide');
-     var x = 0;
-     $('.settings').each(function (i, e) {
-         setLocalStorge(x, $(e).val());
-         x++;
-     });
-     localStoage();
- }
+function removeElements(element) {
+    $(element).remove();
+}
 
 
 
- function checkSetPassword() {
-     var userInput = document.getElementById("password").value;
-     if (userInput == localStorage.password) {
-         $('#complete-dialog').modal('hide');
-         $('#settings-dialog').modal('show');
-     } else {
-         error();
-     }
- }
 
- function error() {
-     $('.modal').modal('hide');
-     $('#error-dialog').modal('show');
- }
 
+function setPassword() {
+    console.log('set password');
+    var password = document.getElementById("passwordSet").value;
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.password) {
+            localStorage.password = password;
+        } else {
+            localStorage.password = password;
+        }
+    }
+    console.log(localStorage.password);
+    $('#password-dialog').modal('hide');
+    removeElements('#setPasswordButton');
+    localStoage();
+}
 
+function saveSettings() {
+    console.log('save settings');
+    $('#settings-dialog').modal('hide');
+    var x = 0;
+    $('.settings').each(function (i, e) {
+        setLocalStorge(x, $(e).val());
+        x++;
+    });
+    localStoage();
+}
 
 
- function removeAlert() {
-     $("#alert > div").remove();
- }
 
+function checkSetPassword() {
+    var userInput = document.getElementById("password").value;
+    if (userInput == localStorage.password) {
+        $('#complete-dialog').modal('hide');
+        $('#settings-dialog').modal('show');
+    } else {
+        error();
+    }
+}
 
+function error() {
+    $('.modal').modal('hide');
+    $('#error-dialog').modal('show');
+}
 
 
 
 
- function localStoage() {
-     console.log('ss');
-     //localStorage.clear();
-     var x = 0;
-     var k = 0;
-     if (typeof (Storage) !== "undefined") {
-         $('.settings').each(function (i, e) {
-             if (localStorage.getItem(x) !== null) {
-                 $(e).val(getLocalStorge(x));
-                 banndedUrls.push(getLocalStorge(k));
-                 k++;
-             } else {
-                 console.log('not set');
-             }
-             x++;
-         });
-         if (localStorage.getItem('firstLoad') === null) {
-             showPop('about');
-         } else {
-             // removePop('about');
-         }
-         if (localStorage.getItem('password') !== null) {
-             removeElements('#setPasswordButton');
-         } else {
-             removeElements('#settingsButton');
-         }
-         if (localStorage.getItem('catch') !== null) {
-             setColors();
-         }
-     }
+function removeAlert() {
+    $("#alert > div").remove();
+}
 
- }
 
 
 
 
- function setLocalStorge(x, value) {
-     // Check browser support
-     if (typeof (Storage) != "undefined") {
-         // Store
-         localStorage.setItem(x, value);
-         console.log(localStorage.getItem(x));
-     } else {
-         document.getElementById("result").innerHTML =
-             "Sorry, your browser does not support Web Storage...";
-     }
- }
 
+function localStoage() {
+    console.log('ss');
+    //localStorage.clear();
+    var x = 0;
+    var k = 0;
+    if (typeof (Storage) !== "undefined") {
+        $('.settings').each(function (i, e) {
+            if (localStorage.getItem(x) !== null) {
+                $(e).val(getLocalStorge(x));
+                banndedUrls.push(getLocalStorge(k));
+                k++;
+            } else {
+                console.log('not set');
+            }
+            x++;
+        });
+        if (localStorage.getItem('firstLoad') === null) {
+            showPop('about');
+        } else {
+            // removePop('about');
+        }
+        if (localStorage.getItem('password') !== null) {
+            removeElements('#setPasswordButton');
+        } else {
+            removeElements('#settingsButton');
+        }
+        if (localStorage.getItem('catch') !== null) {
+            setColors();
+        }
+    }
 
- function getLocalStorge(x) {
+}
 
-     console.log(localStorage.getItem(x));
-     return localStorage.getItem(x);
- }
 
 
- $(window).on('resize', function () {
-     resizeIframe();
- });
+
+function setLocalStorge(x, value) {
+    // Check browser support
+    if (typeof (Storage) != "undefined") {
+        // Store
+        localStorage.setItem(x, value);
+        console.log(localStorage.getItem(x));
+    } else {
+        document.getElementById("result").innerHTML =
+            "Sorry, your browser does not support Web Storage...";
+    }
+}
+
+
+function getLocalStorge(x) {
+
+    console.log(localStorage.getItem(x));
+    return localStorage.getItem(x);
+}
+
+
+$(window).on('resize', function () {
+    resizeIframe();
+});
