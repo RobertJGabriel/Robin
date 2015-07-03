@@ -59,19 +59,19 @@ function goForword() {
     var iframeId = $('.iframe.active').attr('id');
 
     switch (iframeId) {
-    case 0:
+    case '0':
         document.getElementById('0').contentWindow.history.forward();
         break;
-    case 1:
+    case '1':
         document.getElementById('1').contentWindow.history.forward();
         break;
-    case 2:
+    case '2':
         document.getElementById('2').contentWindow.history.forward();
         break;
-    case 3:
+    case '3':
         document.getElementById('3').contentWindow.history.forward();
         break;
-    case 4:
+    case '4':
         document.getElementById('4').contentWindow.history.forward();
         break;
     }
