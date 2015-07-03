@@ -20,21 +20,21 @@ function goBack() {
     //  historyPoint = history + 1;
     //    pastUrl(history);
     var iframeId = $('.iframe.active').attr('id');
-
+    alert('test' + iframeId);
     switch (iframeId) {
-    case 0:
+    case '0':
         document.getElementById('0').contentWindow.history.back();
         break;
-    case 1:
+    case '1':
         document.getElementById('1').contentWindow.history.back();
         break;
-    case 2:
+    case '2':
         document.getElementById('2').contentWindow.history.back();
         break;
-    case 3:
+    case '3':
         document.getElementById('3').contentWindow.history.back();
         break;
-    case 4:
+    case '4':
         document.getElementById('4').contentWindow.history.back();
         break;
     }
