@@ -77,6 +77,13 @@ function goForword() {
     }
 }
 
+
+function openDev() {
+
+    require('nw.gui').Window.get().openDevTools()
+
+}
+
 function goHome() {
 
     $('.iframe.active').attr('src', "assests/view/index.html");
@@ -245,6 +252,7 @@ function addEventListeners() {
     document.getElementById("passwordTry").addEventListener("click", checkSetPassword, false);
     document.getElementById("settingsSave").addEventListener("click", saveSettings, false);
     document.getElementById("restart").addEventListener("click", restart, false);
+    // document.getElementById("devTools").addEventListener("click", openDev, false);
 
 
 

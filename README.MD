@@ -1,11 +1,10 @@
 
-#[Robin](http://www.projectbird.com/robin.html)
-![alt text](http://www.projectbird.com/uploads/6/0/3/3/603320/5012474.jpg "Logo Title Text 1")
+[![alt text]( '/assests/img/banners/headerRobin.png' "Yeti")](http://www.projectbird.com/robin.html)
 
 <br>
 ###About
-Robin is an award winning  innovate web browser for teachers and parents, to make re-sectioning websites easier.
-It has won two all-Ireland Eircom spider awards. It has been downloaded hundreds of thousands of times.
+Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.We were pleased to have won Two All-Ireland Eircom Spider awards.
+So Far it has been download 40,000 times. The goal is to build a free light way browser with a built in flitering system.
 
 <br>
 ###Built in
