@@ -1,6 +1,5 @@
 
-[![alt text]( '/assests/img/banners/headerRobin.png' "Yeti")](http://www.projectbird.com/robin.html)
-
+![alt text](https://github.com/RobertJGabriel/Robin/blob/gh-pages/assests/img/banners/headerRobin.png "Robin")
 <br>
 ###About
 Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.We were pleased to have won Two All-Ireland Eircom Spider awards.
