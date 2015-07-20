@@ -1,8 +1,8 @@
 {
-    "main": "index.html",
     "name": "Robin : Beta",
+    "main": "index.html",
     "icon": "assests/img/icons/mac_icon.icns",
-    "description": "A new Type of Web browser",
+    "description": "Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.",
     "version": "0.6.1",
     "window": {
         "title": "Robin",
