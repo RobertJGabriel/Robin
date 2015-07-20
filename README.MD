@@ -13,13 +13,20 @@ So Far it has been download 40,000 times. The goal is to build a free light way 
  ```
 git clone https://github.com/RobertJGabriel/Robin-Web-browser.git
 ```
+Install all gulp dependances
+ ```
+gulp run
+```
+
 
 
 
 ###Build
 1. Navigate into the heart of the Robin folder.
-2. Run the following ```npm buildRobin```
-3. It will create a dist folder and the exe will be there.
+2. Run the following ```gulp build ```
+3. This will currently build an 32 and 64 bit osx build of Robin under build.
+
+
 
 
 ##Built in
