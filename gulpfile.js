@@ -3,8 +3,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     folders = require('gulp-folders'),
     rjs = require('gulp-requirejs'),
-    gui = require('nw.gui'),
-    clean = require('gulp-clean'),
+        clean = require('gulp-clean'),
     pathToFolder = 'assests/js/app/',
     NwBuilder = require('node-webkit-builder'),
     gutil = require('gulp-util');
@@ -17,10 +16,11 @@ var gulp = require('gulp'),
 
 
 gulp.task('nw', function () {
+
     var nw = new NwBuilder({
     files: ['*','assests/css/**','assests/js/**','assests/img/**','assests/fonts/**'], // use the glob format
-
-        platforms: ['osx32', 'osx64', 'win32', 'win64']
+        macIcns:  "assests/img/icons/logo.icns",
+        platforms: ['osx32', 'osx64']
     });
 
     //Log stuff you want

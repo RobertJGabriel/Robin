@@ -1,10 +1,9 @@
 {
     "main": "index.html",
-    "name": "Robin",
+    "name": "Robin : Beta",
     "icon": "assests/img/icons/mac_icon.icns",
-    "description": "demo app of node-webkit",
-    "version": "0.1.0",
-            "macIcns":  "assests/img/icons/teamwork_chat.icns",
+    "description": "A new Type of Web browser",
+    "version": "0.6.1",
     "window": {
         "title": "Robin",
         "frame": true,
@@ -12,7 +11,6 @@
         "width": 800,
         "height": 500,
         "position": "mouse",
-        "macIcns":  "assests/img/icons/teamwork_chat.icns",
         "min_width": 800,
         "min_height": 500
     },
