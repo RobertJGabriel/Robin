@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Robin</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
+    <link href="assests/css/roboto.min.css" rel="stylesheet">
+    <link href="assests/css/material.min.css" rel="stylesheet">
+    <link href="assests/css/ripples.min.css" rel="stylesheet">
+    <link href="assests/css/restart.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assests/img/logo.ico">
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body onresize="resizeIframe()">
+    <div class="navbar navbar-material-light-blue shadow-z-2">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a>
+            <a class="navbar-brand" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a>
+            <a class="navbar-brand" id="refresh"><i class="mdi-navigation-refresh"></i></a>
+            <a class="navbar-brand" id="newTab"><i class="mdi-maps-local-offer"></i></a>
+            <a class="navbar-brand" id="home"><i class="mdi-action-home"></i></a>
+            <a class="navbar-brand" id="search"><i class="mdi-action-search"></i></a>
+
+
+            <a class="navbar-brand searcharea" id="search">
+                <input type="text" id="searchTerm" onkeydown="search(event)" class="form-control col-lg-8" placeholder="Search">
+            </a>
+
+
+        </div>
+        <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
+
+            <ul class="nav navbar-nav navbar-right" method="post">
+                <li class="dropdown ">
+                    <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
+                    <ul class="dropdown-menu shadow-z-3">
+                        <li><a data-toggle="modal" data-target="#about-dialog">About</a>
+                        </li>
+
+
+
+
+                        <li><a data-toggle="modal" data-target="#complete-dialog" id="settingsButton">Settings</a>
+                        </li>
+
+                        <li id="setPasswordButton"><a data-toggle="modal" data-target="#password-dialog" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Set a Password, so only you can access the settings">Set Password</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="http://www.projectbird.com" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Who Deveolped it ">Projectbird</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class='contain' id="tabs">
+
+
+
+    </div>
+
+
+    <button class="btn btn-warning btn-fab btn-raised" id="tabsq"><a class='toggle' href='#'><i class="mdi-action-view-module"></i></a>
+    </button>
+    <!------------------------------  Set Password --------------------------->
+    <!------------------------------  Set Password --------------------------->
+
+    <div id="password-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">Please Enter your Password you wish to set </h4>
+                </div>
+
+
+                <div class="modal-body">
+                    <input type="password" name="password" class="form-control" placeholder="PASSWORD" id="passwordSet">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="passwordSave">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!------------------------------  Log into settings --------------------------->
+
+    <div id="complete-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" arial-hidden="true">x</button>
+                    <h4 class="modal-title">Please Enter your Password </h4>
+                </div>
+                <div id="alert"></div>
+                <div class="modal-body">
+                    <input type="password" name="password" class="form-control" placeholder="password" id="password">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="passwordTry">Try</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!------------------------------  settings --------------------------->
+
+    <div id="settings-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">Block Websites</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" name="text" class="form-control settings" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right" placeholder="Term">
+                    <input type="text" name="text" class="form-control settings" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right" placeholder="Term">
+                    <input type="text" name="text" class="form-control settings" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right" placeholder="Term">
+                    <input type="text" name="text" class="form-control settings" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right" placeholder="Term">
+                    <input type="text" name="text" class="form-control settings" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right" placeholder="Term">
+                    <input type="text" name="text" class="form-control settings" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right" placeholder="Term">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" id="restart">Restart</button>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#password-dialog">Change Password</button>
+                    <button class="btn btn-primary" id="settingsSave">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!------------------------------  welcome --------------------------->
+
+    <div id="about-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title"></h4>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-2">
+
+                        </div>
+                        <div class="col-xs-8">
+
+                            <h1>About</h1>
+                            <p>With Robin You can block websites from your child, Its easy and simple to do. Just set a password and go to the settings and put the terms in.</p>
+                        </div>
+                        <div class="col-xs-2">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <ul class="pager">
+
+                        <li><a class="close" data-dismiss="modal" aria-hidden="true">All Done</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!------------------------------  settings --------------------------->
+
+    <div id="error-dialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">error</h4>
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        //init();
+    </script>
+    <script data-main="app" src="assests/js/lib/require.js"></script>
+</body>
+
+</html>
