@@ -1,20 +1,18 @@
 {
     "main": "index.html",
     "name": "Robin",
+    "icon": "assests/img/icons/mac_icon.icns",
     "description": "demo app of node-webkit",
     "version": "0.1.0",
-    "keywords": [
-    "demo",
-    "node-webkit"
-  ],
+            "macIcns":  "assests/img/icons/teamwork_chat.icns",
     "window": {
-        "title": "node-webkit demo",
-        "icon": "link.png",
-        "toolbar": false,
+        "title": "Robin",
         "frame": true,
+        "toolbar": false,
         "width": 800,
         "height": 500,
         "position": "mouse",
+        "macIcns":  "assests/img/icons/teamwork_chat.icns",
         "min_width": 800,
         "min_height": 500
     },
