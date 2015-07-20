@@ -11,7 +11,7 @@ function load() {
 function goBack() {
     console.log('go back');
     var iframeId = $('.iframe.active').attr('id');
-    alert('test' + iframeId);
+  //  alert('test' + iframeId);
     switch (iframeId) {
         case '0':
             document.getElementById('0').contentWindow.history.back();
@@ -34,7 +34,7 @@ function goBack() {
 function pastUrl(history) {
     console.log(history);
     if (history === 0) {
-        alert('None' + history);
+     //   alert('None' + history);
     } else {
         var lasturl = passUrls[history];
         $('.iframe.active').attr('src', lasturl);
