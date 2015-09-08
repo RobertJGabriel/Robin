@@ -1,5 +1,5 @@
 
-![alt text](https://github.com/RobertJGabriel/Robin/blob/master/assests/img/banners/headerRobin.png "Robin")
+![alt text](https://github.com/RobertJGabriel/Robin/blob/master/assests/img/backgrounds/placeit.png "Robin")
 <br>
 ##About
 Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.We were pleased to have won Two All-Ireland Eircom Spider awards.
@@ -14,16 +14,10 @@ So Far it has been download 40,000 times. The goal is to build a free light way 
 git clone https://github.com/RobertJGabriel/Robin-Web-browser.git
 ```
 Install all gulp dependances
- ```
- npm install
-  ```
-
- ```
-gulp run
 ```
+npm install
 
-
-
+```
 
 ###Build
 1. Navigate into the heart of the Robin folder.
