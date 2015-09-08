@@ -15,6 +15,10 @@ git clone https://github.com/RobertJGabriel/Robin-Web-browser.git
 ```
 Install all gulp dependances
  ```
+ npm install
+  ```
+
+ ```
 gulp run
 ```
 
