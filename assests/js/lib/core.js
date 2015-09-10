@@ -9,26 +9,9 @@ function load() {
 }
 
 function goBack() {
-    console.log('go back');
+  
     var iframeId = $('.iframe.active').attr('id');
-  //  alert('test' + iframeId);
-    switch (iframeId) {
-        case '0':
-            document.getElementById('0').contentWindow.history.back();
-            break;
-        case '1':
-            document.getElementById('1').contentWindow.history.back();
-            break;
-        case '2':
-            document.getElementById('2').contentWindow.history.back();
-            break;
-        case '3':
-            document.getElementById('3').contentWindow.history.back();
-            break;
-        case '4':
-            document.getElementById('4').contentWindow.history.back();
-            break;
-    }
+        document.getElementById(iframeId).contentWindow.history.back();
 }
 
 function pastUrl(history) {
@@ -42,25 +25,10 @@ function pastUrl(history) {
 }
 
 function goForword() {
-    console.log('go forword');
-    var iframeId = $('.iframe.active').attr('id');
-    switch (iframeId) {
-        case '0':
-            document.getElementById('0').contentWindow.history.forward();
-            break;
-        case '1':
-            document.getElementById('1').contentWindow.history.forward();
-            break;
-        case '2':
-            document.getElementById('2').contentWindow.history.forward();
-            break;
-        case '3':
-            document.getElementById('3').contentWindow.history.forward();
-            break;
-        case '4':
-            document.getElementById('4').contentWindow.history.forward();
-            break;
-    }
+
+    var iframeId = $('.iframe.active').attr('id');  
+        document.getElementById(iframeId).contentWindow.history.forward();
+        
 }
 
 function openDev() {
@@ -187,7 +155,7 @@ function addEventListeners() {
     document.getElementById("home").addEventListener("click", goHome);
     document.getElementById("search").addEventListener("click", expand);
     document.getElementById("newTab").addEventListener("click", createTab);
-    $('a.toggle').on('click', expandTabs);
+    $('#tabsq').on('click', expandTabs);
     document.getElementById("passwordSave").addEventListener("click", setPassword,
         false);
     document.getElementById("passwordTry").addEventListener("click",

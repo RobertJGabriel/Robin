@@ -4,10 +4,11 @@ var gulp = require('gulp'),
     folders = require('gulp-folders'),
     rjs = require('gulp-requirejs'),
     clean = require('gulp-clean'),
-    pathToFolder = 'assests/js/app/',
-    NwBuilder = require('node-webkit-builder'),
-    gutil = require('gulp-util');
-
+    NwBuilder = require('nw-builder'),
+    gutil = require('gulp-util'),
+    say = require('say'),
+    less = require('gulp-less'),
+    minifyCSS  = require('gulp-minify-css');
 
 
 gulp.task('build', function() {
@@ -28,16 +29,20 @@ gulp.task('build', function() {
 
 
 
-
-gulp.task('requirejsBuild', function() {
-    rjs({
-        baseUrl: 'path/to/your/base/file.js',
-        out: 'FILENAME\_TO\_BE\_OUTPUTTED',
-        shim: {
-            // standard require.js shim options
-        },
-        // ... more require.js options
-    }).pipe(gulp.dest('dist/assests/js/app/')); // pipe it to the output DIR
+gulp.task('less', function () {
+    gulp.src('./assests/css/styles.less')
+        .pipe(less()
+            .on('error', gutil.log)
+            .on('error', gutil.beep)
+            .on('error', function (err) {
+                console.log('err', err);
+                var pathToFile = err.fileName.split('\\');
+                    file = pathToFile[pathToFile.length -1];
+                say.speak('Albert', 'Less is fucked---' + file + '--- Line ' + err.lineNumber);
+            })
+        )
+        .pipe(minifyCSS({keepSpecialComments: 1}))
+        .pipe(gulp.dest('./assests/css/'));
 });
 
 

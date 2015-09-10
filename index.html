@@ -4,15 +4,13 @@
 <head>
     <title>Robin</title>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
-    <link href="assests/css/roboto.min.css" rel="stylesheet">
-    <link href="assests/css/material.min.css" rel="stylesheet">
-    <link href="assests/css/ripples.min.css" rel="stylesheet">
-    <link href="assests/css/restart.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assests/img/logo.ico">
-
-
+    <link rel="icon" type="image/png" href="assests/img/icons/logo.ico">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="assests/css/styles.css" rel="stylesheet">
+    <link href="http://www.justinaguilar.com/animations/css/animations.css" rel="stylesheet">
+
+
+
 </head>
 
 <body onresize="resizeIframe()">
@@ -26,7 +24,7 @@
             <a class="navbar-brand" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a>
             <a class="navbar-brand" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a>
             <a class="navbar-brand" id="refresh"><i class="mdi-navigation-refresh"></i></a>
-            <a class="navbar-brand" id="newTab"><i class="mdi-maps-local-offer"></i></a>
+            <a class="navbar-brand" id="newTab"><i class="mdi-av-queue"></i></a>
             <a class="navbar-brand" id="home"><i class="mdi-action-home"></i></a>
             <a class="navbar-brand" id="search"><i class="mdi-action-search"></i></a>
 
@@ -72,10 +70,7 @@
     </div>
 
 
-    <button class="btn btn-warning btn-fab btn-raised" id="tabsq"><a class='toggle' href='#'><i class="mdi-action-view-module"></i></a>
-    </button>
-    <!------------------------------  Set Password --------------------------->
-    <!------------------------------  Set Password --------------------------->
+    <button class="btn btn-warning btn-fab btn-raised" id="tabsq"><i class="mdi-device-now-widgets"></i></button>
 
     <div id="password-dialog" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
@@ -98,8 +93,6 @@
 
 
 
-    <!------------------------------  Log into settings --------------------------->
-
     <div id="complete-dialog" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -120,7 +113,6 @@
 
 
 
-    <!------------------------------  settings --------------------------->
 
     <div id="settings-dialog" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
@@ -147,8 +139,6 @@
         </div>
     </div>
 
-
-    <!------------------------------  welcome --------------------------->
 
     <div id="about-dialog" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
@@ -194,12 +184,6 @@
 
 
 
-
-
-
-
-    <!------------------------------  settings --------------------------->
-
     <div id="error-dialog" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -219,10 +203,8 @@
     </div>
 
 
-    <script>
-        //init();
-    </script>
-    <script data-main="app" src="assests/js/lib/require.js"></script>
+              <script src="assests/js/lib/L.js?checkLoaded"></script>
+                            <script src="assests/js/app/main.js"></script>
 </body>
 
 </html>
