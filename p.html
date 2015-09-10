@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Robin</title>
+    <link href="assests/css/styles.css" rel="stylesheet">
+    <link href="http://www.justinaguilar.com/animations/css/animations.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="navbar navbar-material-light-blue shadow-z-2">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="back"><i class="mdi-hardware-keyboard-arrow-left"></i></a>
+            <a class="navbar-brand" id="forword"><i class="mdi-hardware-keyboard-arrow-right"></i></a>
+            <a class="navbar-brand" id="refresh"><i class="mdi-navigation-refresh"></i></a>
+            <a class="navbar-brand" id="newTab"><i class="mdi-av-queue"></i></a>
+            <a class="navbar-brand" id="home"><i class="mdi-action-home"></i></a>
+            <a class="navbar-brand" id="search"><i class="mdi-action-search"></i></a>
+
+
+            <a class="navbar-brand searcharea" id="search">
+                <input type="text" id="searchTerm" onkeydown="search(event)" class="form-control col-lg-8" placeholder="Search">
+            </a>
+
+
+        </div>
+        <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
+
+            <ul class="nav navbar-nav navbar-right" method="post">
+                <li class="dropdown ">
+                    <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
+                    <ul class="dropdown-menu shadow-z-3">
+                        <li><a data-toggle="modal" data-target="#about-dialog">About</a>
+                        </li>
+
+
+
+
+                        <li><a data-toggle="modal" data-target="#complete-dialog" id="settingsButton">Settings</a>
+                        </li>
+
+                        <li id="setPasswordButton"><a data-toggle="modal" data-target="#password-dialog" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Set a Password, so only you can access the settings">Set Password</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="http://www.projectbird.com" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Who Deveolped it ">Projectbird</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class='contain' id="tabs">
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="assests/js/lib/L.js?checkLoaded"></script>
+    <script src="assests/js/app/main.js"></script>
+</body>
+
+</html>
