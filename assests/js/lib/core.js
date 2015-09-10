@@ -1,12 +1,32 @@
 var banndedUrls = [];
 var tabsLimit = 4; // This is 5 ;)
-load();
 
-function load() {
-    addEventListeners();
-    localStoage();
-    createTab("Google");
+
+var Robin= {
+    Init: function () {
+        addEventListeners();
+        loadLocalStoage();
+        createTab("Google");
+    }
+};
+
+
+
+function changeColor(){
+
+
+var getColorCode = $("#" + this.id).attr('data-color');
+
+$('.navbar-material-light-blue.navbar')
+    .css('background-color', '')
+    .css('background-color', getColorCode);
+
+
 }
+
+
+
+
 
 function goBack() {
   
@@ -15,10 +35,8 @@ function goBack() {
 }
 
 function pastUrl(history) {
-    console.log(history);
-    if (history === 0) {
-     //   alert('None' + history);
-    } else {
+
+    if (history !== 0)  {
         var lasturl = passUrls[history];
         $('.iframe.active').attr('src', lasturl);
     }
@@ -49,10 +67,12 @@ function setPageTitle(title) {
 }
 
 function search(event) {
+
+    var searchTerm = document.getElementById("searchTerm").value;
+
     if (event.keyCode === 13) {
-        console.log(document.getElementById("searchTerm").value);
-        searchResult(document.getElementById("searchTerm").value);
-        setPageTitle(document.getElementById("searchTerm").value);
+        searchResult(searchTerm);
+        setPageTitle(searchTerm);
     }
 }
 
@@ -149,6 +169,11 @@ function expandTabs() {
 }
 
 function addEventListeners() {
+
+
+ $('.colors').on('click', changeColor);
+
+
     document.getElementById("back").addEventListener("click", goBack);
     document.getElementById("forword").addEventListener("click", goForword);
     document.getElementById("refresh").addEventListener("click", refresh);
@@ -165,6 +190,8 @@ function addEventListeners() {
     document.getElementById("restart").addEventListener("click", restart, false);
     // document.getElementById("devTools").addEventListener("click", openDev, false);
 }
+
+
 
 function showPop(dialog) {
     setLocalStorge('firstLoad', 'true');
@@ -198,7 +225,7 @@ function setPassword() {
     console.log(localStorage.password);
     $('#password-dialog').modal('hide');
     removeElements('#setPasswordButton');
-    localStoage();
+    loadLocalStoage();
 }
 
 function saveSettings() {
@@ -209,7 +236,7 @@ function saveSettings() {
         setLocalStorge(x, $(e).val());
         x++;
     });
-    localStoage();
+    loadLocalStoage();
 }
 
 function checkSetPassword() {
@@ -231,11 +258,10 @@ function removeAlert() {
     $("#alert > div").remove();
 }
 
-function localStoage() {
-    console.log('ss');
+function loadLocalStoage() {
+
     //localStorage.clear();
-    var x = 0;
-    var k = 0;
+    var x,k = 0;
     if (typeof(Storage) !== "undefined") {
         $('.settings').each(function(i, e) {
             if (localStorage.getItem(x) !== null) {
@@ -264,14 +290,13 @@ function localStoage() {
 }
 
 function setLocalStorge(x, value) {
-    // Check browser support
+
     if (typeof(Storage) != "undefined") {
-        // Store
+
         localStorage.setItem(x, value);
         console.log(localStorage.getItem(x));
     } else {
-        document.getElementById("result").innerHTML =
-            "Sorry, your browser does not support Web Storage...";
+        document.getElementById("result").innerHTML ="Sorry, your browser does not support Web Storage...";
     }
 }
 
