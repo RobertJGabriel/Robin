@@ -1,5 +1,5 @@
 var banndedUrls = [];
-var tabsLimit = 4; // This is 5 ;)
+var tabsLimit = 5; // This is 5 ;)
 
 
 var Robin= {
@@ -97,7 +97,7 @@ function urlCleaner(url) {
                 changeBackgroundColor('pink');
                 redirect();
                 break;
-            } else {}
+            }
         }
     }
 }
@@ -276,11 +276,7 @@ function expandTabs() {
 function addEventListeners() {
 
 
-[].forEach.call(document.querySelectorAll("a"), function(el) {
-  el.addEventListener("click", function() {
-    // code…
-  });
-});
+
 
     $('.colors').on('click', changeColor);
     document.getElementById("back").addEventListener("click", goBack);

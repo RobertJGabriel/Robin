@@ -26,15 +26,15 @@
     "gulp-concat": "^2.5.2",
     "gulp-directory-map": "^0.1.1",
     "gulp-folders": "^1.1.0",
+    "gulp-less": "*",
+    "gulp-minify-css": "*",
     "gulp-requirejs": "^0.1.3",
     "gulp-requirejs-optimize": "^0.1.3",
     "gulp-util": "*",
-       "gulp-less": "*",
-    "gulp-minify-css": "*",
     "jquery": "^2.1.4",
     "nw-builder": "^2.0.2",
     "requirejs": "^2.1.18",
-      "say.js": "git://github.com/4ver/say.js.git#master"
+    "say.js": "git://github.com/4ver/say.js.git#master"
   },
   "scripts": {
     "start": "nodewebkit"
