@@ -12,19 +12,122 @@ var Robin= {
 
 
 
-function changeColor(){
+/*
+
+  _                     _  _____ _                             
+ | |                   | |/ ____| |                            
+ | |     ___   ___ __ _| | (___ | |_ ___  _ __ __ _  __ _  ___ 
+ | |    / _ \ / __/ _` | |\___ \| __/ _ \| '__/ _` |/ _` |/ _ \
+ | |___| (_) | (_| (_| | |____) | || (_) | | | (_| | (_| |  __/
+ |______\___/ \___\__,_|_|_____/ \__\___/|_|  \__,_|\__, |\___|
+                                                     __/ |     
+                                                    |___/      
 
 
-var getColorCode = $("#" + this.id).attr('data-color');
+*/
 
-$('.navbar-material-light-blue.navbar')
-    .css('background-color', '')
-    .css('background-color', getColorCode);
+function loadLocalStoage() {
+//localStorage.clear();
+    if (typeof(Storage) !== "undefined") {
+       $('.settings').each(function(i, e) {
+            if (localStorage.getItem(i) !== null) {
+                var bannedUrl = getLocalStorge(i);
+                $(e).val(bannedUrl);
+                banndedUrls.push(bannedUrl);
+            } 
+        });
 
+        if (localStorage.getItem('firstLoad') == null) {
+            showPopupModal('about');
+        }
 
+        if (localStorage.getItem('password') !== null) {
+            removeElements('#setPasswordButton');
+        } else {
+            removeElements('#settingsButton');
+        }
+        if (localStorage.getItem('catch') !== null) {
+            changeBackgroundColor('pink');
+        }else if (localStorage.getItem('color') !== null) {
+            changeBackgroundColor(localStorage.getItem('color'));
+        }
+
+    }
 }
 
 
+function setLocalStorge(x, value) {
+    if (typeof(Storage) != "undefined") {
+        localStorage.setItem(x, value);
+    } else {
+        document.getElementById("result").innerHTML ="Sorry, your browser does not support Web Storage...";
+    }
+}
+
+function getLocalStorge(x) {
+var getLocalStageTemp =localStorage.getItem(x);
+    console.log(getLocalStageTemp);
+    return getLocalStageTemp ;
+}
+
+
+
+
+
+/*
+
+  ______ _ _ _            _             
+ |  ____| (_) |          (_)            
+ | |__  | |_| |_ ___ _ __ _ _ __   __ _ 
+ |  __| | | | __/ _ \ '__| | '_ \ / _` |
+ | |    | | | ||  __/ |  | | | | | (_| |
+ |_|    |_|_|\__\___|_|  |_|_| |_|\__, |
+                                   __/ |
+                                  |___/ 
+
+*/
+
+
+function urlCleaner(url) {
+    console.log('url to blocked' + url);
+    for (i = 0; i < banndedUrls.length; i++) {
+        if (banndedUrls[i] !== '') {
+            var patt = new RegExp(banndedUrls[i]);
+            if (patt.test(url)) {
+                changeBackgroundColor('pink');
+                redirect();
+                break;
+            } else {}
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function changeColor(){
+
+    var getColorCode = $("#" + this.id).attr('data-color');
+        changeBackgroundColor(getColorCode);
+        setLocalStorge('color', getColorCode);
+}
+
+function changeBackgroundColor(color){
+
+    $('.navbar-material-light-blue.navbar')
+        .css('background-color', '')
+        .css('background-color', color);
+
+}
 
 
 
@@ -78,18 +181,17 @@ function search(event) {
 
 function searchResult(search) {
     $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search);
+    resizeIframe();
 }
 
-function expand() {
-    $(".searcharea").toggleClass("box-change");
-}
 
 function resizeIframe() {
     $("iframe").each(function() {
         console.log('iframe bitches');
         $(this).width = window.innerWidth;
         $(this).height = "100%";
-        $(this).bind("load", onSrcIframeChange);
+        $(this).load(onSrcIframeChange());
+
     });
 }
 
@@ -97,36 +199,39 @@ function onSrcIframeChange() {
     var iframeId = $('.iframe.active').attr('id');
     var url = $('.iframe.active').attr('src');
     console.log('src changed ' + $('.iframe.active').attr('src'));
-    resizeIframe();
+
     urlCleaner(url);
 }
 
-function urlCleaner(url) {
-    console.log('url to blocked' + url);
-    for (i = 0; i < banndedUrls.length; i++) {
-        if (banndedUrls[i] !== '') {
-            var patt = new RegExp(banndedUrls[i]);
-            if (patt.test(url)) {
-                setColors();
-                redirect();
-                break;
-            } else {}
-        }
-    }
-}
+
 
 function redirect() {
     localStorage.setItem('catch', 'true');
     $('.iframe.active').attr('src', "http://www.bing.com");
 }
 
-function setColors() {
-    $('div').addClass('navbar-warning').removeClass('navbar-material-light-blue');
+
+
+function createIframe(url,tabId){
+
+    var iframes = document.createElement("iframe");
+        iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
+        iframes.setAttribute("class", "iframe active");
+        iframes.setAttribute("id", tabId);
+        iframes.setAttribute("width", window.innerWidth);
+        iframes.setAttribute("height", "100%");
+
+
+
+
+
+
 }
 
+
 function createTab(url) {
-    var Numb = document.getElementsByTagName("iframe").length;
-    if (Numb !== tabsLimit) {
+    var getAmountOfTabs = document.getElementsByTagName("iframe").length;
+    if (getAmountOfTabs !== tabsLimit) {
         if (url == '[object MouseEvent]') {
             url = 'batman';
         }
@@ -144,12 +249,12 @@ function createTab(url) {
             "allow-same-origin allow-scripts allow-popups allow-forms");
         iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
         iframes.setAttribute("class", "iframe active");
-        iframes.setAttribute("id", Numb);
+        iframes.setAttribute("id", getAmountOfTabs);
         iframes.setAttribute("width", window.innerWidth);
         iframes.setAttribute("height", "100%");
         span.appendChild(iframes);
         tabs.appendChild(span);
-        resizeIframe();
+       resizeIframe();
         $('section').on('click', function() {
             $(this).closest('section').prependTo('.contain');
             $('section').removeClass('active');
@@ -164,21 +269,24 @@ function createTab(url) {
 }
 
 function expandTabs() {
-    $('section').scrollTop(0);
+    $('section').scrollTop(54);
     $('.contain').toggleClass('active');
 }
 
 function addEventListeners() {
 
 
- $('.colors').on('click', changeColor);
+[].forEach.call(document.querySelectorAll("a"), function(el) {
+  el.addEventListener("click", function() {
+    // code…
+  });
+});
 
-
+    $('.colors').on('click', changeColor);
     document.getElementById("back").addEventListener("click", goBack);
     document.getElementById("forword").addEventListener("click", goForword);
     document.getElementById("refresh").addEventListener("click", refresh);
     document.getElementById("home").addEventListener("click", goHome);
-    document.getElementById("search").addEventListener("click", expand);
     document.getElementById("newTab").addEventListener("click", createTab);
     $('#tabsq').on('click', expandTabs);
     document.getElementById("passwordSave").addEventListener("click", setPassword,
@@ -193,12 +301,12 @@ function addEventListeners() {
 
 
 
-function showPop(dialog) {
+function showPopupModal(dialog) {
     setLocalStorge('firstLoad', 'true');
     $('#' + dialog + '-dialog').modal('show');
 }
 
-function removePop(dialog) {
+function removePopupModal(dialog) {
     $('#' + dialog + '-dialog').modal('hide');
 }
 
@@ -211,6 +319,11 @@ function restart() {
 function removeElements(element) {
     $(element).remove();
 }
+
+
+
+
+
 
 function setPassword() {
     console.log('set password');
@@ -258,52 +371,8 @@ function removeAlert() {
     $("#alert > div").remove();
 }
 
-function loadLocalStoage() {
 
-    //localStorage.clear();
-    var x,k = 0;
-    if (typeof(Storage) !== "undefined") {
-        $('.settings').each(function(i, e) {
-            if (localStorage.getItem(x) !== null) {
-                $(e).val(getLocalStorge(x));
-                banndedUrls.push(getLocalStorge(k));
-                k++;
-            } else {
-                console.log('not set');
-            }
-            x++;
-        });
-        if (localStorage.getItem('firstLoad') === null) {
-            showPop('about');
-        } else {
-            // removePop('about');
-        }
-        if (localStorage.getItem('password') !== null) {
-            removeElements('#setPasswordButton');
-        } else {
-            removeElements('#settingsButton');
-        }
-        if (localStorage.getItem('catch') !== null) {
-            setColors();
-        }
-    }
-}
 
-function setLocalStorge(x, value) {
-
-    if (typeof(Storage) != "undefined") {
-
-        localStorage.setItem(x, value);
-        console.log(localStorage.getItem(x));
-    } else {
-        document.getElementById("result").innerHTML ="Sorry, your browser does not support Web Storage...";
-    }
-}
-
-function getLocalStorge(x) {
-    console.log(localStorage.getItem(x));
-    return localStorage.getItem(x);
-}
 $(window).on('resize', function() {
-    resizeIframe();
+   resizeIframe();
 });

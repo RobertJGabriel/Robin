@@ -15,8 +15,25 @@ padding: 0;
 	width:35px;
 	height:35px;
 	border-radius:5px;
-	background-color:red;
-	margin-right:10px;
-	margin-left:10px;
+	margin:10px;
 	cursor: pointer;
+}
+#color_Red{
+background-color: #F44336;
+}
+#color_Blue{
+	background-color: #03A9F4;
+}
+
+#color_Green{
+	background-color: #4CAF50;
+}
+
+#color_Brown{
+	background-color: #795548;
+}
+
+#color_Grey{
+
+		background-color: #9E9E9E;
 }
