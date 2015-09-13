@@ -41,8 +41,8 @@
                     <ul class="dropdown-menu shadow-z-3" id="specialId">
                         <li><a data-toggle="modal" data-target="#about-dialog">About</a></li>
                         <li><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a></li>
-                        <li id="setPasswordButton"><a data-toggle="modal" data-target="#password-dialog" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Set a Password, so only you can access the settings">Set Password</a>
-                        </li>
+                        <li><a data-toggle="modal" data-target="#credit-dialog" >Credit</a></li>
+                       
                         <li class="divider"></li>
                         <li><a href="http://www.projectbird.com" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Who Deveolped it ">Projectbird</a>
                         </li>
@@ -51,6 +51,13 @@
             </ul>
         </div>
     </div>
+
+
+
+    <div class='contain' id="tabs">
+
+    </div>
+
 
 
 
@@ -63,38 +70,57 @@
                 </div>
 
                 <div class="modal-body">
-
-
-
-
-
-
-
-
-
+          <div class="form-group">
                     <h4 class="modal-title">Block Websites</h4>
-                   
                     <div data-ng-repeat="banndedUrls2  in banndedUrls">
                          <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2.text }}">
                     </div>
-
-                    <hr>
-                    <br>
+               
+                </div>
+<div class="form-group">
                     <h4>Theme</h4>
                     <ul id="pick_colors">
                         <li><span class="colors" id="color_Red" ng-click="setColor('#F44336')" ><span ng-if="theme[0][0]['color'] === '#F44336'"><i class="mdi-action-done"></i> </span></span></li>
                         <li><span class="colors" id="color_Blue" ng-click="setColor('#03A9F4')"><span ng-if="theme[0][0]['color'] === '#03A9F4'"><i class="mdi-action-done"></i> </span> </span></li>
-                        <li><span class="colors" id="color_Green" ng-click="setColor('#4CAF503')"> <span ng-if="theme[0][0]['color'] === '#4CAF503'"><i class="mdi-action-done"></i> </span></span></li>
+                        <li><span class="colors" id="color_Green" ng-click="setColor('#009688')"> <span ng-if="theme[0][0]['color'] === '#009688'"><i class="mdi-action-done"></i> </span></span></li>
                         <li><span class="colors" id="color_Brown" ng-click="setColor('#795548')"> <span ng-if="theme[0][0]['color'] === '#795548'"><i class="mdi-action-done"></i> </span></span></li>
                         <li><span class="colors" id="color_Grey" ng-click="setColor('#9E9E9E')" > <span ng-if="theme[0][0]['color'] === '#9E9E9E'"><i class="mdi-action-done"></i> </span></span></li>
                     </ul>
                 </div>
+                   <div class="form-group">
+                    <h4 class="modal-title">Password</h4>
+                    <input type="password" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
+                       </div>
+                <div class="form-group">
+                    <h4 class="modal-title">Password</h4>
+                    <input type="password" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
+                </div>
+                </div>
+          
+                <br>
+                <br>
                 <hr>
                 <div class="modal-footer">
-                    <button class="btn btn-warning btn-xs" ng-click="clearLocalStorage()" >Restart</button>
-                    <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#password-dialog">Change</button>
-                    <button class="btn btn-primary btn-xs" ng-click="addLocalStorage()" >Save</button>
+                    <button class="btn btn-warning " ng-click="clearLocalStorage()" >Restart</button>
+                    <button class="btn btn-primary " ng-click="addLocalStorage()" >Save</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="credit-dialog" class="modal fade" tabindex="-1" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i></button>
+                    <h4 class="modal-title">Built with <span class="mdi-action-favorite mdi-material-red"></span> using </h4>
+                </div>
+
+                <div class="modal-body">
+               </div>
+            
             </div>
         </div>
     </div>
@@ -104,24 +130,11 @@
 
 
 
-
-
-      
-
-
-    <h2>My Note</h2>
-
-
- 
-    <p>
-    <button ng-click="save()">Save</button>
-    <button ng-click="clear()">Clear</button>
-    </p>
-
-    <p>Number of characters left: <span ng-bind="left()"></span></p>
+    <span ng-bind="left()"></span></p>
 
     <script src="assests/js/angular/myNoteApp.js"></script>
     <script src="assests/js/angular/localStorage.js"></script>
+        <script src="assests/js/angular/email.js"></script>
     <script src="assests/js/lib/L.js?checkLoaded"></script>
     <script src="assests/js/app/main.js"></script>
   

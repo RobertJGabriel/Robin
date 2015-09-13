@@ -8,11 +8,11 @@ app.controller("localStorage", function($scope) {
 
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme')!==null) ? JSON.parse($scope.savedTheme) : $scope.themeList ;
-    $scope.themeStyle = {'background-color': $scope.theme[0][0]['color']};
+    $scope.themeStyle =(localStorage.getItem('theme')!==null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
     localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
   
 
-
+ // $scope.sendEmail();
 
     $scope.addLocalStorage = function() {
         $scope.newID = $scope.banndedUrls.length + 1 ;
@@ -34,10 +34,6 @@ app.controller("localStorage", function($scope) {
         $scope.theme.push([ {color: color, active : true} ]);
         localStorage.setItem('theme', JSON.stringify($scope.theme));
         $scope.themeStyle={'background-color':color}
-
-
-
-
     }
 
     $scope.clearLocalStorage = function() {
