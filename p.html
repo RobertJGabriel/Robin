@@ -77,19 +77,25 @@
 
 
 
-
-               
+                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active"><a href="#block" data-toggle="tab">Block</a></li>
+                        <li><a href="#theme" data-toggle="tab">Theme</a></li>
+                        <li><a href="#personal" data-toggle="tab">Personal</a></li>
+                      
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="block">
                             <div class="form-group">
-                                <h5 class="modal-title">Block Websites</h5>
+                                <h4 class="modal-title">Block Websites</h4>
                                 <div data-ng-repeat="banndedUrls2  in banndedUrls">
                                     <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2.text }}">
                                 </div>
                             </div>
-                    
-                      
+                        </div>
+                        <div class="tab-pane fade" id="theme">
                                    
                             <div class="form-group">
-                                <h5 class="modal-title">Theme</h5>
+                                <h4>Theme</h4>
                                 <ul id="pick_colors">
                                     <li><span class="colors" id="color_Red" ng-click="setColor('#F44336')" ><span ng-if="theme[0][0]['color'] === '#F44336'"><i class="mdi-action-done"></i> </span></span></li>
                                     <li><span class="colors" id="color_Blue" ng-click="setColor('#03A9F4')"><span ng-if="theme[0][0]['color'] === '#03A9F4'"><i class="mdi-action-done"></i> </span> </span></li>
@@ -98,19 +104,19 @@
                                     <li><span class="colors" id="color_Grey" ng-click="setColor('#9E9E9E')" > <span ng-if="theme[0][0]['color'] === '#9E9E9E'"><i class="mdi-action-done"></i> </span></span></li>
                                 </ul>
                             </div>
-              
-                        <br>
-                       
+                        </div>
+                        
+                         <div class="tab-pane fade" id="personal">
                             <div class="form-group">
-                                <h5 class="modal-title">Email</h5>
+                                <h4 class="modal-title">Email</h4>
                                 <input type="email" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
                             </div>
                             <div class="form-group">
-                              <h5 class="modal-title">Password</h5>
+                              <h4 class="modal-title">Password</h4>
                               <input type="password" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
                             </div>
-           
-                
+                        </div>
+                    </div>
                 </div>
           
                 <br>
