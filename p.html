@@ -7,7 +7,8 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <title></title>
+    <title>Robin : A Cool Website</title>
+    <link rel="icon" type="image/png" href="assests/img/icons/logo.ico">
     <link href="assests/css/styles.css" rel="stylesheet">
     <link href="assests/css/less/robin/temp.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -59,6 +60,8 @@
     </div>
 
 
+    <button class="btn btn-warning btn-fab btn-raised" id="tabsq"><i class="mdi-device-now-widgets"></i></button>
+
 
 
 <div id="settings-dialog" class="modal fade" tabindex="-1" >
@@ -70,31 +73,44 @@
                 </div>
 
                 <div class="modal-body">
-          <div class="form-group">
-                    <h4 class="modal-title">Block Websites</h4>
-                    <div data-ng-repeat="banndedUrls2  in banndedUrls">
-                         <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2.text }}">
-                    </div>
+
+
+
+
+
                
-                </div>
-<div class="form-group">
-                    <h4>Theme</h4>
-                    <ul id="pick_colors">
-                        <li><span class="colors" id="color_Red" ng-click="setColor('#F44336')" ><span ng-if="theme[0][0]['color'] === '#F44336'"><i class="mdi-action-done"></i> </span></span></li>
-                        <li><span class="colors" id="color_Blue" ng-click="setColor('#03A9F4')"><span ng-if="theme[0][0]['color'] === '#03A9F4'"><i class="mdi-action-done"></i> </span> </span></li>
-                        <li><span class="colors" id="color_Green" ng-click="setColor('#009688')"> <span ng-if="theme[0][0]['color'] === '#009688'"><i class="mdi-action-done"></i> </span></span></li>
-                        <li><span class="colors" id="color_Brown" ng-click="setColor('#795548')"> <span ng-if="theme[0][0]['color'] === '#795548'"><i class="mdi-action-done"></i> </span></span></li>
-                        <li><span class="colors" id="color_Grey" ng-click="setColor('#9E9E9E')" > <span ng-if="theme[0][0]['color'] === '#9E9E9E'"><i class="mdi-action-done"></i> </span></span></li>
-                    </ul>
-                </div>
-                   <div class="form-group">
-                    <h4 class="modal-title">Password</h4>
-                    <input type="password" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
-                       </div>
-                <div class="form-group">
-                    <h4 class="modal-title">Password</h4>
-                    <input type="password" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
-                </div>
+                            <div class="form-group">
+                                <h5 class="modal-title">Block Websites</h5>
+                                <div data-ng-repeat="banndedUrls2  in banndedUrls">
+                                    <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2.text }}">
+                                </div>
+                            </div>
+                    
+                      
+                                   
+                            <div class="form-group">
+                                <h5 class="modal-title">Theme</h5>
+                                <ul id="pick_colors">
+                                    <li><span class="colors" id="color_Red" ng-click="setColor('#F44336')" ><span ng-if="theme[0][0]['color'] === '#F44336'"><i class="mdi-action-done"></i> </span></span></li>
+                                    <li><span class="colors" id="color_Blue" ng-click="setColor('#03A9F4')"><span ng-if="theme[0][0]['color'] === '#03A9F4'"><i class="mdi-action-done"></i> </span> </span></li>
+                                    <li><span class="colors" id="color_Green" ng-click="setColor('#009688')"> <span ng-if="theme[0][0]['color'] === '#009688'"><i class="mdi-action-done"></i> </span></span></li>
+                                    <li><span class="colors" id="color_Brown" ng-click="setColor('#795548')"> <span ng-if="theme[0][0]['color'] === '#795548'"><i class="mdi-action-done"></i> </span></span></li>
+                                    <li><span class="colors" id="color_Grey" ng-click="setColor('#9E9E9E')" > <span ng-if="theme[0][0]['color'] === '#9E9E9E'"><i class="mdi-action-done"></i> </span></span></li>
+                                </ul>
+                            </div>
+              
+                        <br>
+                       
+                            <div class="form-group">
+                                <h5 class="modal-title">Email</h5>
+                                <input type="email" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
+                            </div>
+                            <div class="form-group">
+                              <h5 class="modal-title">Password</h5>
+                              <input type="password" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
+                            </div>
+           
+                
                 </div>
           
                 <br>
