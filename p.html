@@ -82,11 +82,11 @@
                     <br>
                     <h4>Theme</h4>
                     <ul id="pick_colors">
-                        <li><span class="colors" id="color_Red" ng-click="setColor('#F44336')" ><i class="mdi-action-done"></i> </span></li>
-                        <li><span class="colors" id="color_Blue" ng-click="setColor('#03A9F4')"> </span></li>
-                        <li><span class="colors" id="color_Green" ng-click="setColor('#4CAF503')"> </span></li>
-                        <li><span class="colors" id="color_Brown" ng-click="setColor('#795548')"> </span></li>
-                        <li><span class="colors" id="color_Grey" ng-click="setColor('#9E9E9E')" > </span></li>
+                        <li><span class="colors" id="color_Red" ng-click="setColor('#F44336')" ><span ng-if="theme[0][0]['color'] === '#F44336'"><i class="mdi-action-done"></i> </span></span></li>
+                        <li><span class="colors" id="color_Blue" ng-click="setColor('#03A9F4')"><span ng-if="theme[0][0]['color'] === '#03A9F4'"><i class="mdi-action-done"></i> </span> </span></li>
+                        <li><span class="colors" id="color_Green" ng-click="setColor('#4CAF503')"> <span ng-if="theme[0][0]['color'] === '#4CAF503'"><i class="mdi-action-done"></i> </span></span></li>
+                        <li><span class="colors" id="color_Brown" ng-click="setColor('#795548')"> <span ng-if="theme[0][0]['color'] === '#795548'"><i class="mdi-action-done"></i> </span></span></li>
+                        <li><span class="colors" id="color_Grey" ng-click="setColor('#9E9E9E')" > <span ng-if="theme[0][0]['color'] === '#9E9E9E'"><i class="mdi-action-done"></i> </span></span></li>
                     </ul>
                 </div>
                 <hr>

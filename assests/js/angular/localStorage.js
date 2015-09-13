@@ -2,8 +2,7 @@ app.controller("localStorage", function($scope) {
 
     $scope.saved = localStorage.getItem('banndedUrls');
     $scope.banndedUrlsList = [ {text: 'porn', done: false},{text: 'sex', done: false},{text: 'facebook', done: false},{text: 'twitters', done: false}, {text: 'rob', done: false} ];
-      $scope.themeList = [ {color: '#F44336', active : true} ];
-
+    $scope.themeList = [ {color: '#F44336', active : true} ];
     $scope.banndedUrls =  (localStorage.getItem('banndedUrls')!==null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList ;
     
 
