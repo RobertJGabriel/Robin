@@ -15,8 +15,8 @@
     <![endif]-->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
   </head>
-  <body ng-app="Robin" ng-controller="myNoteCtrl">
-   <div class="navbar navbar-material-light-blue shadow-z-2">
+  <body ng-app="Robin" ng-controller="localStorage">
+   <div class="navbar navbar-material-light-blue shadow-z-2" ng-style="themeStyle">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
                 <span class="icon-bar"></span>
@@ -74,25 +74,24 @@
 
                     <h4 class="modal-title">Block Websites</h4>
                    
-<div data-ng-repeat="banndedUrls2  in banndedUrls track by $index">
+                    <div data-ng-repeat="banndedUrls2  in banndedUrls">
+                         <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2.text }}">
+                    </div>
 
-
-     <input type="text" name="text" class="form-control settings" data-ng-model="bannedUrlText" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right"  placeholder="{{ banndedUrls2.text  + banndedUrls.id }}">
-     
-</div>
                     <hr>
+                    <br>
                     <h4>Theme</h4>
                     <ul id="pick_colors">
-                        <li><span class="colors" id="color_Red" data-color="#F44336"> </span></li>
-                        <li><span class="colors" id="color_Blue" data-color="#03A9F4"> </span></li>
-                        <li><span class="colors" id="color_Green" data-color="#4CAF503"> </span></li>
-                        <li><span class="colors" id="color_Brown" data-color="#795548"> </span></li>
-                        <li><span class="colors" id="color_Grey" data-color="#9E9E9E"> </span></li>
+                        <li><span class="colors" id="color_Red" ng-click="setColor('#F44336')" ><i class="mdi-action-done"></i> </span></li>
+                        <li><span class="colors" id="color_Blue" ng-click="setColor('#03A9F4')"> </span></li>
+                        <li><span class="colors" id="color_Green" ng-click="setColor('#4CAF503')"> </span></li>
+                        <li><span class="colors" id="color_Brown" ng-click="setColor('#795548')"> </span></li>
+                        <li><span class="colors" id="color_Grey" ng-click="setColor('#9E9E9E')" > </span></li>
                     </ul>
                 </div>
                 <hr>
                 <div class="modal-footer">
-                    <button class="btn btn-warning btn-xs"  id="restart">Restart</button>
+                    <button class="btn btn-warning btn-xs" ng-click="clearLocalStorage()" >Restart</button>
                     <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#password-dialog">Change</button>
                     <button class="btn btn-primary btn-xs" ng-click="addLocalStorage()" >Save</button>
                 </div>
@@ -122,7 +121,7 @@
     <p>Number of characters left: <span ng-bind="left()"></span></p>
 
     <script src="assests/js/angular/myNoteApp.js"></script>
-    <script src="assests/js/angular/myNoteCtrl.js"></script>
+    <script src="assests/js/angular/localStorage.js"></script>
     <script src="assests/js/lib/L.js?checkLoaded"></script>
     <script src="assests/js/app/main.js"></script>
   
