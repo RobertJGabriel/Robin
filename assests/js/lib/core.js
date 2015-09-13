@@ -1,6 +1,6 @@
 var banndedUrls = [];
 var tabsLimit = 5; // This is 5 ;)
-
+var caughtColor = "#7B1FA2";
 
 var Robin= {
     Init: function () {
@@ -47,7 +47,7 @@ function loadLocalStoage() {
             removeElements('#settingsButton');
         }
         if (localStorage.getItem('catch') !== null) {
-            changeBackgroundColor('pink');
+            changeBackgroundColor(caughtColor);
         }else if (localStorage.getItem('color') !== null) {
             changeBackgroundColor(localStorage.getItem('color'));
         }
@@ -94,7 +94,7 @@ function urlCleaner(url) {
         if (banndedUrls[i] !== '') {
             var patt = new RegExp(banndedUrls[i]);
             if (patt.test(url)) {
-                changeBackgroundColor('pink');
+                changeBackgroundColor(caughtColor);
                 redirect();
                 break;
             }
