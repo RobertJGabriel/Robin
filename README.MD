@@ -12,12 +12,18 @@ So Far it has been download 40,000 times. The goal is to build a free light way 
 **Prerequisites**: [Node.js](https://nodejs.org/), [Node-webkit](https://github.com/nwjs/nw.js) and  [Node-webkit Builder](https://github.com/mllrsohn/node-webkit-builder)
 
 - First you need to clone this project.
+
  ```
 git clone https://github.com/RobertJGabriel/Robin-Web-browser.git
 ```
+- Navigate into the Robin Folder
 - Install all gulp dependances
 ```
 npm install
+```
+- Then Run 
+```
+gulp less
 ```
 
 ###Build
