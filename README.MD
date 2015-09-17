@@ -10,21 +10,20 @@ So Far it has been download 40,000 times. The goal is to build a free light way 
 
 ##Install
 **Prerequisites**: [Node.js](https://nodejs.org/), [Node-webkit](https://github.com/nwjs/nw.js) and  [Node-webkit Builder](https://github.com/mllrsohn/node-webkit-builder)
+
+- First you need to clone this project.
  ```
 git clone https://github.com/RobertJGabriel/Robin-Web-browser.git
 ```
-Install all gulp dependances
+- Install all gulp dependances
 ```
 npm install
-
 ```
 
 ###Build
 1. Navigate into the heart of the Robin folder.
 2. Run the following ```gulp build ```
-3. This will currently build an 32 and 64 bit osx build of Robin under build.
-
-
+3. This will currently build an 32 and 64 bit osx build of Robin under the folder build.
 
 
 ##Built in
