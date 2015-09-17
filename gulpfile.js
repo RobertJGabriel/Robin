@@ -15,7 +15,8 @@ gulp.task('build', function() {
     var nw = new NwBuilder({
         files: ['*', 'assests/css/**', 'assests/js/**', 'assests/img/**','assests/fonts/**'], // use the glob format
         macIcns: "assests/img/icons/logo.icns",
-        platforms: ['osx32', 'osx64']
+        platforms: ['osx32', 'osx64'],
+        version: "0.12.0"
     });
     //Log stuff you want
     nw.on('log', console.log);
