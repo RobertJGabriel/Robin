@@ -2,8 +2,7 @@
 ![alt text](https://github.com/RobertJGabriel/Robin/blob/master/assests/img/icons/robinbanner.png "Robin")
 <br>
 ##About
-Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.We were pleased to have won Two All-Ireland Eircom Spider awards.
-So Far it has been download 40,000 times. The goal is to build a free light way browser with a built in flitering system.
+Robin is light weight award winning web browser. It is designed for low-end machines and for teachers and parents to block websites and terms.We are pleased to have won Two All-Ireland Eircom Spider awards. So far it has been downloaded 40,000 times. The goal is to build a free light weight browser with a built in filtering system.
 
 <br>
 
