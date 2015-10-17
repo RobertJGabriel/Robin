@@ -13,8 +13,8 @@ var gulp = require('gulp'),
 
 gulp.task('build', function() {
     var nw = new NwBuilder({
-        files: ['*', 'assests/css/**', 'assests/js/**', 'assests/img/**','assests/fonts/**'], // use the glob format
-        macIcns: "assests/img/icons/logo.icns",
+        files: ['*', 'assets/css/**', 'assets/js/**', 'assets/img/**','assets/fonts/**'], // use the glob format
+        macIcns: "assets/img/icons/logo.icns",
         platforms: ['osx32', 'osx64'],
         version: "0.12.0"
     });
@@ -31,7 +31,7 @@ gulp.task('build', function() {
 
 
 gulp.task('less', function () {
-    gulp.src('./assests/css/styles.less')
+    gulp.src('./assets/css/styles.less')
         .pipe(less()
             .on('error', gutil.log)
             .on('error', gutil.beep)
@@ -43,7 +43,7 @@ gulp.task('less', function () {
             })
         )
         .pipe(minifyCSS({keepSpecialComments: 1}))
-        .pipe(gulp.dest('./assests/css/'));
+        .pipe(gulp.dest('./assets/css/'));
 });
 
 
