@@ -34,6 +34,7 @@ app.controller('controller', function ($scope) {
 
 
     $scope.addLocalStorage = function () {
+        alert('you clicked save');
         $scope.newID = $scope.banndedUrls.length + 1;
 
         $scope.banndedUrls.forEach(function (item) {
@@ -61,6 +62,7 @@ app.controller('controller', function ($scope) {
     }
 
     $scope.clearLocalStorage = function () {
+        alert('you clicked clear ');
         $scope.banndedUrls = [];
         $scope.removeLocalStorage('banndedUrls');
         $scope.removeLocalStorage('theme');
@@ -72,5 +74,37 @@ app.controller('controller', function ($scope) {
 
         localStorage.removeItem(key);
     };
+
+
+
+    $scope.showTabs = function (key) {
+
+        alert('Show Tabs');
+    };
+    $scope.goBack = function () {
+
+        alert('You clicked the Go Back Window');
+    };
+
+    $scope.goForword = function () {
+
+        alert('You clicked the Go Forword Window');
+    };
+
+    $scope.refresh = function () {
+
+        alert('You clicked the refresh Button');
+    };
+
+    $scope.home = function () {
+
+        alert('You clicked the home Button');
+    };
+
+    $scope.createTab = function () {
+
+        alert('You clicked the create Tab Button');
+    };
+
 
 });
