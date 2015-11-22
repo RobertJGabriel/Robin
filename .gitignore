@@ -9,3 +9,5 @@ cache/
 .recognizer/assests/js/settings.js
 .recognizer/assests/js/localstorage.js
 .recognizer/assests/js/settings.js
+
+npm-debug.log

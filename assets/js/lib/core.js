@@ -18,28 +18,58 @@ app.controller('controller', function ($scope) {
         text: 'rob',
         done: false
     }];
-    
-    $scope.themeList = [{color: '#F44336',active: true}];
+
+    $scope.themeList = [{
+        color: '#F44336',
+        active: true
+    }];
     $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
-    $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
+    $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {
+        'background-color': $scope.theme[0][0]['color']
+    } : console.log('no color set');
     localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
 
 
-    $scope.left = function () {
-        return 100 - $scope.message.length;
+
+    $scope.addLocalStorage = function () {
+        $scope.newID = $scope.banndedUrls.length + 1;
+
+        $scope.banndedUrls.forEach(function (item) {
+            console.log(item);
+        });
+        localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
     };
 
 
-    $scope.clear = function () {
+    $scope.loadDefault = function () {
+        $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
+    }
 
-        $scope.message = "";
+    $scope.setColor = function (color) {
+        $scope.removeLocalStorage('theme');
+        $scope.theme = [];
+        $scope.theme.push([{
+            color: color,
+            active: true
+        }]);
+        localStorage.setItem('theme', JSON.stringify($scope.theme));
+        $scope.themeStyle = {
+            'background-color': color
+        }
+    }
+
+    $scope.clearLocalStorage = function () {
+        $scope.banndedUrls = [];
+        $scope.removeLocalStorage('banndedUrls');
+        $scope.removeLocalStorage('theme');
+        $scope.loadDefault();
     };
 
-    $scope.save = function () {
-        alert("Note Saved");
-    };
+    $scope.removeLocalStorage = function (key) {
 
+        localStorage.removeItem(key);
+    };
 
 });
