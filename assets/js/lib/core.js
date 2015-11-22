@@ -65,6 +65,7 @@ app.controller('controller', function ($scope) {
         $scope.removeLocalStorage('banndedUrls');
         $scope.removeLocalStorage('theme');
         $scope.loadDefault();
+        console.log('Reset');
     };
 
     $scope.removeLocalStorage = function (key) {
