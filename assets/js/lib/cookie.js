@@ -3,7 +3,7 @@
          if (window.location.search.indexOf('dave=error') > -1) {
              showErrorPanel();
          }
-         if (localStorage.getItem('seen') != (new Date()).getDate()) {
+         if (localStorage.getItem('seen') == (new Date()).getDate()) {
              showpanel();
          }
      });
