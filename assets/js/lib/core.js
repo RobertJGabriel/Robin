@@ -98,7 +98,7 @@ app.controller('controller', function ($scope) {
     };
     $scope.createTab = function () {
         alert('You clicked the create Tab Button');
-
+        createTab('');
     };
     $scope.search = function (keyEvent) {
         if (keyEvent.which === 13) alert('You Entered the Search Button');
