@@ -28,7 +28,7 @@
             <a class="navbar-brand" id="newTab" ng-click="createTab()"><i class="mdi-image-style "></i></a>
             <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
             <a class="navbar-brand" id="search">
-                <input type="text" id="searchTerm" class="form-control col-lg-8" placeholder="Search">
+                <input type="text" id="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" placeholder="Search">
             </a>
         </div>
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse">

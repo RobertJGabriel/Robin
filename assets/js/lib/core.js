@@ -107,4 +107,10 @@ app.controller('controller', function ($scope) {
     };
 
 
+    $scope.search = function (keyEvent) {
+        if (keyEvent.which === 13)
+            alert('You Entered the Search Button');
+    }
+
+
 });
