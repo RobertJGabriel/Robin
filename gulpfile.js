@@ -6,14 +6,13 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     NwBuilder = require('nw-builder'),
     gutil = require('gulp-util'),
-    say = require('say'),
     less = require('gulp-less'),
-    minifyCSS  = require('gulp-minify-css');
+    minifyCSS = require('gulp-minify-css');
 
 
-gulp.task('build', function() {
+gulp.task('build', function () {
     var nw = new NwBuilder({
-        files: ['*', 'assets/css/**', 'assets/js/**', 'assets/img/**','assets/fonts/**'], // use the glob format
+        files: ['*', 'assets/css/**', 'assets/js/**', 'assets/img/**', 'assets/fonts/**'], // use the glob format
         macIcns: "assets/img/icons/logo.icns",
         platforms: ['osx32', 'osx64'],
         version: "0.12.0"
@@ -21,9 +20,9 @@ gulp.task('build', function() {
     //Log stuff you want
     nw.on('log', console.log);
     // Build returns a promise
-    nw.build().then(function() {
+    nw.build().then(function () {
         console.log('all done!');
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.error(error);
     });
 });
@@ -38,11 +37,12 @@ gulp.task('less', function () {
             .on('error', function (err) {
                 console.log('err', err);
                 var pathToFile = err.fileName.split('\\');
-                    file = pathToFile[pathToFile.length -1];
-                say.speak('Albert', 'Less is fucked---' + file + '--- Line ' + err.lineNumber);
+                file = pathToFile[pathToFile.length - 1];
             })
         )
-        .pipe(minifyCSS({keepSpecialComments: 1}))
+        .pipe(minifyCSS({
+            keepSpecialComments: 1
+        }))
         .pipe(gulp.dest('./assets/css/'));
 });
 

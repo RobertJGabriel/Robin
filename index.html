@@ -9,11 +9,9 @@
     <title>Robin : Vison Design Demo</title>
     <link rel="icon" type="image/png" href="assets/img/icons/logo.ico">
     <link href="assets/css/styles.css" rel="stylesheet">
-    <link href="assets/css/less/robin/temp.css" rel="stylesheet">
-
 </head>
 
-<body ng-app="robin" ng-controller="controller">
+<body ng-app="robin" ng-controller="controller" data-ng-init="init()">
     <!-- Fixed navbar -->
     <nav class="navbar navbar-material-light-blue shadow-z-2" ng-style="themeStyle">
         <div class="navbar-header">
@@ -51,7 +49,7 @@
     <!--  Tabs for Muilipt Browsers or Iframes  -->
     <div class='contain' id="tabs"></div>
     <!--  Floating Button to Create New Tabs Buttons  -->
-    <button class="btn btn-warning btn-fab btn-raised" id="tabs" ng-click="showTabs()"><i class="mdi-device-now-widgets"></i>
+    <button class="btn btn-warning btn-fab btn-raised" id="tabs_button" ng-click="showTabs()"><i class="mdi-device-now-widgets"></i>
     </button>
 
 
@@ -151,6 +149,10 @@
                         <p>I hope you enjoy my demo, This is just the ui for now and the rest coming soon </p>
                         <small>Created with <i class="mdi-action-favorite mdi-material-red" style="font-size: 20pt;"></i> <cite title="Source Title">By Robert Gabriel</cite></small>
                     </blockquote>
+
+
+
+
                 </div>
             </div>
         </div>
