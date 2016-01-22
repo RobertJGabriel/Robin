@@ -26,7 +26,7 @@
             <a class="navbar-brand" id="newTab" ng-click="createTab()"><i class="mdi-image-control-point"></i></a>
             <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
             <a class="navbar-brand" id="search">
-                <input type="text" id="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" placeholder="Search">
+                <input type="text" id="searchTerm" ng-model="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" placeholder="Search">
             </a>
         </div>
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
@@ -45,15 +45,6 @@
             </ul>
         </div>
     </nav>
-    <!-------------- Removed for Now 
-    <div class="alert alert-dismissible alert-warning" style="margin-top:-20px;">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <h4>Warning!</h4>
-
-        <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna,
-            <a href="javascript:void(0)" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
-    </div>
-    --------->
 
     <!--  Tabs for Muilipt Browsers or Iframes  -->
     <div class='contain' id="tabs"></div>
@@ -73,7 +64,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <!---------------
+                 
                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#block" data-toggle="tab">Block</a>
                         </li>
@@ -83,9 +74,9 @@
                         </li>
 
                     </ul>
-                    ----------->
+               
                     <div id="myTabContent" class="tab-content">
-                        <!---------------
+               
                         <div class="tab-pane fade active in" id="block">
                             <div class="form-group">
                                 <h4 class="modal-title">Block Websites</h4>
@@ -94,7 +85,6 @@
                                 </div>
                             </div>
                         </div>
-                        ----------->
                         <div class="tab-pane fade active in" id="theme">
 
                             <div class="form-group">
@@ -113,18 +103,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!---------------
-                        <div class="tab-pane fade" id="personal">
-                            <div class="form-group">
-                                <h4 class="modal-title">Email</h4>
-                                <input type="email" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
-                            </div>
-                            <div class="form-group">
-                                <h4 class="modal-title">Password</h4>
-                                <input type="password" name="text" class="form-control settings" value="banndedUrls.text" placeholder="{{ banndedUrls2.text }}">
-                            </div>
-                        </div>
-                        ----------->
                     </div>
                 </div>
 
@@ -142,7 +120,7 @@
 
 
 
-    <!----------- Welcome Popup       --------->
+
     <div id="welcome" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -153,15 +131,33 @@
                 </div>
 
                 <div class="modal-body">
-                    <blockquote>
-                        <p>I hope you enjoy my demo, This is just the ui for now and the rest coming soon </p>
-                        <small>Created with <i class="mdi-action-favorite mdi-material-red" style="font-size: 20pt;"></i> <cite title="Source Title">By Robert Gabriel</cite></small>
-                    </blockquote>
-                    <br>
-                    <h4>Other Parts to this Project our </h4>
-                    <a href="https://github.com/Projectbird/robin-chrome-addon" class="btn btn-info btn-raised">Admin Panel </a>
-                    <a href="https://github.com/Projectbird/MrScraper" class="btn btn-warning btn-raised">Mr Scraper</a>
-                    <a href="https://github.com/Projectbird/profanity" class="btn btn-danger btn-raised">profanity</a>
+<form class="form-horizontal" id="login"  ng-submit="login()">
+    <div ng-show="showError">
+       <div class="alert alert-dismissible alert-info">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>Heads up!</strong> {{errorMessage}}
+</div>
+    </div>
+    <fieldset>
+        <div class="form-group">
+            <h5>Login</h5>
+            <div class="col-md-12">
+                <label for="inputEmail" class="control-label">First Name </label>
+                <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="inputEmail" class="control-label">Last Name </label>
+                <input type="text" class="form-control" id="inputEmail" name="password" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+        </div>
+    </fieldset>
+</form>
+                    
                 </div>
             </div>
         </div>
