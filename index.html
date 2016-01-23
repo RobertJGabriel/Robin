@@ -9,6 +9,7 @@
     <title>Robin</title>
     <link rel="icon" type="image/png" href="assets/img/icons/logo.ico">
     <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="http://www.justinaguilar.com/animations/css/animations.css" rel="stylesheet">
 </head>
 
 <body ng-app="robin" ng-controller="controller" data-ng-init="init()">
@@ -64,7 +65,7 @@
                 </div>
 
                 <div class="modal-body">
-                 
+
                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#block" data-toggle="tab">Block</a>
                         </li>
@@ -74,9 +75,9 @@
                         </li>
 
                     </ul>
-               
+
                     <div id="myTabContent" class="tab-content">
-               
+
                         <div class="tab-pane fade active in" id="block">
                             <div class="form-group">
                                 <h4 class="modal-title">Block Websites</h4>
@@ -131,33 +132,33 @@
                 </div>
 
                 <div class="modal-body">
-<form class="form-horizontal" id="login"  ng-submit="login()">
-    <div ng-show="showError">
-       <div class="alert alert-dismissible alert-info">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>Heads up!</strong> {{errorMessage}}
-</div>
-    </div>
-    <fieldset>
-        <div class="form-group">
-            <h5>Login</h5>
-            <div class="col-md-12">
-                <label for="inputEmail" class="control-label">First Name </label>
-                <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-12">
-                <label for="inputEmail" class="control-label">Last Name </label>
-                <input type="text" class="form-control" id="inputEmail" name="password" placeholder="Email">
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
-        </div>
-    </fieldset>
-</form>
-                    
+                    <form class="form-horizontal" id="login" ng-submit="login()">
+                        <div ng-show="showError">
+                            <div class="alert alert-dismissible alert-info">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>Heads up!</strong> {{errorMessage}}
+                            </div>
+                        </div>
+                        <fieldset>
+                            <div class="form-group">
+                                <h5>Login</h5>
+                                <div class="col-md-12">
+                                    <label for="inputEmail" class="control-label">First Name </label>
+                                    <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="inputEmail" class="control-label">Last Name </label>
+                                    <input type="text" class="form-control" id="inputEmail" name="password" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
                 </div>
             </div>
         </div>

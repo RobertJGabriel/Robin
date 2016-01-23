@@ -3,16 +3,36 @@ app.controller('controller', function ($scope) {
 
     var ref = new Firebase("https://projectbird.firebaseio.com");
     var authData = ref.getAuth();
-    $scope.tabsLimit = 5; 
+    $scope.tabsLimit = 6;
     $scope.caughtColor = "#7B1FA2";
     $scope.saved = localStorage.getItem('banndedUrls');
-    $scope.banndedUrlsList=[{text:"porn",done:false},{text:"sex",done:false},{text:"facebook",done:false},{text:"twitters",done:false},{text:"rob",done:false}];
-    $scope.themeList=[{color:"#F44336",active:true}];
-    $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ?JSON.parse($scope.saved) : $scope.banndedUrlsList;
+    $scope.banndedUrlsList = [{
+        text: "porn",
+        done: false
+    }, {
+        text: "sex",
+        done: false
+    }, {
+        text: "facebook",
+        done: false
+    }, {
+        text: "twitters",
+        done: false
+    }, {
+        text: "rob",
+        done: false
+    }];
+    $scope.themeList = [{
+        color: "#F44336",
+        active: true
+    }];
+    $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse(
-    $scope.savedTheme) : $scope.themeList;
-    $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
+        $scope.savedTheme) : $scope.themeList;
+    $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {
+        'background-color': $scope.theme[0][0]['color']
+    } : console.log('no color set');
 
     $scope.init = function () {
         createTab('google');
@@ -22,14 +42,16 @@ app.controller('controller', function ($scope) {
 
     $scope.addLocalStorage = function () {
         $scope.newID = $scope.banndedUrls.length + 1;
-        $scope.banndedUrls.forEach(function (item) {console.log(item);});
+        $scope.banndedUrls.forEach(function (item) {
+            console.log(item);
+        });
         localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
     };
 
 
 
     $scope.loadDefault = function () {
-        $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ?JSON.parse($scope.saved) : $scope.banndedUrlsList;
+        $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
     }
 
 
@@ -37,9 +59,14 @@ app.controller('controller', function ($scope) {
     $scope.setColor = function (color) {
         $scope.removeLocalStorage('theme');
         $scope.theme = [];
-        $scope.theme.push([{color: color,active: true}]);
+        $scope.theme.push([{
+            color: color,
+            active: true
+        }]);
         localStorage.setItem('theme', JSON.stringify($scope.theme));
-        $scope.themeStyle = {'background-color': color};
+        $scope.themeStyle = {
+            'background-color': color
+        };
     }
 
 
@@ -80,7 +107,7 @@ app.controller('controller', function ($scope) {
 
 
     $scope.home = function () {
-      $('.iframe.active').attr('src', 'http://wwww.google.ie');
+        $('.iframe.active').attr('src', 'http://wwww.google.ie');
     };
 
 
@@ -94,83 +121,84 @@ app.controller('controller', function ($scope) {
             setPageTitle($scope.searchTerm);
         };
     }
-function setPageTitle(title) {
-    document.title = "Robin : " + title;
-}
 
-function searchResult(search) {
-    $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search);
-    resizeIframe();
-}
+    function setPageTitle(title) {
+        document.title = "Robin : " + title;
+    }
+
+    function searchResult(search) {
+        $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search);
+        resizeIframe();
+    }
 
     function createTab(url) {
         var getAmountOfTabs = document.getElementsByTagName("iframe").length;
-          if (getAmountOfTabs !== $scope.tabsLimit) {
-              if (url == '[object MouseEvent]') {
-                  url = 'batman';
-              }
-              $('.home').removeClass('active');
-              $('.iframe').removeClass('active');
-              var tabs = document.getElementById('tabs');
-              var span = document.createElement("section");
-              span.setAttribute("class", "home active");
-              var title = document.createElement("h1");
-              title.setAttribute("class", "title");
-              title.innerHTML = "http://www.bing.com/search?q=" + url;
-              span.appendChild(title);
-              var iframes = document.createElement("iframe");
-              iframes.setAttribute("sandbox","allow-same-origin allow-scripts allow-popups allow-forms");
-              iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
-              iframes.setAttribute("class", "iframe active");
-              iframes.setAttribute("id", getAmountOfTabs);
-              iframes.setAttribute("width", window.innerWidth);
-              iframes.setAttribute("height", "100%");
-              span.appendChild(iframes);
-              tabs.appendChild(span);
-              resizeIframe();
-              $('section').on('click', function() {
-                  $(this).closest('section').prependTo('.contain');
-                  $('section').removeClass('active');
-                  $('.home.active .iframe').removeClass('active');
-                  $(this).addClass('active');
-                  $('.home.active .iframe').addClass('active');
-                  $('.contain').removeClass('active');
-              });
-          } else {
-              alert('tab Limit reached');
-          }
+        if (getAmountOfTabs !== $scope.tabsLimit) {
+            if (url == '[object MouseEvent]') {
+                url = 'batman';
+            }
+            $('.home').removeClass('active');
+            $('.iframe').removeClass('active');
+            var tabs = document.getElementById('tabs');
+            var span = document.createElement("section");
+            span.setAttribute("class", "home active ");
+            var title = document.createElement("h1");
+            title.setAttribute("class", "title");
+            title.innerHTML = "http://www.bing.com/search?q=" + url;
+            span.appendChild(title);
+            var iframes = document.createElement("iframe");
+            iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+            iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
+            iframes.setAttribute("class", "iframe active  ");
+            iframes.setAttribute("id", getAmountOfTabs);
+            iframes.setAttribute("width", window.innerWidth);
+            iframes.setAttribute("height", "100%");
+            span.appendChild(iframes);
+            tabs.appendChild(span);
+            resizeIframe();
+            $('section').on('click', function () {
+                $(this).closest('section').prependTo('.contain');
+                $('section').removeClass('active');
+                $('.home.active .iframe').removeClass('active');
+                $(this).addClass('active');
+                $('.home.active .iframe').addClass('active');
+                $('.contain').removeClass('active');
+            });
+        } else {
+            alert('tab Limit reached');
+        }
     }
 
 
-        $scope.login = function () { // Saves options to chrome.storage
-            ref.authWithPassword({
-                email: $('input[name="email"]').val(),
-                password: $('input[name="password"]').val()
-            }, function (error, userObj) {
-                error ? errorCodes(error) : displayMessage(userObj);
-            });
-        };
+    $scope.login = function () { // Saves options to chrome.storage
+        ref.authWithPassword({
+            email: $('input[name="email"]').val(),
+            password: $('input[name="password"]').val()
+        }, function (error, userObj) {
+            error ? errorCodes(error) : displayMessage(userObj);
+        });
+    };
 
-        function errorCodes(error) {
-            switch (error.code) {
-                case "EMAIL_TAKEN":
-                    displayMessage("The new user account cannot be created use.");
-                    break;
-                case "INVALID_EMAIL":
-                    displayMessage("The specified eeeeemail is not a valid email.");
-                    break;
-                default:
-                    displayMessage("Error creating user:", error);
-            }
+    function errorCodes(error) {
+        switch (error.code) {
+            case "EMAIL_TAKEN":
+                displayMessage("The new user account cannot be created use.");
+                break;
+            case "INVALID_EMAIL":
+                displayMessage("The specified eeeeemail is not a valid email.");
+                break;
+            default:
+                displayMessage("Error creating user:", error);
         }
+    }
 
-        function displayMessage(message) {
-            setTimeout(function () {
-                $scope.showError = true;
-                $scope.errorMessage = message;
-                $scope.$apply();
-            }, 1000)
-        }
+    function displayMessage(message) {
+        setTimeout(function () {
+            $scope.showError = true;
+            $scope.errorMessage = message;
+            $scope.$apply();
+        }, 1000)
+    }
 
 
 
@@ -203,6 +231,7 @@ function searchResult(search) {
     function onSrcIframeChange() {
         var iframeId = $('.iframe.active').attr('id');
         var url = $('.iframe.active').attr('src');
+        $scope.searchTerm = url;
         console.log('src changed ' + $('.iframe.active').attr('src'));
 
         //  urlCleaner(url);
