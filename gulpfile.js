@@ -1,13 +1,21 @@
-var gulp = require('gulp'),
-    path = require('path'),
-    concat = require('gulp-concat'),
-    folders = require('gulp-folders'),
-    rjs = require('gulp-requirejs'),
-    clean = require('gulp-clean'),
-    NwBuilder = require('nw-builder'),
-    gutil = require('gulp-util'),
-    less = require('gulp-less'),
-    minifyCSS = require('gulp-minify-css');
+var gulp = require('gulp');
+var less = require('gulp-less');
+var gutil = require('gulp-util');
+var minifyCSS = require('gulp-minify-css');
+var uglify = require('gulp-uglify');
+var chalk = require('chalk');
+var logger = require('gulp-logger');
+var rename = require('gulp-rename');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
+var runSequence = require('run-sequence');
+var htmlmin = require('gulp-html-minifier');
+var rename = require("gulp-rename");
+var psi = require('psi');
+var gulpgo = require('gulp-go');
+var shell = require('gulp-shell');
+var NwBuilder = require('nw-builder');
+
 
 
 gulp.task('build', function () {
@@ -27,24 +35,30 @@ gulp.task('build', function () {
     });
 });
 
-
-
-gulp.task('less', function () {
-    gulp.src('./assets/css/styles.less')
-        .pipe(less()
-            .on('error', gutil.log)
-            .on('error', gutil.beep)
-            .on('error', function (err) {
-                console.log('err', err);
-                var pathToFile = err.fileName.split('\\');
-                file = pathToFile[pathToFile.length - 1];
-            })
-        )
-        .pipe(minifyCSS({
-            keepSpecialComments: 1
-        }))
-        .pipe(gulp.dest('./assets/css/'));
+gulp.task('less', function() {
+    gulp.src('./assets/css/styles.les').pipe(minifyCSS({
+        keepSpecialComments: 0
+    })).pipe(logger({
+        before: 'Compressing Css ',
+        after: 'Compressing finished!',
+        extname: '.min.css',
+        showChange: true
+    })).pipe(rename({
+        suffix: '.min'
+    })).pipe(gulp.dest('./assets/css/'));
 });
+
+gulp.task('scripts', function() {
+    gulp.src('./assets/js/*.*').pipe(uglify()).pipe(logger({
+        before: 'Starting Compressing Javascript',
+        after: 'Compressing complete!',
+        extname: '.js',
+        showChange: false
+    })).pipe(rename({
+        suffix: '.min'
+    })).pipe(gulp.dest('./dist/desk/assets/js'));
+});
+
 
 
 // Default Task
