@@ -1,5 +1,5 @@
 
-![alt text](https://github.com/RobertJGabriel/Robin/blob/master/assets/img/banner/readme.png "Robin")
+![alt text](https://github.com/RobertJGabriel/Robin/blob/master/assets/img/banner/readme.jpg "Robin")
 <br>
 ##About
 Robin is light weight award winning web browser. It is designed for low-end machines and for teachers and parents to block websites and terms.We are pleased to have won Two All-Ireland Eircom Spider awards. So far it has been downloaded 40,000 times. The goal is to build a free light weight browser with a built in filtering system.
