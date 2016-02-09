@@ -143,14 +143,14 @@
                             <div class="form-group">
                                 <h5>Login</h5>
                                 <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">First Name </label>
-                                    <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email">
+                                    <label for="inputEmail" class="control-label">Email</label>
+                                    <input type="text" class="form-control" id="inputEmail" name="loginemail" placeholder="Email">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="inputEmail" class="control-label">Last Name </label>
-                                    <input type="text" class="form-control" id="inputEmail" name="password" placeholder="Email">
+                                        <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="Email">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -162,8 +162,58 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+
+
+    <div id="signupmodal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
+                    </button>
+                    <h4 class="modal-title">Welcome</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal"  id="signup" name="signupForm"  ng-submit="signup()">
+                        <div ng-show="showError">
+                            <div class="alert alert-dismissible alert-info">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>Heads up!</strong> {{errorMessage}}
+                            </div>
+                        </div>
+                        <fieldset>
+                            <div class="form-group">
+                                <h5>Signup</h5>
+                                <div class="col-md-12">
+                                    <label for="inputEmail" class="control-label">Email</label>
+                              
+                <input type="text" class="form-control" id="inputEmail" name="signupemail" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="inputEmail" class="control-label">Last Name </label>
+                                 
+                <input type="password" class="form-control" id="inputPassword" name="signuppassword" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     <script src="assets/js/lib/L.js"></script>
     <script src="assets/js/app/main.js" type="application/javascript"></script>
 </body>
