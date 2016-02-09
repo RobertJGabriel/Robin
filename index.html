@@ -27,7 +27,7 @@
             <a class="navbar-brand" id="newTab" ng-click="createTab()"><i class="mdi-image-control-point"></i></a>
             <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
             <a class="navbar-brand" id="search">
-                <input type="text" id="searchTerm" ng-model="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" placeholder="Search">
+                <input type="text" id="searchTerm" ng-model="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" ng-click="autoFocus()" placeholder="Search" autofocus>
             </a>
         </div>
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
@@ -36,7 +36,13 @@
                 <li class="dropdown ">
                     <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="mdi-action-settings"></i><b class="caret"></b></a>
                     <ul class="dropdown-menu shadow-z-3" id="specialId">
-                        <li><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a>
+                        <li ng-show="loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a>
+                        </li>
+                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#signup" >Signup</a>
+                        </li>
+                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login" >login</a>
+                        </li>
+                         <li ng-show="loggedin"><a ng-click="logout()">logout</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="http://www.projectbird.com" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Who Deveolped it ">Projectbird</a>
@@ -82,7 +88,7 @@
                             <div class="form-group">
                                 <h4 class="modal-title">Block Websites</h4>
                                 <div data-ng-repeat="banndedUrls2  in banndedUrls">
-                                    <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2.text }}">
+                                    <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2}}">
                                 </div>
                             </div>
                         </div>
@@ -258,7 +264,7 @@
 
 
     <script src="assets/js/lib/L.js"></script>
-    <script src="assets/js/app/main.js" type="application/javascript"></script>
+    <script src="assets/js/app/main.js" type="application/javascript" async></script>
 </body>
 
 </html>

@@ -1,10 +1,13 @@
 var app = angular.module('robin', []);
+
+
 app.controller('controller', function ($scope) {
 
     var ref = new Firebase("https://projectbird.firebaseio.com");
     var authData = ref.getAuth();
     $scope.words = [];
     $scope.ip = null;
+    $scope.loggedin = null;
     $scope.tabsLimit = 6;
     $scope.caughtColor = "#7B1FA2";
     $scope.saved = localStorage.getItem('banndedUrls');
@@ -12,26 +15,7 @@ app.controller('controller', function ($scope) {
         $scope.ip = response;
     });
 
-
-
-
-
-    $scope.banndedUrlsList = [{
-        text: "porn",
-        done: false
-    }, {
-        text: "sex",
-        done: false
-    }, {
-        text: "facebook",
-        done: false
-    }, {
-        text: "twitters",
-        done: false
-    }, {
-        text: "rob",
-        done: false
-    }];
+    $scope.banndedUrlsList = [];
     
     $scope.themeList = [{
         color: "#F44336",
@@ -39,15 +23,24 @@ app.controller('controller', function ($scope) {
     }];
 
     $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
+   
+    //this is fine.
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
     $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
 
-    $scope.init = function () {
+      $scope.init = function () {
         createTab('google');
-        localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
-    };
 
+        var temp = getProfanityWords(null,function(response) {
+            for (i = 0; i <= Object.keys(response).length - 1; i++) {
+                $scope.banndedUrlsList.push(Object.keys(response)[i] );
+            }
+            $scope.banndedUrls = $scope.banndedUrlsList;
+            localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
+            });
+        
+    };
 
     $scope.addLocalStorage = function () {
         $scope.newID = $scope.banndedUrls.length + 1;
@@ -87,6 +80,7 @@ app.controller('controller', function ($scope) {
         $scope.removeLocalStorage('theme');
         $scope.loadDefault();
         console.log('Reset');
+        saveCurrentUrl('jjgj');
     };
 
 
@@ -130,6 +124,10 @@ app.controller('controller', function ($scope) {
             setPageTitle($scope.searchTerm);
         };
     }
+   $scope.autoFocus = function () {
+         document.getElementById("searchTerm").select();
+    }
+
 
     function setPageTitle(title) {
         document.title = "Robin : " + title;
@@ -209,8 +207,11 @@ app.controller('controller', function ($scope) {
         var iframeId = $('.iframe.active').attr('id');
         var url = $('.iframe.active').attr('src');
         $scope.searchTerm = url;
-        console.log('src changed ' + $('.iframe.active').attr('src'));
 
+        console.log('src changed ' + $('.iframe.active').attr('src'));
+        if ($scope.loggedin) {
+            saveCurrentUrl( $scope.searchTerm);
+        }
         //  urlCleaner(url);
     }
 
@@ -224,86 +225,77 @@ app.controller('controller', function ($scope) {
 
 
 
+    /**
+    * Set the current userId in the database.
+    * @param {String} id 
+    * @return {none} none
+    */
+    function saveCurrentUrl(url) {
+        var usersRef = ref.child($scope.loggedin).child("ip").child(removeRegex(ip));
+        usersRef.update({
+            status: "active",
+            currentUrl: removeRegex(url)
+        });
+    }
 
 
+    /**
+    * Hand the login information for the robin
+    * @param {none} none 
+    * @param {none} none
+    * @return {none} none
+    */
+    $scope.login = function() {
+ 
+        ref.child("users").authWithPassword({
+            email: $('input[name="loginemail"]').val(),
+            password: $('input[name="loginpassword"]').val()
+        }, function(error, authData) {
+            error ? errorCodes(error) : displayMessage("Just logging you in"),loginInformation($('input[name="loginemail"]').val(), authData);
+        });
+    };
 
 
+    /**
+    * Hand the signup information for the robin
+    * @param {none} none 
+    * @param {none} none
+    * @return {none} none
+    */
+    $scope.signup = function() {
+       
+        ref.child("users").createUser({
+            email: $('input[name="signupemail"]').val(),
+            password: $('input[name="signuppassword"]').val()
+        }, function(error, userObj) {
+            error ? errorCodes(error) : createData(userObj, $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()),displayMessage( "Awesome , Your account is created");
+        });
+    };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /**
-        * Hand the login information for the robin
-        * @param {none} none 
-        * @param {none} none
-        * @return {none} none
-        */
-        $scope.login = function() {
-     
-            ref.child("users").authWithPassword({
-                email: $('input[name="loginemail"]').val(),
-                password: $('input[name="loginpassword"]').val()
-            }, function(error, authData) {
-                error ? errorCodes(error) : displayMessage("Just logging you in"),loginInformation($('input[name="loginemail"]').val(), authData);
-            });
-        };
-
-
-        /**
-        * Hand the signup information for the robin
-        * @param {none} none 
-        * @param {none} none
-        * @return {none} none
-        */
-        $scope.signup = function() {
-           
-            ref.child("users").createUser({
-                email: $('input[name="signupemail"]').val(),
-                password: $('input[name="signuppassword"]').val()
-            }, function(error, userObj) {
-                error ? errorCodes(error) : createData(userObj, $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()),displayMessage( "Awesome , Your account is created");
-            });
-        };
-
-
-        /**
-        * Handles and Displays the error codes
-        * @param {object} The error object thats is sent in from  firebase
-        * @return {none} none
-        */
-        function errorCodes(error) {
-            switch (error.code) {
-                case "EMAIL_TAKEN":
-                    displayMessage("The new user account cannot be created use.");
-                    break;
-                case "INVALID_EMAIL":
-                    displayMessage("The specified eeeeemail is not a valid email.");
-                    break;
-                case "INVALID_USER":
-                    displayMessage("The email or password wasnt there ");
-                    break;
-                case "INVALID_PASSWORD":
-                    displayMessage("The email or password wasnt there ");
-                    break;
-                default:
-                    displayMessage("Error :", error);
-            }
+    /**
+    * Handles and Displays the error codes
+    * @param {object} The error object thats is sent in from  firebase
+    * @return {none} none
+    */
+    function errorCodes(error) {
+        switch (error.code) {
+            case "EMAIL_TAKEN":
+                displayMessage("The new user account cannot be created use.");
+                break;
+            case "INVALID_EMAIL":
+                displayMessage("The specified eeeeemail is not a valid email.");
+                break;
+            case "INVALID_USER":
+                displayMessage("The email or password wasnt there ");
+                break;
+            case "INVALID_PASSWORD":
+                displayMessage("The email or password wasnt there ");
+                break;
+            default:
+                displayMessage("Error :", error);
         }
+    }
 
     /**
     * Display and error or comfirm message on login
@@ -317,7 +309,6 @@ app.controller('controller', function ($scope) {
             $scope.$apply();
         }, 1000)
     }
-
 
 
     /**
@@ -450,12 +441,12 @@ app.controller('controller', function ($scope) {
     * Get profanity words
     * @param {none} none
     * @param {none} none
-    * @return {none} none
+    * @return {object} snapshot
     */
-    function getProfanityWords() {
+    function getProfanityWords(temp,callback) {
         ref.child("profanity").on('value', function(snapshot) {
             console.log(snapshot.val());
-           
+            callback(snapshot.val());
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -493,6 +484,15 @@ app.controller('controller', function ($scope) {
         });
     }
 
+    /**
+    * logout out from firebase,
+    * @param {none} none
+    * @return {none} none
+    */
+    function logout() {
+      
+        ref.unauth();
+    }
 
     /**
     * Check if the user is logged in or not
@@ -502,39 +502,13 @@ app.controller('controller', function ($scope) {
     */
     function authDataCallback(authData) {
         if (authData) {
+            $scope.loggedin = authData.uid ;
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
         } else {
+            $scope.loggedin = null;
             console.log("User is logged out");
         }
     }
     ref.onAuth(authDataCallback);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
