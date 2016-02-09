@@ -36,16 +36,18 @@ gulp.task('build', function () {
 });
 
 gulp.task('less', function() {
-    gulp.src('./assets/css/styles.les').pipe(minifyCSS({
-        keepSpecialComments: 0
-    })).pipe(logger({
-        before: 'Compressing Css ',
-        after: 'Compressing finished!',
-        extname: '.min.css',
-        showChange: true
-    })).pipe(rename({
-        suffix: '.min'
-    })).pipe(gulp.dest('./assets/css/'));
+   gulp.src('./assets/css/styles.less')
+        .pipe(less()
+            .on('error', gutil.log)
+            .on('error', gutil.beep)
+            .on('error', function (err) {
+                console.log('err', err);
+                var pathToFile = err.fileName.split('\\');
+                    file = pathToFile[pathToFile.length -1];
+            })
+        )
+        .pipe(minifyCSS({keepSpecialComments: 1}))
+        .pipe(gulp.dest('./assets/css/'));
 });
 
 gulp.task('scripts', function() {

@@ -489,8 +489,8 @@ app.controller('controller', function ($scope) {
     * @param {none} none
     * @return {none} none
     */
-    function logout() {
-      
+   $scope.logout = function() {
+        $scope.loggedin = null;
         ref.unauth();
     }
 

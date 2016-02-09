@@ -26,10 +26,12 @@
             <a class="navbar-brand" id="refresh" ng-click="refresh()"><i class="mdi-navigation-refresh"></i></a>
             <a class="navbar-brand" id="newTab" ng-click="createTab()"><i class="mdi-image-control-point"></i></a>
             <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
-            <a class="navbar-brand" id="search">
-                <input type="text" id="searchTerm" ng-model="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" ng-click="autoFocus()" placeholder="Search" autofocus>
-            </a>
         </div>
+        <div class="navbar-brand" id="search">
+            <input type="text" id="searchTerm" ng-model="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" ng-click="autoFocus()" placeholder="Search" autofocus>
+        </div>
+
+      
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
 
             <ul class="nav navbar-nav navbar-right" method="post">

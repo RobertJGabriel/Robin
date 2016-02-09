@@ -1,17 +1,17 @@
 {
     "name": "Robin",
     "main": "index.html",
-    "icon": "assets/img/icons/mac_icon.icns",
+    "icon": "assets/img/icons/icon.icns",
     "description": "Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.",
     "version": "0.6.1",
     "window": {
         "title": "Robin",
         "frame": true,
         "toolbar": false,
-        "width": 800,
+        "width": 850,
         "height": 500,
         "position": "mouse",
-        "min_width": 800,
+        "min_width": 850,
         "min_height": 500
     },
     "webkit": {
