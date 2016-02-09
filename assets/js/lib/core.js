@@ -184,6 +184,11 @@ app.controller('controller', function ($scope) {
         $('.contain').toggleClass('active');
     }
 
+    /**
+    * Create a new iframe
+    * @param {String} url
+    * @return {Number} tabId
+    */
     function createIframe(url, tabId) {
         var iframes = document.createElement("iframe");
         iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
@@ -193,37 +198,36 @@ app.controller('controller', function ($scope) {
         iframes.setAttribute("height", "100%");
     }
 
+
+    /**
+    * Resize the Iframes to the width and height of the window 
+    * @param {none} none
+    * @return {none} none
+    */
     function resizeIframe() {
         $("iframe").each(function () {
             $(this).width = window.innerWidth;
             $(this).height = "100%";
-            $(this).load(onSrcIframeChange());
+            $(this).load(onSrcIframeChange()); // Attaches the onSrcIframeChange() event
         });
     }
 
 
-
+    /**
+    * Event to change and store the url 
+    * @param {none} none
+    * @return {none} none
+    */
     function onSrcIframeChange() {
+
         var iframeId = $('.iframe.active').attr('id');
         var url = $('.iframe.active').attr('src');
         $scope.searchTerm = url;
-
-        console.log('src changed ' + $('.iframe.active').attr('src'));
         if ($scope.loggedin) {
-            saveCurrentUrl( $scope.searchTerm);
+            saveCurrentUrl($scope.searchTerm); //Store the url to firebase
         }
-        //  urlCleaner(url);
+
     }
-
-
-
-
-
-
-
-
-
-
 
     /**
     * Set the current userId in the database.
