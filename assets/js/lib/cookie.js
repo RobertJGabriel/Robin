@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     function showpanel() {
             $("#welcome").modal();
-        localStorage.setItem('seen', (new Date()).getDate());
+        	localStorage.setItem('seen', (new Date()).getDate());
     }
 
   
