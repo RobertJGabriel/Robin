@@ -29,16 +29,15 @@ app.controller('controller', function ($scope) {
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
     $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
 
-      $scope.init = function () {
-        createTab('google');
-
-        var temp = getProfanityWords(null,function(response) {
+    $scope.init = function () {
+        createTab('');
+       getProfanityWords(null,function(response) {
             for (i = 0; i <= Object.keys(response).length - 1; i++) {
                 $scope.banndedUrlsList.push(Object.keys(response)[i] );
             }
             $scope.banndedUrls = $scope.banndedUrlsList;
             localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
-            });
+        });
         
     };
 
