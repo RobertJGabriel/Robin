@@ -15,10 +15,11 @@ var psi = require('psi');
 var gulpgo = require('gulp-go');
 var shell = require('gulp-shell');
 var NwBuilder = require('nw-builder');
+var clean = require('gulp-clean');
 
 
 
-gulp.task('build', function () {
+gulp.task('build', ['less','clean','scripts'], function () {
     var nw = new NwBuilder({
         files: ['*', 'assets/css/**', 'assets/js/**', 'assets/img/**', 'assets/fonts/**'], // use the glob format
         macIcns: "assets/img/icons/logo.icns",
@@ -48,6 +49,12 @@ gulp.task('less', function() {
         )
         .pipe(minifyCSS({keepSpecialComments: 1}))
         .pipe(gulp.dest('./assets/css/'));
+});
+
+
+gulp.task('clean', function () {
+  return gulp.src(['build/','cache'], {read: false})
+    .pipe(clean());
 });
 
 gulp.task('scripts', function() {
