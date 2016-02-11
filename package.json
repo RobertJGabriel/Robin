@@ -33,6 +33,7 @@
         "psi": "*",
         "getmac":"*",
         "osenv":"*",
+        "gulp-clean":"*",
         "gulp-go": "*",
         "gulp-shell": "*",
         "nw-builder": "^2.0.2"
