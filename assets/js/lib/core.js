@@ -1,4 +1,6 @@
+require('nw.gui').Window.get().showDevTools();
 var app = angular.module('robin', []);
+
 
 
 app.controller('controller', function ($scope) {
@@ -109,7 +111,7 @@ app.controller('controller', function ($scope) {
 
 
     $scope.home = function () {
-        $('.iframe.active').attr('src', 'http://wwww.google.ie');
+        $('.iframe.active').attr('src', 'https://www.google.ie/#q=');
     };
 
 
@@ -133,7 +135,7 @@ app.controller('controller', function ($scope) {
     }
 
     function searchResult(search) {
-        $('.iframe.active').attr('src', "http://www.bing.com/search?q=" + search);
+        $('.iframe.active').attr('src', "https://www.google.ie/#q=" + search);
         resizeIframe();
     }
 
@@ -147,14 +149,21 @@ app.controller('controller', function ($scope) {
             $('.iframe').removeClass('active');
             var tabs = document.getElementById('tabs');
             var span = document.createElement("section");
+
+            var span2 = document.createElement("span");
+
+
+
+
             span.setAttribute("class", "home active ");
             var title = document.createElement("h1");
             title.setAttribute("class", "title");
-            title.innerHTML = "http://www.bing.com/search?q=" + url;
-            span.appendChild(title);
+            title.innerHTML = "https://www.google.ie/#q=" + url;
+            span2.appendChild(title);
+            span.appendChild(span2);
             var iframes = document.createElement("iframe");
             iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-            iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
+            iframes.setAttribute("src", "https://www.google.ie/#q=" + url);
             iframes.setAttribute("class", "iframe active  ");
             iframes.setAttribute("id", getAmountOfTabs);
             iframes.setAttribute("width", window.innerWidth);
@@ -190,7 +199,7 @@ app.controller('controller', function ($scope) {
     */
     function createIframe(url, tabId) {
         var iframes = document.createElement("iframe");
-        iframes.setAttribute("src", "http://www.bing.com/search?q=" + url);
+        iframes.setAttribute("src", "https://www.google.ie/#q=" + url);
         iframes.setAttribute("class", "iframe active");
         iframes.setAttribute("id", tabId);
         iframes.setAttribute("width", window.innerWidth);
