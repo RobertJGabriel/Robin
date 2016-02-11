@@ -1,26 +1,29 @@
 require('nw.gui').Window.get().showDevTools();
 var app = angular.module('robin', []);
-
-
+    var osenv = require('osenv');
+    var ip = null;
+    var path = osenv.path();
+    var user = osenv.user();
+    console.log(path);
+    require('getmac').getMac(function(err,macAddress){
+        if (err)  throw err
+        console.log(macAddress)
+        ip = macAddress; 
+    });
 
 app.controller('controller', function ($scope) {
 
     var ref = new Firebase("https://projectbird.firebaseio.com");
     var authData = ref.getAuth();
+
     $scope.words = [];
-    $scope.ip = null;
     $scope.loggedin = null;
     $scope.tabsLimit = 6;
     $scope.caughtColor = "#7B1FA2";
     $scope.saved = localStorage.getItem('banndedUrls');
-    getIp(null,function(response) {
-        $scope.ip = response;
-    });
-
     $scope.banndedUrlsList = [];
     
-    $scope.themeList = [{
-        color: "#F44336",
+    $scope.themeList = [{   color: "#F44336",
         active: true
     }];
 
@@ -243,8 +246,9 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function saveCurrentUrl(url) {
-        var usersRef = ref.child($scope.loggedin).child("ip").child(removeRegex(ip));
+        var usersRef = ref.child($scope.loggedin).child("children").child(user);
         usersRef.update({
+            macAddress:removeRegex(ip),
             status: "active",
             currentUrl: removeRegex(url)
         });
@@ -349,8 +353,9 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function setIpAddress(id) {
-        var usersRef = ref.child(id).child("ip").child(removeRegex(ip));
+        var usersRef = ref.child(id).child("children").child(user);
         usersRef.set({
+            macAddress:removeRegex(ip),
             status: "active",
             currentUrl: "none"
         });
@@ -465,23 +470,7 @@ app.controller('controller', function ($scope) {
     }
 
 
-    /**
-    * Get the current IP address of the user.
-    * @param {none} none
-    * @return {none} none
-    */
-    function getIp(test) {
-        $.ajax({
-            url: "http://jsonip.com/",
-            async: false,
-            type: "GET",
-            dataType: "json",
-            success: function(data) {
-                ip = data.ip;
-                return data.ip;
-            }
-        });
-    }
+
 
 
     /**

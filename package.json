@@ -31,6 +31,8 @@
         "run-sequence": "*",
         "gulp-html-minifier": "*",
         "psi": "*",
+        "getmac":"*",
+        "osenv":"*",
         "gulp-go": "*",
         "gulp-shell": "*",
         "nw-builder": "^2.0.2"
