@@ -21,6 +21,7 @@
         "gulp": "*",
         "gulp-less": "*",
         "gulp-minify-css": "*",
+        "scraper-web":"*",
         "gulp-uglify": "*",
         "gulp-util": "*",
         "gulp-logger": "*",

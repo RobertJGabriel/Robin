@@ -181,19 +181,7 @@ app.controller('controller', function ($scope) {
    
 
 
-$iframe = $( document.getElementById(getAmountOfTabs).contentWindow.document );
 
-$iframe.find(getAmountOfTabs).click(function(event){
-   event.preventdefault();
-event.stopPropagation();
-    alert("hey");
-});
-document.getElementById(getAmountOfTabs).contentDocument.addEventListener("click", function(event){
-event.preventdefault();
-event.stopPropagation();
-console.log("hj");
-
-});
 
             $('section').on('click', function () {
                 $(this).closest('section').prependTo('.contain');
