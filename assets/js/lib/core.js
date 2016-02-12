@@ -10,6 +10,8 @@ var app = angular.module('robin', []);
         console.log(macAddress)
         ip = macAddress; 
     });
+    var listOfVerbs = ["fuck", "shit", "love"];
+
 
 app.controller('controller', function ($scope) {
 
@@ -27,6 +29,7 @@ app.controller('controller', function ($scope) {
         active: true
     }];
 
+    addWord("batman",listOfVerbs);
     $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
    
     //this is fine.
@@ -100,6 +103,7 @@ app.controller('controller', function ($scope) {
 
     $scope.goBack = function () {
         document.getElementById($('.iframe.active').attr('id')).contentWindow.history.back();
+
     };
 
 
@@ -165,7 +169,7 @@ app.controller('controller', function ($scope) {
             span2.appendChild(title);
             span.appendChild(span2);
             var iframes = document.createElement("iframe");
-            iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+            iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation");
             iframes.setAttribute("src", "https://www.google.ie/#q=" + url);
             iframes.setAttribute("class", "iframe active  ");
             iframes.setAttribute("id", getAmountOfTabs);
@@ -174,6 +178,23 @@ app.controller('controller', function ($scope) {
             span.appendChild(iframes);
             tabs.appendChild(span);
             resizeIframe();
+   
+
+
+$iframe = $( document.getElementById(getAmountOfTabs).contentWindow.document );
+
+$iframe.find(getAmountOfTabs).click(function(event){
+   event.preventdefault();
+event.stopPropagation();
+    alert("hey");
+});
+document.getElementById(getAmountOfTabs).contentDocument.addEventListener("click", function(event){
+event.preventdefault();
+event.stopPropagation();
+console.log("hj");
+
+});
+
             $('section').on('click', function () {
                 $(this).closest('section').prependTo('.contain');
                 $('section').removeClass('active');
@@ -182,6 +203,7 @@ app.controller('controller', function ($scope) {
                 $('.home.active .iframe').addClass('active');
                 $('.contain').removeClass('active');
             });
+                 
         } else {
             alert('tab Limit reached');
         }
@@ -207,6 +229,7 @@ app.controller('controller', function ($scope) {
         iframes.setAttribute("id", tabId);
         iframes.setAttribute("width", window.innerWidth);
         iframes.setAttribute("height", "100%");
+  
     }
 
 
@@ -220,8 +243,12 @@ app.controller('controller', function ($scope) {
             $(this).width = window.innerWidth;
             $(this).height = "100%";
             $(this).load(onSrcIframeChange()); // Attaches the onSrcIframeChange() event
+
+
+      
         });
     }
+
 
 
     /**
@@ -240,17 +267,73 @@ app.controller('controller', function ($scope) {
 
     }
 
+
+    /**
+    * Stringify a string
+    * @param {String} String
+    * @return {String} JSON encoded string
+    */
+    function stringify(string){
+
+        return  JSON.stringify( string );
+    }
+
+
+    /**
+    * Get the current Time
+    * @param {none} none
+    * @return {Time} Time
+    */
+    function getCurrentTime(){
+
+        var d = new Date(); // for now
+        return d.getHours() + " "+ d.getMinutes() + " " + d.getSeconds();
+    
+    }
+
+
+    /**
+    * Get the current Date
+    * @param {none} none
+    * @return {Date} Date
+    */
+    function getCurrentDate(){
+
+        var d = new Date();
+        return d.toDateString();
+    
+    }
+
+
     /**
     * Set the current userId in the database.
     * @param {String} id 
     * @return {none} none
     */
     function saveCurrentUrl(url) {
-        var usersRef = ref.child($scope.loggedin).child("children").child(user);
+        var usersRef = ref.child($scope.loggedin).child("children").child(removeRegex(ip));
         usersRef.update({
-            macAddress:removeRegex(ip),
+            name:user,
             status: "active",
-            currentUrl: removeRegex(url)
+            currentUrl: stringify(url),
+            time:getCurrentTime(),
+            date:getCurrentDate()
+        });
+    }
+
+  /**
+    * Set the current userId in the database.
+    * @param {String} id 
+    * @return {none} none
+    */
+    function setIpAddress(id) {
+        var usersRef = ref.child(id).child("children").child(removeRegex(ip));
+        usersRef.set({
+            name:user,
+            status: "active",
+            currentUrl: "none",
+            time:getCurrentTime(),
+            date:getCurrentDate()
         });
     }
 
@@ -347,21 +430,9 @@ app.controller('controller', function ($scope) {
     }
 
 
-    /**
-    * Set the current userId in the database.
-    * @param {String} id 
-    * @return {none} none
-    */
-    function setIpAddress(id) {
-        var usersRef = ref.child(id).child("children").child(user);
-        usersRef.set({
-            macAddress:removeRegex(ip),
-            status: "active",
-            currentUrl: "none"
-        });
-    }
 
 
+// invlodes acitely searching the visual eniverment for that we need
     /**
     * Attach an asynchronous callback to read the data at our posts reference
     * @param {none} none
@@ -371,6 +442,7 @@ app.controller('controller', function ($scope) {
     try {
         ref.child(authData.uid).on("value", function(snapshot) {
             console.log(snapshot.val());
+            saveCurrentUrl($('.iframe.active').attr('src'));
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
