@@ -11,7 +11,18 @@ var app = angular.module('robin', []);
         ip = macAddress; 
     });
     var listOfVerbs = ["fuck", "shit", "love"];
+var mrscraper = require("scraper-web");
+var chalk = require('chalk');
 
+
+mrscraper("http://www.tested.com", function (response) {
+
+ for (var i = 0; i < response.length - 1; i++) {
+              console.log(chalk.blue(response[i]));
+        }
+
+
+});
 
 app.controller('controller', function ($scope) {
 
@@ -178,11 +189,7 @@ app.controller('controller', function ($scope) {
             span.appendChild(iframes);
             tabs.appendChild(span);
             resizeIframe();
-   
-
-
-
-
+            
             $('section').on('click', function () {
                 $(this).closest('section').prependTo('.contain');
                 $('section').removeClass('active');
@@ -198,12 +205,16 @@ app.controller('controller', function ($scope) {
     }
 
 
-
-
+    /**
+    * Expand and view all tabs
+    * @param {none} none
+    * @return {none} none
+    */
     function expandTabs() {
         $('section').scrollTop(54);
         $('.contain').toggleClass('active');
     }
+
 
     /**
     * Create a new iframe
@@ -231,12 +242,8 @@ app.controller('controller', function ($scope) {
             $(this).width = window.innerWidth;
             $(this).height = "100%";
             $(this).load(onSrcIframeChange()); // Attaches the onSrcIframeChange() event
-
-
-      
         });
     }
-
 
 
     /**
@@ -252,7 +259,6 @@ app.controller('controller', function ($scope) {
         if ($scope.loggedin) {
             saveCurrentUrl($scope.searchTerm); //Store the url to firebase
         }
-
     }
 
 
@@ -305,7 +311,8 @@ app.controller('controller', function ($scope) {
             status: "active",
             currentUrl: stringify(url),
             time:getCurrentTime(),
-            date:getCurrentDate()
+            date:getCurrentDate(),
+            platform:navigator.platform
         });
     }
 
@@ -321,7 +328,8 @@ app.controller('controller', function ($scope) {
             status: "active",
             currentUrl: "none",
             time:getCurrentTime(),
-            date:getCurrentDate()
+            date:getCurrentDate(),
+            platform:navigator.platform
         });
     }
 
@@ -420,7 +428,6 @@ app.controller('controller', function ($scope) {
 
 
 
-// invlodes acitely searching the visual eniverment for that we need
     /**
     * Attach an asynchronous callback to read the data at our posts reference
     * @param {none} none
