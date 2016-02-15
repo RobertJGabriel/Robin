@@ -15,14 +15,7 @@ var mrscraper = require("scraper-web");
 var chalk = require('chalk');
 
 
-mrscraper("http://www.tested.com", function (response) {
 
- for (var i = 0; i < response.length - 1; i++) {
-              console.log(chalk.blue(response[i]));
-        }
-
-
-});
 
 app.controller('controller', function ($scope) {
 
@@ -141,7 +134,21 @@ app.controller('controller', function ($scope) {
         if (keyEvent.which === 13) {
             searchResult($scope.searchTerm);
             setPageTitle($scope.searchTerm);
+
         };
+    }
+
+
+    $scope.scrap = function function_name (url) {
+        
+        mrscraper(url, function (response) {
+
+             for (var i = 0; i < response.length - 1; i++) {
+                          console.log(chalk.blue(response[i]));
+                    }
+
+
+        });
     }
    $scope.autoFocus = function () {
          document.getElementById("searchTerm").select();
