@@ -28,28 +28,28 @@
             <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
         </div>
         <div class="navbar-brand" id="search">
-            <input type="text" id="searchTerm" ng-model="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" ng-click="autoFocus()" placeholder="Search" autofocus>
+            <input type="text" id="searchTerm" ng-model="searchTerm" ng-bind="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" ng-click="autoFocus()" placeholder="Search" autofocus>
         </div>
 
-      
+
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse" style="height: 50px;">
 
-            <ul class="nav navbar-nav navbar-right" method="post" style="height: 50px;" >
+            <ul class="nav navbar-nav navbar-right" method="post" style="height: 50px;">
                 <li class="dropdown ">
                     <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;"><i class="mdi-action-settings"></i><b class="caret"></b></a>
                     <ul class="dropdown-menu shadow-z-3" id="specialId" ng-style="themeStyleSides">
                         <li ng-show="loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a>
                         </li>
-                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#signupModal" >Signup</a>
+                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#signupModal">Signup</a>
                         </li>
-                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login" >Login</a>
+                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login">Login</a>
                         </li>
-                         <li ng-show="loggedin"><a ng-click="logout()">Logout</a>
+                        <li ng-show="loggedin"><a ng-click="logout()">Logout</a>
                         </li>
                         <li class="divider"></li>
-                            <li ><a data-toggle="modal" data-target="#welcome" >Help</a>
+                        <li><a data-toggle="modal" data-target="#welcome">Help</a>
                     </ul>
-                </li>
+                    </li>
             </ul>
         </div>
     </nav>
@@ -58,41 +58,21 @@
     <div class='contain' id="tabs"></div>
 
     <!--  Floating Button to Create New Tabs Buttons  -->
-    <button class="btn btn-warning btn-fab btn-raised" id="tabs_button" ng-click="showTabs()"><i class="mdi-navigation-apps"></i>
+    <button class="btn btn-warning btn-fab btn-raised" id="tabs_button" ng-click="showTabs()">
+        <i class="mdi-navigation-apps"></i>
     </button>
 
     <!--  Settings Tab  -->
     <div id="settings-dialog" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
+            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
-                    </button>
-                    <h4 class="modal-title">Settings</h4>
+                    <button class="close" data-dismiss="modal" type="button">&times;</button>
+                    <h3 class="modal-title">Settings</h3>
                 </div>
-
                 <div class="modal-body">
-
-                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#block" data-toggle="tab">Block</a>
-                        </li>
-                        <li><a href="#theme" data-toggle="tab">Theme</a>
-                        </li>
-                        <li><a href="#personal" data-toggle="tab">Personal</a>
-                        </li>
-
-                    </ul>
-
-                    <div id="myTabContent" class="tab-content">
-
-                        <div class="tab-pane fade active in" id="block">
-                            <div class="form-group">
-                                <h4 class="modal-title">Block Websites</h4>
-                                <div data-ng-repeat="banndedUrls2  in banndedUrls">
-                                    <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2}}">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade active in" id="theme">
 
                             <div class="form-group">
@@ -110,19 +90,50 @@
                                     </li>
                                 </ul>
                             </div>
+                            <ul class="pager">
+
+                                <li class="next" style="display:none"><a data-toggle="tab" href="#CORS2" ng-style="themeStyle">Blocked Websites</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade active" id="CORS2">
+                            <div class="form-group">
+                                <h5 class="modal-title">Block Websites</h5>
+                                <div data-ng-repeat="banndedUrls2  in banndedUrls">
+                                    <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2}}">
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#theme" ng-style="themeStyle">Themes</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="ETags">
+                            <h4>Use ETags</h4>
+                            <p>ETags are cool. They save bandwidth and are easy to implement. Most calls back from our API include header named <code>etag</code>. When you make your next GET call to the API, send this etag up in a Request Header called <code>If-None-Match</code>
+                            </p>
+                            <ul class="pager">
+
+                                <li class="previous"><a data-toggle="tab" href="#CORS2" ng-style="themeStyle">Back</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-
-                <br>
-                <br>
-                <hr>
                 <div class="modal-footer">
+
                     <button class="btn btn-warning " ng-click="clearLocalStorage()">Restart</button>
                     <button class="btn btn-primary " ng-click="addLocalStorage()">Save</button>
+
                 </div>
             </div>
         </div>
+
+
+
+
+
     </div>
 
 
@@ -148,7 +159,6 @@
                         </div>
                         <fieldset>
                             <div class="form-group">
-                                <h5>Login</h5>
                                 <div class="col-md-12">
                                     <label for="inputEmail" class="control-label">Email</label>
                                     <input type="text" class="form-control" id="inputEmail" name="loginemail" placeholder="applespeed@apple.com">
@@ -157,7 +167,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="inputEmail" class="control-label">Password</label>
-                                        <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="*********">
+                                    <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="*********">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -182,7 +192,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade active in" id="home">
+                        <div class="tab-pane fade active in" id="home2">
                             <div class="paragraphs">
                                 <div class="row">
                                     <div class="span4" style="margin-right:20px;">
@@ -195,22 +205,27 @@
                                 </div>
                             </div>x
                             <ul class="pager">
-                                <li class="next"><a data-toggle="tab" href="#CORS">Next</a></li>
+                                <li class="next"><a data-toggle="tab" href="#CORS2" ng-style="themeStyle">Next</a>
+                                </li>
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="CORS">
+                        <div class="tab-pane fade" id="CORS2">
                             <h4>CORS Enabled</h4>
                             <p>J</p>
                             <ul class="pager">
-                                <li class="previous"><a data-toggle="tab" href="#home">Back</a></li>
-                                <li class="next"><a data-toggle="tab" href="#ETags">Next</a></li>
+                                <li class="previous"><a data-toggle="tab" href="#home2" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#ETags2" ng-style="themeStyle">Next</a>
+                                </li>
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="ETags">
+                        <div class="tab-pane fade" id="ETags2">
                             <h4>Use ETags</h4>
-                            <p>ETags are cool. They save bandwidth and are easy to implement. Most calls back from our API include header named <code>etag</code>. When you make your next GET call to the API, send this etag up in a Request Header called <code>If-None-Match</code></p>
+                            <p>ETags are cool. They save bandwidth and are easy to implement. Most calls back from our API include header named <code>etag</code>. When you make your next GET call to the API, send this etag up in a Request Header called <code>If-None-Match</code>
+                            </p>
                             <ul class="pager">
-                                <li class="previous"><a data-toggle="tab" href="#CORS">Back</a></li>
+                                <li class="previous"><a data-toggle="tab" href="#CORS" ng-style="themeStyle">Back</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -234,7 +249,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal"  id="signup" name="signupForm"  ng-submit="signup()">
+                    <form class="form-horizontal" id="signup" name="signupForm" ng-submit="signup()">
                         <div ng-show="showError">
                             <div class="alert alert-dismissible alert-info">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
@@ -245,15 +260,13 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="inputEmail" class="control-label">Email</label>
-                              
-                <input type="text" class="form-control" id="inputEmail" name="signupemail" placeholder="example@example.com">
+                                    <input type="text" class="form-control" id="inputEmail" name="signupemail" placeholder="example@example.com">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="inputEmail" class="control-label">Password </label>
-                                 
-                <input type="password" class="form-control" id="inputPassword" name="signuppassword" placeholder="**********">
+                                    <input type="password" class="form-control" id="inputPassword" name="signuppassword" placeholder="**********">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -266,10 +279,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
     <script src="assets/js/lib/L.js"></script>
     <script src="assets/js/app/main.js" type="application/javascript" async></script>

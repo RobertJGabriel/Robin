@@ -28,7 +28,7 @@ app.controller('controller', function ($scope) {
     $scope.caughtColor = "#7B1FA2";
     $scope.saved = localStorage.getItem('banndedUrls');
     $scope.banndedUrlsList = [];
-    
+    $scope.searchTerm = "h";
     $scope.themeList = [{   color: "#F44336",
         active: true
     }];
@@ -199,6 +199,7 @@ app.controller('controller', function ($scope) {
             
                 $('iframe').bind('load', function() { //binds the event
                     saveCurrentUrl(this.contentWindow.location);
+                    $scope.searchTerm = this.contentWindow.location;
                  //  sraper(this.contentWindow.location);
                    // alert(this.contentWindow.location);
                 });
@@ -212,20 +213,25 @@ app.controller('controller', function ($scope) {
             });
                  
         } else {
-            alert('tab Limit reached');
+          //  alert('tab Limit reached');
         }
     }
 
+
+
+    /**
+    * Scrap Results
+    * @param {String} url
+    * @return {none} none
+    */
      function sraper(url) {
         
         mrscraper(url, function (response) {
-
-             for (var i = 0; i < response.length - 1; i++) {
-                          console.log(chalk.blue(response[i]));
-                    }
-
-
+            for (var i = 0; i < response.length - 1; i++) {
+                console.log(chalk.blue(response[i]));
+            }
         });
+
     }
 
     /**
