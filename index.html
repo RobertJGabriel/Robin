@@ -34,20 +34,20 @@
       
         <div class="navbar-collapse collapse navbar-material-light-blue-collapse" style="height: 50px;">
 
-            <ul class="nav navbar-nav navbar-right" method="post" style="height: 50px;">
+            <ul class="nav navbar-nav navbar-right" method="post" style="height: 50px;" >
                 <li class="dropdown ">
                     <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;"><i class="mdi-action-settings"></i><b class="caret"></b></a>
-                    <ul class="dropdown-menu shadow-z-3" id="specialId">
+                    <ul class="dropdown-menu shadow-z-3" id="specialId" ng-style="themeStyleSides">
                         <li ng-show="loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a>
                         </li>
                         <li ng-show="!loggedin"><a data-toggle="modal" data-target="#signupModal" >Signup</a>
                         </li>
-                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login" >login</a>
+                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login" >Login</a>
                         </li>
-                         <li ng-show="loggedin"><a ng-click="logout()">logout</a>
+                         <li ng-show="loggedin"><a ng-click="logout()">Logout</a>
                         </li>
                         <li class="divider"></li>
-                        
+                            <li ><a data-toggle="modal" data-target="#welcome" >Help</a>
                     </ul>
                 </li>
             </ul>
@@ -151,13 +151,13 @@
                                 <h5>Login</h5>
                                 <div class="col-md-12">
                                     <label for="inputEmail" class="control-label">Email</label>
-                                    <input type="text" class="form-control" id="inputEmail" name="loginemail" placeholder="Email">
+                                    <input type="text" class="form-control" id="inputEmail" name="loginemail" placeholder="applespeed@apple.com">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Last Name </label>
-                                        <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="Email">
+                                    <label for="inputEmail" class="control-label">Password</label>
+                                        <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="*********">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -174,41 +174,49 @@
 
     <div id="welcome" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
+            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
-                    </button>
-                    <h4 class="modal-title">Welcome</h4>
+                    <button class="close" data-dismiss="modal" type="button">&times;</button>
+                    <h4 class="modal-title">Robin Help Section </h4>
                 </div>
-
                 <div class="modal-body">
-                    <form class="form-horizontal" id="login" ng-submit="login()">
-                        <div ng-show="showError">
-                            <div class="alert alert-dismissible alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <strong>Heads up!</strong> {{errorMessage}}
-                            </div>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active in" id="home">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <img style="float:left;margin-left:20px;margin-right:20px;" alt="Cinque Terre" class="img-thumbnail" height="150" src="assets/images/linktoprofile.png" title="" width="190" />
+                                        <div class="content-heading">
+                                            <h4>Set Up</h4>
+                                        </div>
+                                        <p>First, all requests made from external services will need an API key. To get a key log into your Teamwork Desk site and click your avatar on the bottom left of the app</p>
+                                    </div>
+                                </div>
+                            </div>x
+                            <ul class="pager">
+                                <li class="next"><a data-toggle="tab" href="#CORS">Next</a></li>
+                            </ul>
                         </div>
-                        <fieldset>
-                            <div class="form-group">
-                                <h5>Login</h5>
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Email</label>
-                                    <input type="text" class="form-control" id="inputEmail" name="loginemail" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Last Name </label>
-                                        <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
-                            </div>
-                        </fieldset>
-                    </form>
-
+                        <div class="tab-pane fade" id="CORS">
+                            <h4>CORS Enabled</h4>
+                            <p>J</p>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#home">Back</a></li>
+                                <li class="next"><a data-toggle="tab" href="#ETags">Next</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="ETags">
+                            <h4>Use ETags</h4>
+                            <p>ETags are cool. They save bandwidth and are easy to implement. Most calls back from our API include header named <code>etag</code>. When you make your next GET call to the API, send this etag up in a Request Header called <code>If-None-Match</code></p>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#CORS">Back</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
                 </div>
             </div>
         </div>
@@ -235,18 +243,17 @@
                         </div>
                         <fieldset>
                             <div class="form-group">
-                                <h5>Signup</h5>
                                 <div class="col-md-12">
                                     <label for="inputEmail" class="control-label">Email</label>
                               
-                <input type="text" class="form-control" id="inputEmail" name="signupemail" placeholder="Email">
+                <input type="text" class="form-control" id="inputEmail" name="signupemail" placeholder="example@example.com">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Last Name </label>
+                                    <label for="inputEmail" class="control-label">Password </label>
                                  
-                <input type="password" class="form-control" id="inputPassword" name="signuppassword" placeholder="Email">
+                <input type="password" class="form-control" id="inputPassword" name="signuppassword" placeholder="**********">
                                 </div>
                             </div>
                             <div class="form-group">

@@ -40,6 +40,8 @@ app.controller('controller', function ($scope) {
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
     $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
+   $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {   'border-left': "2px solid " + $scope.theme[0][0]['color'],'border-bottom': "2px solid " + $scope.theme[0][0]['color']} : console.log('no color set');
+
 
     $scope.init = function () {
         createTab('');
@@ -79,7 +81,16 @@ app.controller('controller', function ($scope) {
         localStorage.setItem('theme', JSON.stringify($scope.theme));
         $scope.themeStyle = {
             'background-color': color
+
         };
+                $scope.themeStyleSides = {
+            'border-left': "2px solid " + color,
+            'border-bottom': "2px solid " + color
+
+        };
+
+
+     
     }
 
 
@@ -122,7 +133,7 @@ app.controller('controller', function ($scope) {
 
 
     $scope.home = function () {
-        $('.iframe.active').attr('src', 'https://www.google.ie/#q=');
+        $('.iframe.active').attr('src', 'https://duckduckgo.com/?q=');
     };
 
 
@@ -139,17 +150,6 @@ app.controller('controller', function ($scope) {
     }
 
 
-    $scope.scrap = function function_name (url) {
-        
-        mrscraper(url, function (response) {
-
-             for (var i = 0; i < response.length - 1; i++) {
-                          console.log(chalk.blue(response[i]));
-                    }
-
-
-        });
-    }
    $scope.autoFocus = function () {
          document.getElementById("searchTerm").select();
     }
@@ -160,7 +160,7 @@ app.controller('controller', function ($scope) {
     }
 
     function searchResult(search) {
-        $('.iframe.active').attr('src', "https://www.google.ie/#q=" + search);
+        $('.iframe.active').attr('src', "https://duckduckgo.com/?q=" + search);
         resizeIframe();
     }
 
@@ -183,12 +183,12 @@ app.controller('controller', function ($scope) {
             span.setAttribute("class", "home active ");
             var title = document.createElement("h1");
             title.setAttribute("class", "title");
-            title.innerHTML = "https://www.google.ie/#q=" + url;
+            title.innerHTML = "https://duckduckgo.com/?q=" + url;
             span2.appendChild(title);
             span.appendChild(span2);
             var iframes = document.createElement("iframe");
             iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation");
-            iframes.setAttribute("src", "https://www.google.ie/#q=" + url);
+            iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
             iframes.setAttribute("class", "iframe active  ");
             iframes.setAttribute("id", getAmountOfTabs);
             iframes.setAttribute("width", window.innerWidth);
@@ -197,6 +197,11 @@ app.controller('controller', function ($scope) {
             tabs.appendChild(span);
             resizeIframe();
             
+                $('iframe').bind('load', function() { //binds the event
+                    saveCurrentUrl(this.contentWindow.location);
+                 //  sraper(this.contentWindow.location);
+                   // alert(this.contentWindow.location);
+                });
             $('section').on('click', function () {
                 $(this).closest('section').prependTo('.contain');
                 $('section').removeClass('active');
@@ -211,6 +216,17 @@ app.controller('controller', function ($scope) {
         }
     }
 
+     function sraper(url) {
+        
+        mrscraper(url, function (response) {
+
+             for (var i = 0; i < response.length - 1; i++) {
+                          console.log(chalk.blue(response[i]));
+                    }
+
+
+        });
+    }
 
     /**
     * Expand and view all tabs
@@ -230,7 +246,7 @@ app.controller('controller', function ($scope) {
     */
     function createIframe(url, tabId) {
         var iframes = document.createElement("iframe");
-        iframes.setAttribute("src", "https://www.google.ie/#q=" + url);
+        iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
         iframes.setAttribute("class", "iframe active");
         iframes.setAttribute("id", tabId);
         iframes.setAttribute("width", window.innerWidth);
@@ -312,6 +328,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function saveCurrentUrl(url) {
+        $scope.searchTerm =url;
         var usersRef = ref.child($scope.loggedin).child("children").child(removeRegex(ip));
         usersRef.update({
             name:user,
