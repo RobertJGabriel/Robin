@@ -109,31 +109,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="ETags">
-                            <h4>Use ETags</h4>
-                            <p>ETags are cool. They save bandwidth and are easy to implement. Most calls back from our API include header named <code>etag</code>. When you make your next GET call to the API, send this etag up in a Request Header called <code>If-None-Match</code>
-                            </p>
-                            <ul class="pager">
-
-                                <li class="previous"><a data-toggle="tab" href="#CORS2" ng-style="themeStyle">Back</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
 
-                    <button class="btn btn-warning " ng-click="clearLocalStorage()">Restart</button>
+                    <button class="btn btn-warning " style="display:none" ng-click="clearLocalStorage()">Restart</button>
                     <button class="btn btn-primary " ng-click="addLocalStorage()">Save</button>
 
                 </div>
             </div>
         </div>
-
-
-
-
-
     </div>
 
 
@@ -196,42 +181,48 @@
                             <div class="paragraphs">
                                 <div class="row">
                                     <div class="span4" style="margin-right:20px;">
-                                        <img style="float:left;margin-left:20px;margin-right:20px;" alt="Cinque Terre" class="img-thumbnail" height="150" src="assets/images/linktoprofile.png" title="" width="190" />
                                         <div class="content-heading">
                                             <h4>Set Up</h4>
                                         </div>
                                         <p>First, all requests made from external services will need an API key. To get a key log into your Teamwork Desk site and click your avatar on the bottom left of the app</p>
                                     </div>
                                 </div>
-                            </div>x
+                            </div>
                             <ul class="pager">
-                                <li class="next"><a data-toggle="tab" href="#CORS2" ng-style="themeStyle">Next</a>
+                                <li class="next"><a data-toggle="tab" href="#CORS3" ng-style="themeStyle">Next</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="CORS2">
+                        <div class="tab-pane fade" id="CORS3">
                             <h4>CORS Enabled</h4>
                             <p>J</p>
                             <ul class="pager">
                                 <li class="previous"><a data-toggle="tab" href="#home2" ng-style="themeStyle">Back</a>
                                 </li>
-                                <li class="next"><a data-toggle="tab" href="#ETags2" ng-style="themeStyle">Next</a>
+                                <li class="next"><a data-toggle="tab" href="#about" ng-style="themeStyle">Next</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="ETags2">
-                            <h4>Use ETags</h4>
-                            <p>ETags are cool. They save bandwidth and are easy to implement. Most calls back from our API include header named <code>etag</code>. When you make your next GET call to the API, send this etag up in a Request Header called <code>If-None-Match</code>
-                            </p>
+                        <div class="tab-pane fade" id="about">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <img style="float:left;margin-left:10px;margin-right:10px;" alt="Cinque Terre" class="img-thumbnail" height="100" src="assets/img/icon/logo.png" title="" width="190" />
+                                        <div class="content-heading">
+                                            <h4>About</h4>
+                                        </div>
+                                        <p>First, all requests made from external services will need an API key. To get a key log into your Teamwork Desk site and click your avatar on the bottom left of the app</p>
+                                    </div>
+                                </div>
+                            </div>
                             <ul class="pager">
-                                <li class="previous"><a data-toggle="tab" href="#CORS" ng-style="themeStyle">Back</a>
+                                <li class="previous"><a data-toggle="tab" href="#CORS3" ng-style="themeStyle">Back</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
                 </div>
             </div>
         </div>
