@@ -187,7 +187,7 @@ app.controller('controller', function ($scope) {
             span2.appendChild(title);
             span.appendChild(span2);
             var iframes = document.createElement("iframe");
-            iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation");
+            iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
             iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
             iframes.setAttribute("class", "iframe active  ");
             iframes.setAttribute("id", getAmountOfTabs);
@@ -587,7 +587,7 @@ app.controller('controller', function ($scope) {
     */
     function profanityToFirebase(word) {
         var usersRef = ref.child("profanity").child(word.toLowerCase());
-        usersRef.update({
+        usersRef.set({
             profanity: "true"
         });
     }
