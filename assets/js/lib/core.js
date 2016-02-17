@@ -26,15 +26,13 @@ app.controller('controller', function ($scope) {
     $scope.loggedin = null;
     $scope.tabsLimit = 6;
     $scope.caughtColor = "#7B1FA2";
-    $scope.saved = localStorage.getItem('banndedUrls');
     $scope.banndedUrlsList = [];
-    $scope.searchTerm = "h";
+    $scope.searchTerm = "http://www.example.ie";
     $scope.themeList = [{   color: "#F44336",
         active: true
     }];
 
-    $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
-   
+  
     //this is fine.
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
@@ -43,31 +41,27 @@ app.controller('controller', function ($scope) {
 
 
     $scope.init = function () {
-        setInterval(workHorse,2000);
+                    require('nw.gui').Window.get().showDevTools();
+  setInterval(workHorse,3000);
         createTab('');
+        $scope.banndedUrlsList = [];
        getProfanityWords(null,function(response) {
             for (i = 0; i <= Object.keys(response).length - 1; i++) {
                 $scope.banndedUrlsList.push(Object.keys(response)[i] );
             }
-            $scope.banndedUrls = $scope.banndedUrlsList;
-            localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
+          
         });
-        
+              
     };
 
     $scope.addLocalStorage = function () {
         $scope.newID = $scope.banndedUrls.length + 1;
-        $scope.banndedUrls.forEach(function (item) {
-            console.log(item);
-        });
-        localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
+    
+        
     };
 
 
 
-    $scope.loadDefault = function () {
-        $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
-    }
 
 
 
@@ -92,19 +86,19 @@ app.controller('controller', function ($scope) {
      
     }
 
-
+window.onerror = function() {
+    alert("Error caught");
+};
 
     $scope.clearLocalStorage = function () {
         alert('you clicked clear ');
         $scope.banndedUrls = [];
-        $scope.removeLocalStorage('banndedUrls');
         $scope.removeLocalStorage('theme');
-        $scope.loadDefault();
         console.log('Reset');
         saveCurrentUrl('jjgj');
     };
 
-
+window.addEventListener('error', function (event) {console.log('d');}); 
 
     $scope.removeLocalStorage = function (key) {
         localStorage.removeItem(key);
@@ -142,7 +136,7 @@ app.controller('controller', function ($scope) {
 
     $scope.search = function (keyEvent) {
         if ($scope.searchTerm === "devKeys"){
-            require('nw.gui').Window.get().showDevTools();
+
         }
         if (keyEvent.which === 13) {
             searchResult($scope.searchTerm);
@@ -199,6 +193,9 @@ app.controller('controller', function ($scope) {
    
             $('.iframe.active').bind('load', function() { //binds the event   
                 balance();
+                window.onerror = function() {
+    alert("Error caught");
+};
             });
 
 
@@ -244,7 +241,6 @@ app.controller('controller', function ($scope) {
         mrscraper(url, function (words2) {
             for (var i = 0; i < words2.length -1 ; i++) {
                 profanityCheck(words2[i], function(response) {
-
                     response === "true" ? listOfVerbs.push(words2[i]) : null;
                 });
             }
@@ -278,12 +274,12 @@ app.controller('controller', function ($scope) {
     }   
 
     function workHorse(){
-        console.log(listOfVerbs);
-if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
-  for (var i = 0; i < listOfVerbs.length  ; i++) {
-               profanityToFirebase(listOfVerbs[i]);
-    }
-}
+        console.log(listOfVerbs.length);
+        if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
+          for (var i = 0; i < listOfVerbs.length  ; i++) {
+                profanityToFirebase(listOfVerbs[i]);
+            }
+        }
 }
 
 
@@ -486,22 +482,6 @@ if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
 
 
 
-    /**
-    * Attach an asynchronous callback to read the data at our posts reference
-    * @param {none} none
-    * @param {none} none
-    * @return {none} none
-    */
-    try {
-        ref.child(authData.uid).on("value", function(snapshot) {
-            console.log(snapshot.val());
-
-        }, function(errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-    } catch (e) {
-        // statements to handle any exceptions
-    }
 
 
     /**
