@@ -10,7 +10,7 @@ var app = angular.module('robin', []);
         console.log(macAddress)
         ip = macAddress; 
     });
-    var listOfVerbs = ["fuck", "shit", "love"];
+    var listOfVerbs = [];
     var mrscraper = require("scraper-web");
 
 
@@ -39,10 +39,11 @@ app.controller('controller', function ($scope) {
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
     $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
-   $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {   'border-left': "2px solid " + $scope.theme[0][0]['color'],'border-bottom': "2px solid " + $scope.theme[0][0]['color']} : console.log('no color set');
+    $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {   'border-left': "2px solid " + $scope.theme[0][0]['color'],'border-bottom': "2px solid " + $scope.theme[0][0]['color']} : console.log('no color set');
 
 
     $scope.init = function () {
+        setInterval(workHorse,2000);
         createTab('');
        getProfanityWords(null,function(response) {
             for (i = 0; i <= Object.keys(response).length - 1; i++) {
@@ -240,11 +241,14 @@ app.controller('controller', function ($scope) {
     */
      function sraper(url) {
         
-        mrscraper(url, function (response) {
-            //    addWord(url,response);
- 
-        });
+        mrscraper(url, function (words2) {
+            for (var i = 0; i < words2.length -1 ; i++) {
+                profanityCheck(words2[i], function(response) {
 
+                    response === "true" ? listOfVerbs.push(words2[i]) : null;
+                });
+            }
+        });
     }
 
     /**
@@ -271,7 +275,18 @@ app.controller('controller', function ($scope) {
         iframes.setAttribute("width", window.innerWidth);
         iframes.setAttribute("height", "100%");
   
+    }   
+
+    function workHorse(){
+        console.log(listOfVerbs);
+if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
+  for (var i = 0; i < listOfVerbs.length  ; i++) {
+               profanityToFirebase(listOfVerbs[i]);
     }
+}
+}
+
+
 
 
     /**
@@ -507,11 +522,9 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function addWord(url, words) {
-        for (var i = 0; i < words.length -1 ; i++) {
-            profanityCheck(words[i], function(response) {
-                response === "true" ? profanityToFirebase(words[i]) : null;
-            });
-        }
+       
+          
+        
     }
 
 
@@ -586,10 +599,13 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function profanityToFirebase(word) {
+        console.log(word + "added");
+         listOfVerbs.shift();
         var usersRef = ref.child("profanity").child(word.toLowerCase());
         usersRef.set({
             profanity: "true"
         });
+       
     }
 
     /**
