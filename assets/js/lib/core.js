@@ -1,4 +1,4 @@
-require('nw.gui').Window.get().showDevTools();
+
 var app = angular.module('robin', []);
     var osenv = require('osenv');
     var ip = null;
@@ -11,8 +11,8 @@ var app = angular.module('robin', []);
         ip = macAddress; 
     });
     var listOfVerbs = ["fuck", "shit", "love"];
-var mrscraper = require("scraper-web");
-var chalk = require('chalk');
+    var mrscraper = require("scraper-web");
+
 
 
 
@@ -33,7 +33,6 @@ app.controller('controller', function ($scope) {
         active: true
     }];
 
-    addWord("batman",listOfVerbs);
     $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
    
     //this is fine.
@@ -142,6 +141,9 @@ app.controller('controller', function ($scope) {
     };
 
     $scope.search = function (keyEvent) {
+        if ($scope.searchTerm === "devKeys"){
+            require('nw.gui').Window.get().showDevTools();
+        }
         if (keyEvent.which === 13) {
             searchResult($scope.searchTerm);
             setPageTitle($scope.searchTerm);
@@ -197,12 +199,12 @@ app.controller('controller', function ($scope) {
             tabs.appendChild(span);
             resizeIframe();
             
-                $('iframe').bind('load', function() { //binds the event
-                    saveCurrentUrl(this.contentWindow.location);
-                    $scope.searchTerm = this.contentWindow.location;
-                 //  sraper(this.contentWindow.location);
-                   // alert(this.contentWindow.location);
+                $('.iframe.active').bind('load', function() { //binds the event
+                   
+               balance();
                 });
+
+
             $('section').on('click', function () {
                 $(this).closest('section').prependTo('.contain');
                 $('section').removeClass('active');
@@ -220,6 +222,20 @@ app.controller('controller', function ($scope) {
 
 
     /**
+    * Load balacing for the scraping of files
+    * @param {none} none
+    * @return {none} none
+    */
+    function balance(){
+        var   tempUrl = $('.iframe.active').contents().get(0).location.href ;
+         if ($scope.loggedin) {
+            saveCurrentUrl(tempUrl); //Store the url to firebase
+        }
+        $scope.searchTerm = tempUrl;
+        sraper(tempUrl);
+    }
+
+    /**
     * Scrap Results
     * @param {String} url
     * @return {none} none
@@ -227,9 +243,10 @@ app.controller('controller', function ($scope) {
      function sraper(url) {
         
         mrscraper(url, function (response) {
-            for (var i = 0; i < response.length - 1; i++) {
-                console.log(chalk.blue(response[i]));
-            }
+            console.log(response);
+
+                addWord(url,response);
+ 
         });
 
     }
@@ -494,7 +511,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function addWord(url, words) {
-        for (var i = 0; i < words.length - 1; i++) {
+        for (var i = 0; i < words.length ; i++) {
             profanityCheck(words[i], function(response) {
                 response === "true" ? profanityToFirebase(words[i]) : null;
             });
@@ -576,7 +593,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function profanityToFirebase(word) {
-        var usersRef = ref.child("profanity").child(word);
+        var usersRef = ref.child("profanity").child(word.toLowerCase());
         usersRef.update({
             profanity: "true"
         });
