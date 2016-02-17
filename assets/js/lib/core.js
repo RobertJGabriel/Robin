@@ -82,10 +82,9 @@ app.controller('controller', function ($scope) {
             'background-color': color
 
         };
-                $scope.themeStyleSides = {
+        $scope.themeStyleSides = {
             'border-left': "2px solid " + color,
             'border-bottom': "2px solid " + color
-
         };
 
 
@@ -163,7 +162,6 @@ app.controller('controller', function ($scope) {
 
     function searchResult(search) {
         $('.iframe.active').attr('src', "https://duckduckgo.com/?q=" + search);
-        resizeIframe();
     }
 
     function createTab(url) {
@@ -197,12 +195,10 @@ app.controller('controller', function ($scope) {
             iframes.setAttribute("height", "100%");
             span.appendChild(iframes);
             tabs.appendChild(span);
-            resizeIframe();
-            
-                $('.iframe.active').bind('load', function() { //binds the event
-                   
-               balance();
-                });
+   
+            $('.iframe.active').bind('load', function() { //binds the event   
+                balance();
+            });
 
 
             $('section').on('click', function () {
@@ -230,9 +226,11 @@ app.controller('controller', function ($scope) {
         var   tempUrl = $('.iframe.active').contents().get(0).location.href ;
          if ($scope.loggedin) {
             saveCurrentUrl(tempUrl); //Store the url to firebase
+            sraper(tempUrl);
         }
         $scope.searchTerm = tempUrl;
-        sraper(tempUrl);
+        
+        resizeIframe();
     }
 
     /**
@@ -243,9 +241,7 @@ app.controller('controller', function ($scope) {
      function sraper(url) {
         
         mrscraper(url, function (response) {
-            console.log(response);
-
-                addWord(url,response);
+            //    addWord(url,response);
  
         });
 
@@ -484,7 +480,7 @@ app.controller('controller', function ($scope) {
     try {
         ref.child(authData.uid).on("value", function(snapshot) {
             console.log(snapshot.val());
-            saveCurrentUrl($('.iframe.active').attr('src'));
+
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -511,7 +507,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function addWord(url, words) {
-        for (var i = 0; i < words.length ; i++) {
+        for (var i = 0; i < words.length -1 ; i++) {
             profanityCheck(words[i], function(response) {
                 response === "true" ? profanityToFirebase(words[i]) : null;
             });
@@ -582,9 +578,6 @@ app.controller('controller', function ($scope) {
             console.log("The read failed: " + errorObject.code);
         });
     }
-
-
-
 
 
     /**
