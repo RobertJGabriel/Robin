@@ -1,4 +1,4 @@
-
+   require('nw.gui').Window.get().showDevTools();
 var app = angular.module('robin', []);
     var osenv = require('osenv');
     var ip = null;
@@ -26,15 +26,12 @@ app.controller('controller', function ($scope) {
     $scope.loggedin = null;
     $scope.tabsLimit = 6;
     $scope.caughtColor = "#7B1FA2";
-    $scope.saved = localStorage.getItem('banndedUrls');
     $scope.banndedUrlsList = [];
-    $scope.searchTerm = "h";
+    $scope.searchTerm ;
     $scope.themeList = [{   color: "#F44336",
         active: true
     }];
 
-    $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
-   
     //this is fine.
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
@@ -44,30 +41,19 @@ app.controller('controller', function ($scope) {
 
     $scope.init = function () {
         setInterval(workHorse,2000);
-        createTab('');
+        $scope.createTab('');
        getProfanityWords(null,function(response) {
             for (i = 0; i <= Object.keys(response).length - 1; i++) {
                 $scope.banndedUrlsList.push(Object.keys(response)[i] );
             }
             $scope.banndedUrls = $scope.banndedUrlsList;
-            localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
         });
         
     };
 
-    $scope.addLocalStorage = function () {
-        $scope.newID = $scope.banndedUrls.length + 1;
-        $scope.banndedUrls.forEach(function (item) {
-            console.log(item);
-        });
-        localStorage.setItem('banndedUrls', JSON.stringify($scope.banndedUrls));
-    };
 
 
 
-    $scope.loadDefault = function () {
-        $scope.banndedUrls = (localStorage.getItem('banndedUrls') !== null) ? JSON.parse($scope.saved) : $scope.banndedUrlsList;
-    }
 
 
 
@@ -93,16 +79,6 @@ app.controller('controller', function ($scope) {
     }
 
 
-
-    $scope.clearLocalStorage = function () {
-        alert('you clicked clear ');
-        $scope.banndedUrls = [];
-        $scope.removeLocalStorage('banndedUrls');
-        $scope.removeLocalStorage('theme');
-        $scope.loadDefault();
-        console.log('Reset');
-        saveCurrentUrl('jjgj');
-    };
 
 
 
@@ -136,9 +112,7 @@ app.controller('controller', function ($scope) {
     };
 
 
-    $scope.createTab = function () {
-        createTab('');
-    };
+
 
     $scope.search = function (keyEvent) {
         if ($scope.searchTerm === "devKeys"){
@@ -165,7 +139,7 @@ app.controller('controller', function ($scope) {
         $('.iframe.active').attr('src', "https://duckduckgo.com/?q=" + search);
     }
 
-    function createTab(url) {
+   $scope.createTab = function(url) {
         var getAmountOfTabs = document.getElementsByTagName("iframe").length;
         if (getAmountOfTabs !== $scope.tabsLimit) {
             if (url == '[object MouseEvent]') {
@@ -190,6 +164,7 @@ app.controller('controller', function ($scope) {
             var iframes = document.createElement("iframe");
             iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
             iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
+            iframes.setAttribute("nwdisable nwfaketop");
             iframes.setAttribute("class", "iframe active  ");
             iframes.setAttribute("id", getAmountOfTabs);
             iframes.setAttribute("width", window.innerWidth);
@@ -214,7 +189,7 @@ app.controller('controller', function ($scope) {
         } else {
           //  alert('tab Limit reached');
         }
-    }
+    };
 
 
 
@@ -244,7 +219,6 @@ app.controller('controller', function ($scope) {
         mrscraper(url, function (words2) {
             for (var i = 0; i < words2.length -1 ; i++) {
                 profanityCheck(words2[i], function(response) {
-
                     response === "true" ? listOfVerbs.push(words2[i]) : null;
                 });
             }
@@ -277,14 +251,21 @@ app.controller('controller', function ($scope) {
   
     }   
 
+
+
+    /**
+    * Runs the system to upload to firebase
+    * @param {none} none
+    * @return {Number} tabId
+    */
     function workHorse(){
-        console.log(listOfVerbs);
-if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
-  for (var i = 0; i < listOfVerbs.length  ; i++) {
-               profanityToFirebase(listOfVerbs[i]);
+        console.log(listOfVerbs.length);
+        if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
+          for (var i = 0; i < listOfVerbs.length  ; i++) {
+                       profanityToFirebase(listOfVerbs[i]);
+            }
+        }
     }
-}
-}
 
 
 
@@ -482,8 +463,6 @@ if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
         });
         setIpAddress(userData.uid);
     }
-
-
 
 
     /**
