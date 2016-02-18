@@ -53,10 +53,6 @@ app.controller('controller', function ($scope) {
 
 
 
-
-
-
-
     $scope.setColor = function (color) {
         $scope.removeLocalStorage('theme');
         $scope.theme = [];
