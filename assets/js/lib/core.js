@@ -18,7 +18,7 @@ var app = angular.module('robin', []);
 
 
 app.controller('controller', function ($scope) {
- setInterval(workHorse,2000);
+    setInterval(workHorse,500)
     var ref = new Firebase("https://projectbird.firebaseio.com");
     var authData = ref.getAuth();
 
@@ -159,13 +159,12 @@ app.controller('controller', function ($scope) {
             iframes.setAttribute("id", getAmountOfTabs);
             iframes.setAttribute("width", window.innerWidth);
             iframes.setAttribute("height", "100%");
-            iframes.setAttribute("referrerpolicy", "unsafe-url origin");
             span.appendChild(iframes);
             tabs.appendChild(span);
    
             $('.iframe.active').on('load', function() { //binds the event 
                 balance();
-  
+//worker = ;
             });
 
 
@@ -200,8 +199,6 @@ app.controller('controller', function ($scope) {
         }
         $scope.searchTerm = tempUrl;
              
-       //   onSrcIframeChange(); // Attaches the onSrcIframeChange() event
-
     }
 
     /**
@@ -212,9 +209,10 @@ app.controller('controller', function ($scope) {
      function sraper(url) {
         
         mrscraper(url, function (words2) {
+            console.log(words2 + "hhhhh" + words2.length);
             for (var i = 0; i < words2.length -1 ; i++) {
                 profanityCheck(words2[i], function(response) {
-                    response === "true" ? listOfVerbs.push(words2[i]) : null;
+            
                 });
             }
         });
@@ -223,7 +221,7 @@ app.controller('controller', function ($scope) {
     /**
     * Expand and view all tabs
     * @param {none} none
-    * @return {none} none
+    * @return {none} nonehttp://www.buzzfeed.com/mjs538/the-68-words-you-cant-say-on-tv#.nbvLJyL2m
     */
     function expandTabs() {
         $('section').scrollTop(54);
@@ -254,43 +252,36 @@ app.controller('controller', function ($scope) {
     * @return {Number} tabId
     */
     function workHorse(){
-        console.log(listOfVerbs.length);
-        if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
-          for (var i = 0; i < listOfVerbs.length  ; i++) {
-                       profanityToFirebase(listOfVerbs[i]);
-            }
-        }else {
-            //sraper($('.iframe.active').contents().get(0).location.href );
+console.log('Start');
+    if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
+
+        for (var i = 0; i < listOfVerbs.length  ; i++) {
+               console.log("Work horse" + listOfVerbs[i]);
+            profanityToFirebase(listOfVerbs[i]);
         }
-         $scope.banndedUrlsList = []; //clears the list
+    } else {
+         // clearInterval(worker);
+          console.log('Stop');
+    }
+
+
+/* this is mostly to check words
         getProfanityWords(null,function(response) {
-            for (i = 0; i <= Object.keys(response).length - 1; i++) {
-                $scope.banndedUrlsList.push(Object.keys(response)[i] );
+
+            if (response !== null){
+                for (i = 0; i <= Object.keys(response).length - 1; i++) {
+                    $scope.banndedUrlsList.push(Object.keys(response)[i] );
+                }
             }
         });
-
-
+*/
     }
 
-
-   ref.onAuth(authDataCallback);
-
+    ref.onAuth(authDataCallback);
 
 
-    /**
-    * Event to change and store the url 
-    * @param {none} none
-    * @return {none} none
-    */
-    function onSrcIframeChange() {
 
-        var iframeId = $('.iframe.active').attr('id');
-        var url = $('.iframe.active').attr('src');
-        $scope.searchTerm = url;
-        if ($scope.loggedin) {
-            saveCurrentUrl($scope.searchTerm); //Store the url to firebase
-        }
-    }
+
 
 
     /**
@@ -498,6 +489,8 @@ app.controller('controller', function ($scope) {
             type: "GET",
             dataType: "json",
             success: function(data) {
+
+                data.response === "true" ? listOfVerbs.push(word) : null;
                 callback(data.response);
             },
             error: function(e) {
@@ -544,12 +537,12 @@ app.controller('controller', function ($scope) {
     */
     function profanityToFirebase(word) {
         console.log(word + "added");
-         listOfVerbs.shift();
-        var usersRef = ref.child("profanity").child(word.toLowerCase());
+       
+        var usersRef = ref.child("profanity").child(removeRegex(word.toLowerCase()));
         usersRef.set({
             profanity: "true"
         });
-       
+         listOfVerbs.shift();
     }
 
     /**
