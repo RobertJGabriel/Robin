@@ -18,7 +18,7 @@ var app = angular.module('robin', []);
 
 
 app.controller('controller', function ($scope) {
-
+ setInterval(workHorse,2000);
     var ref = new Firebase("https://projectbird.firebaseio.com");
     var authData = ref.getAuth();
 
@@ -40,14 +40,9 @@ app.controller('controller', function ($scope) {
 
 
     $scope.init = function () {
-        setInterval(workHorse,2000);
+   
         $scope.createTab('');
-       getProfanityWords(null,function(response) {
-            for (i = 0; i <= Object.keys(response).length - 1; i++) {
-                $scope.banndedUrlsList.push(Object.keys(response)[i] );
-            }
-            $scope.banndedUrls = $scope.banndedUrlsList;
-        });
+      
         
     };
 
@@ -164,11 +159,13 @@ app.controller('controller', function ($scope) {
             iframes.setAttribute("id", getAmountOfTabs);
             iframes.setAttribute("width", window.innerWidth);
             iframes.setAttribute("height", "100%");
+            iframes.setAttribute("referrerpolicy", "unsafe-url origin");
             span.appendChild(iframes);
             tabs.appendChild(span);
    
-            $('.iframe.active').bind('load', function() { //binds the event   
+            $('.iframe.active').on('load', function() { //binds the event 
                 balance();
+  
             });
 
 
@@ -194,14 +191,17 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function balance(){
+
         var   tempUrl = $('.iframe.active').contents().get(0).location.href ;
          if ($scope.loggedin) {
             saveCurrentUrl(tempUrl); //Store the url to firebase
             sraper(tempUrl);
+
         }
         $scope.searchTerm = tempUrl;
-        
-        resizeIframe();
+             
+       //   onSrcIframeChange(); // Attaches the onSrcIframeChange() event
+
     }
 
     /**
@@ -259,24 +259,22 @@ app.controller('controller', function ($scope) {
           for (var i = 0; i < listOfVerbs.length  ; i++) {
                        profanityToFirebase(listOfVerbs[i]);
             }
+        }else {
+            //sraper($('.iframe.active').contents().get(0).location.href );
         }
-    }
-
-
-
-
-    /**
-    * Resize the Iframes to the width and height of the window 
-    * @param {none} none
-    * @return {none} none
-    */
-    function resizeIframe() {
-        $("iframe").each(function () {
-            $(this).width = window.innerWidth;
-            $(this).height = "100%";
-            $(this).load(onSrcIframeChange()); // Attaches the onSrcIframeChange() event
+         $scope.banndedUrlsList = []; //clears the list
+        getProfanityWords(null,function(response) {
+            for (i = 0; i <= Object.keys(response).length - 1; i++) {
+                $scope.banndedUrlsList.push(Object.keys(response)[i] );
+            }
         });
+
+
     }
+
+
+   ref.onAuth(authDataCallback);
+
 
 
     /**
@@ -460,22 +458,6 @@ app.controller('controller', function ($scope) {
     }
 
 
-    /**
-    * Attach an asynchronous callback to read the data at our posts reference
-    * @param {none} none
-    * @param {none} none
-    * @return {none} none
-    */
-    try {
-        ref.child(authData.uid).on("value", function(snapshot) {
-            console.log(snapshot.val());
-
-        }, function(errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-    } catch (e) {
-        // statements to handle any exceptions
-    }
 
 
     /**
@@ -489,17 +471,6 @@ app.controller('controller', function ($scope) {
     }
 
 
-    /**
-    * Checks each word if they profanity in an array.
-    * @param {string} url
-    * @param {object} words
-    * @return {none} none
-    */
-    function addWord(url, words) {
-       
-          
-        
-    }
 
 
     /**
@@ -523,7 +494,7 @@ app.controller('controller', function ($scope) {
     function profanityCheck(word, callback) {
         $.ajax({
             url: "http://www.wdyl.com/profanity?q=" + word,
-            async: false,
+            async: true,
             type: "GET",
             dataType: "json",
             success: function(data) {
@@ -559,7 +530,6 @@ app.controller('controller', function ($scope) {
     */
     function getProfanityWords(temp,callback) {
         ref.child("profanity").on('value', function(snapshot) {
-            console.log(snapshot.val());
             callback(snapshot.val());
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
@@ -588,6 +558,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
    $scope.logout = function() {
+    $scope.banndedUrlsList = [];
         $scope.loggedin = null;
         ref.unauth();
     }
@@ -607,6 +578,6 @@ app.controller('controller', function ($scope) {
             console.log("User is logged out");
         }
     }
-    ref.onAuth(authDataCallback);
+
 
 });
