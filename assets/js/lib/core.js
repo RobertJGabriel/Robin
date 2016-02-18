@@ -164,7 +164,6 @@ app.controller('controller', function ($scope) {
             var iframes = document.createElement("iframe");
             iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
             iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
-            iframes.setAttribute("nwdisable nwfaketop");
             iframes.setAttribute("class", "iframe active  ");
             iframes.setAttribute("id", getAmountOfTabs);
             iframes.setAttribute("width", window.innerWidth);

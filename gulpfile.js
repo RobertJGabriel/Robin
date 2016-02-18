@@ -23,7 +23,8 @@ gulp.task('build', ['less','clean','scripts'], function () {
     var nw = new NwBuilder({
         files: ['*', 'assets/css/**', 'assets/js/**', 'assets/img/**', 'assets/fonts/**','node_modules/**'], // use the glob format
         platforms: ['osx32', 'osx64'],
-        version: '0.12.3'
+
+        macIcns: "assets/img/icons/logo.icns", version: "0.12.1"
 
     });
     //Log stuff you want
