@@ -1,34 +1,25 @@
-   require('nw.gui').Window.get().showDevTools();
 var app = angular.module('robin', []);
-    var osenv = require('osenv');
-    var ip = null;
-    var path = osenv.path();
-    var user = osenv.user();
-    console.log(path);
-    require('getmac').getMac(function(err,macAddress){
-        if (err)  throw err
-        console.log(macAddress)
-        ip = macAddress; 
-    });
-    var listOfVerbs = [];
-    var mrscraper = require("scraper-web");
-
-
-
+var osenv = require('osenv');
+var ip = null;
+var user = osenv.user();
+var mrscraper = require("scraper-web");
+require('getmac').getMac(function(err,macAddress){ ip = macAddress; });
 
 
 app.controller('controller', function ($scope) {
+
     setInterval(workHorse,500)
     var ref = new Firebase("https://projectbird.firebaseio.com");
     var authData = ref.getAuth();
-
+    $scope.listOfProfanity = [];
     $scope.words = [];
     $scope.loggedin = null;
     $scope.tabsLimit = 6;
     $scope.caughtColor = "#7B1FA2";
     $scope.banndedUrlsList = [];
     $scope.searchTerm ;
-    $scope.themeList = [{   color: "#F44336",
+    $scope.themeList = [{   
+        color: "#F44336",
         active: true
     }];
 
@@ -39,15 +30,22 @@ app.controller('controller', function ($scope) {
     $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {   'border-left': "2px solid " + $scope.theme[0][0]['color'],'border-bottom': "2px solid " + $scope.theme[0][0]['color']} : console.log('no color set');
 
 
+
+    /**
+    * Onload Event for Angular
+    * @param {none} none 
+    * @return {none} none
+    */
     $scope.init = function () {
-   
-        $scope.createTab('');
-      
-        
+        $scope.createTab('');        
     };
 
 
-
+    /**
+    * sets current color or theme
+    * @param {String} color 
+    * @return {none} none
+    */
     $scope.setColor = function (color) {
         $scope.removeLocalStorage('theme');
         $scope.theme = [];
@@ -64,107 +62,154 @@ app.controller('controller', function ($scope) {
             'border-left': "2px solid " + color,
             'border-bottom': "2px solid " + color
         };
-
-
-     
     }
 
 
-
-
-
+    /**
+    * Remove localstorage by key
+    * @param {String} Key
+    * @return {none} none
+    */
     $scope.removeLocalStorage = function (key) {
         localStorage.removeItem(key);
     };
 
 
+    /**
+    * Show Current tabs in expand view
+    * @param {String} Key
+    * @return {none} none
+    */
     $scope.showTabs = function (key) {
         expandTabs();
     };
 
+
+    /**
+    * Go Back in iframe
+    * @param {none} none
+    * @return {none} none
+    */
     $scope.goBack = function () {
         document.getElementById($('.iframe.active').attr('id')).contentWindow.history.back();
 
     };
 
 
+    /**
+    * Go Forword in iframe
+    * @param {none} none
+    * @return {none} none
+    */
     $scope.goForword = function () {
         document.getElementById($('.iframe.active').attr('id')).contentWindow.history.forword();
     };
 
 
+    /**
+    * Refresh iframe
+    * @param {none} none
+    * @return {none} none
+    */
     $scope.refresh = function () {
         $('.iframe.active').attr('src', $('.iframe.active').attr('src'));
     };
 
 
+    /**
+    * Go Home in iframe
+    * @param {none} none
+    * @return {none} none
+    */
     $scope.home = function () {
         $('.iframe.active').attr('src', 'https://duckduckgo.com/?q=');
     };
 
 
-
-
+    /**
+    * Search
+    * @param {object} keyEvent
+    * @return {none} none
+    */
     $scope.search = function (keyEvent) {
         if ($scope.searchTerm === "devKeys"){
             require('nw.gui').Window.get().showDevTools();
         }
+
         if (keyEvent.which === 13) {
             searchResult($scope.searchTerm);
             setPageTitle($scope.searchTerm);
-
         };
     }
 
 
-   $scope.autoFocus = function () {
-         document.getElementById("searchTerm").select();
+    /**
+    * Auto focus the text in input
+    * @param {none} none
+    * @return {none} none
+    */
+    $scope.autoFocus = function () {
+        document.getElementById("searchTerm").select();
     }
 
 
+    /**
+    * Set Page title
+    * @param {String} title
+    * @return {none} none
+    */
     function setPageTitle(title) {
         document.title = "Robin : " + title;
     }
 
+
+    /**
+    * Run search String 
+    * @param {String} search
+    * @return {none} none
+    */
     function searchResult(search) {
         $('.iframe.active').attr('src', "https://duckduckgo.com/?q=" + search);
     }
 
-   $scope.createTab = function(url) {
+
+    /**
+    * Create Tab
+    * @param {String} search
+    * @return {none} none
+    */
+    $scope.createTab = function(url) {
         var getAmountOfTabs = document.getElementsByTagName("iframe").length;
         if (getAmountOfTabs !== $scope.tabsLimit) {
-            if (url == '[object MouseEvent]') {
-                url = 'batman';
-            }
+
             $('.home').removeClass('active');
             $('.iframe').removeClass('active');
             var tabs = document.getElementById('tabs');
             var span = document.createElement("section");
-
+                span.setAttribute("class", "home active ");
+           
             var span2 = document.createElement("span");
+                
 
-
-
-
-            span.setAttribute("class", "home active ");
             var title = document.createElement("h1");
-            title.setAttribute("class", "title");
-            title.innerHTML = "https://duckduckgo.com/?q=" + url;
+                title.setAttribute("class", "title");
+                title.innerHTML = "https://duckduckgo.com/?q=" + url;
             span2.appendChild(title);
             span.appendChild(span2);
+
             var iframes = document.createElement("iframe");
-            iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
-            iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
-            iframes.setAttribute("class", "iframe active  ");
-            iframes.setAttribute("id", getAmountOfTabs);
-            iframes.setAttribute("width", window.innerWidth);
-            iframes.setAttribute("height", "100%");
+                iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
+                iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
+                iframes.setAttribute("class", "iframe active  ");
+                iframes.setAttribute("id", getAmountOfTabs);
+                iframes.setAttribute("width", window.innerWidth);
+                iframes.setAttribute("height", "100%");
+
             span.appendChild(iframes);
             tabs.appendChild(span);
-   
+
             $('.iframe.active').on('load', function() { //binds the event 
                 balance();
-//worker = ;
             });
 
 
@@ -201,6 +246,7 @@ app.controller('controller', function ($scope) {
              
     }
 
+
     /**
     * Scrap Results
     * @param {String} url
@@ -217,6 +263,7 @@ app.controller('controller', function ($scope) {
             }
         });
     }
+
 
     /**
     * Expand and view all tabs
@@ -245,40 +292,19 @@ app.controller('controller', function ($scope) {
     }   
 
 
-
     /**
     * Runs the system to upload to firebase
     * @param {none} none
     * @return {Number} tabId
     */
     function workHorse(){
-console.log('worker');
-    if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
-
-        for (var i = 0; i < listOfVerbs.length  ; i++) {
-               console.log("Work horse" + listOfVerbs[i]);
-            profanityToFirebase(listOfVerbs[i]);
+        console.log('worker');
+        if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > 0){
+            for (var i = 0; i < $scope.listOfProfanity.length  ; i++) {
+                profanityToFirebase($scope.listOfProfanity[i]);
+            }
         }
     }
-
-
-/* this is mostly to check words
-        getProfanityWords(null,function(response) {
-
-            if (response !== null){
-                for (i = 0; i <= Object.keys(response).length - 1; i++) {
-                    $scope.banndedUrlsList.push(Object.keys(response)[i] );
-                }
-            }
-        });
-*/
-    }
-
-    ref.onAuth(authDataCallback);
-
-
-
-
 
 
     /**
@@ -412,6 +438,7 @@ console.log('worker');
         }
     }
 
+
     /**
     * Display and error or comfirm message on login
     * @param {String} message
@@ -446,19 +473,16 @@ console.log('worker');
     }
 
 
-
-
     /**
     * removeRegex
     * @param {string} stringToReplace
     * @return {string} desired
     */
     function removeRegex(stringToReplace) {
-        var desired = stringToReplace.replace(/[^\w\s]/gi, '')
+        var desired = stringToReplace.replace(/[^\w\s]/gi, '');
+            desired = desired.replace(/[^a-zA-Z ]/g, "");
         return desired;
     }
-
-
 
 
     /**
@@ -487,11 +511,11 @@ console.log('worker');
             dataType: "json",
             success: function(data) {
 
-                data.response === "true" ? listOfVerbs.push(word) : null;
+                data.response === "true" ? $scope.listOfProfanity.push(word) : null;
                 callback(data.response);
             },
             error: function(e) {
-                alert('error, try again');
+               // alert('error, try again');
             }
         });
     }
@@ -511,6 +535,7 @@ console.log('worker');
             console.log("The read failed: " + errorObject.code);
         });
     }
+
 
     /**
     * Get profanity words
@@ -533,14 +558,15 @@ console.log('worker');
     * @return {none} none
     */
     function profanityToFirebase(word) {
-        console.log(word + "added");
        
         var usersRef = ref.child("profanity").child(removeRegex(word.toLowerCase()));
         usersRef.set({
             profanity: "true"
         });
-         listOfVerbs.shift();
+        console.log(word + "added");
+        $scope.listOfProfanity.shift();
     }
+
 
     /**
     * logout out from firebase,
@@ -552,6 +578,7 @@ console.log('worker');
         $scope.loggedin = null;
         ref.unauth();
     }
+
 
     /**
     * Check if the user is logged in or not
@@ -570,4 +597,5 @@ console.log('worker');
     }
 
 
+    ref.onAuth(authDataCallback);
 });
