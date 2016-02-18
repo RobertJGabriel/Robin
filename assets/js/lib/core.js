@@ -252,16 +252,13 @@ app.controller('controller', function ($scope) {
     * @return {Number} tabId
     */
     function workHorse(){
-console.log('Start');
+console.log('worker');
     if (typeof listOfVerbs !== 'undefined' && listOfVerbs.length > 0){
 
         for (var i = 0; i < listOfVerbs.length  ; i++) {
                console.log("Work horse" + listOfVerbs[i]);
             profanityToFirebase(listOfVerbs[i]);
         }
-    } else {
-         // clearInterval(worker);
-          console.log('Stop');
     }
 
 
