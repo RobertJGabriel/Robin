@@ -615,16 +615,18 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
    $scope.logout = function() {
+    $scope.showError = false ;
 
-console.log(localStorage.getItem('password') + "hi sexy");
- 
- if ($('input[name="loginpassword"]').val() === localStorage.getItem('password')){
+     if ($('input[name="loginpassword"]').val() === localStorage.getItem('password')){
         displayMessage("logedout");
         $scope.banndedUrlsList = [];
         $scope.loggedin = null;
         ref.unauth();
         $scope.removeLocalStorage("password"); //Remove password
         hideModal("logoutModal");
+    }else {
+        $scope.showError = true ;
+        displayMessage("Wrong password");
     }
  }
 
