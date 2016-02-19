@@ -475,6 +475,12 @@ app.controller('controller', function ($scope) {
             $scope.errorMessage = message;
             $scope.$apply();
         }, 1000)
+
+        setTimeout(function() {
+            $scope.showError = false ;
+            $scope.$apply();
+        }, 4000)
+
     }
 
 
@@ -624,9 +630,11 @@ app.controller('controller', function ($scope) {
         ref.unauth();
         $scope.removeLocalStorage("password"); //Remove password
         hideModal("logoutModal");
+        $scope.errorMessage = "Logging out :) ";
     }else {
         $scope.showError = true ;
         displayMessage("Wrong password");
+                $scope.errorMessage = "Wrong Password";
     }
  }
 
