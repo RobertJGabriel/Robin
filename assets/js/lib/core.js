@@ -375,7 +375,7 @@ app.controller('controller', function ($scope) {
     */
     function saveCurrentUrl(url) {
         $scope.searchTerm =url;
-        var usersRef = ref.child($scope.loggedin).child("children").child(removeRegex(ip));
+        var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(ip));
         usersRef.update({
             name:user,
             status: "active",
@@ -392,7 +392,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function setIpAddress(id) {
-        var usersRef = ref.child(id).child("children").child(removeRegex(ip));
+        var usersRef = ref.child(id).child("children").child(removeRegexForMac(ip));
         usersRef.set({
             name:user,
             status: "active",
@@ -522,6 +522,16 @@ app.controller('controller', function ($scope) {
     function removeRegex(stringToReplace) {
         var desired = stringToReplace.replace(/[^\w\s]/gi, '');
             desired = desired.replace(/[^a-zA-Z ]/g, "");
+        return desired;
+    }
+
+   /**
+    * removeRegex for Mac
+    * @param {string} stringToReplace
+    * @return {string} desired
+    */
+    function removeRegexForMac(stringToReplace) {
+        var desired = stringToReplace.replace(/[^\w\s]/gi, '');
         return desired;
     }
 

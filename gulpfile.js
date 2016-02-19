@@ -22,9 +22,10 @@ var clean = require('gulp-clean');
 gulp.task('build', ['less','clean','scripts'], function () {
     var nw = new NwBuilder({
         files: ['*', 'assets/css/**', 'assets/js/**', 'assets/img/**', 'assets/fonts/**','node_modules/**'], // use the glob format
-        platforms: ['osx32', 'osx64'],
-
-        macIcns: "assets/img/icons/logo.icns", version: "0.12.1"
+        platforms: ['osx32', 'osx64','win64'],
+        macIcns: "assets/img/icons/logo.icns", 
+        version: "0.12.0",
+        zip: false
 
     });
     //Log stuff you want
