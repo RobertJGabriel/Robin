@@ -189,15 +189,11 @@ app.controller('controller', function ($scope) {
 
             var tabs = document.getElementById('tabs');
 
-
-
-
             var panel = document.createElement('section');
                 panel.setAttribute("class", "panel panel-default home active ");
 
             var panelBody = document.createElement('div');
                 panelBody.setAttribute("class", "panel-body");
-
 
             var iframes = document.createElement("iframe");
                 iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
@@ -210,7 +206,7 @@ app.controller('controller', function ($scope) {
                 panelBody.appendChild(iframes);
             
             var panelFooter = document.createElement('div');
-                panelFooter.setAttribute("class", "panel-footer");
+                panelFooter.setAttribute("class", "panel-footer tabsTemp");
             
             var title = document.createElement("p");
                 title.setAttribute("class", "title");
@@ -218,10 +214,11 @@ app.controller('controller', function ($scope) {
                 panelFooter.appendChild(title);
 
 
-  panel.appendChild(panelBody);
-  panel.appendChild(panelFooter);
-
+            panel.appendChild(panelBody);
+            panel.appendChild(panelFooter);
             tabs.appendChild(panel);
+
+
             $('.iframe.active').on('load', function() { //binds the event 
                 balance();
             });
@@ -254,10 +251,24 @@ app.controller('controller', function ($scope) {
          if ($scope.loggedin) {
             saveCurrentUrl(tempUrl); //Store the url to firebase
             sraper(tempUrl);
-
+            resizeIframe();
         }
         $scope.searchTerm = tempUrl;
              
+    }
+
+
+   /**
+    * Resize the Iframes to the width and height of the window 
+    * @param {none} none
+    * @return {none} none
+    */
+    function resizeIframe() {
+        $("iframe").each(function () {
+            $(this).width = window.innerWidth;
+            $(this).height = "100%";
+         //   $(this).load(onSrcIframeChange()); // Attaches the onSrcIframeChange() event
+        });
     }
 
 
@@ -406,7 +417,7 @@ app.controller('controller', function ($scope) {
             email: $('input[name="loginemail"]').val(),
             password: $('input[name="loginpassword"]').val()
         }, function(error, authData) {
-            error ? errorCodes(error) : displayMessage("Just logging you in"),loginInformation($('input[name="loginemail"]').val(), authData);
+            error ? errorCodes(error) : displayMessage("Just logging you in"),loginInformation($('input[name="loginemail"]').val(), authData),hideModal("login");
         });
     };
 
@@ -423,7 +434,7 @@ app.controller('controller', function ($scope) {
             email: $('input[name="signupemail"]').val(),
             password: $('input[name="signuppassword"]').val()
         }, function(error, userObj) {
-            error ? errorCodes(error) : createData(userObj, $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()),displayMessage( "Awesome , Your account is created");
+            error ? errorCodes(error) : createData(userObj, $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()),displayMessage( "Awesome , Your account is created"),hideModal("signup");
         });
     };
 
@@ -464,6 +475,19 @@ app.controller('controller', function ($scope) {
             $scope.errorMessage = message;
             $scope.$apply();
         }, 1000)
+    }
+
+
+    /**
+    * Hide current Id
+    * @param {Id} modalId
+    * @return {none} none
+    */
+    function hideModal(modalId) {
+        setTimeout(function() {
+            $('#' + modalId).modal('hide');
+        }, 3000)
+
     }
 
 
