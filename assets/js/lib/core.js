@@ -412,7 +412,6 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     $scope.login = function() {
- 
         ref.child("users").authWithPassword({
             email: $('input[name="loginemail"]').val(),
             password: $('input[name="loginpassword"]').val()
@@ -429,12 +428,11 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     $scope.signup = function() {
-       
         ref.child("users").createUser({
             email: $('input[name="signupemail"]').val(),
             password: $('input[name="signuppassword"]').val()
         }, function(error, userObj) {
-            error ? errorCodes(error) : createData(userObj, $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()),displayMessage( "Awesome , Your account is created"),hideModal("signup");
+            error ? errorCodes(error) : displayMessage( "Awesome , Your account is created"),createData(userObj, $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()),hideModal("signup");
         });
     };
 
@@ -624,17 +622,16 @@ app.controller('controller', function ($scope) {
     $scope.showError = false ;
 
      if ($('input[name="loginpassword"]').val() === localStorage.getItem('password')){
-        displayMessage("logedout");
         $scope.banndedUrlsList = [];
         $scope.loggedin = null;
-        ref.unauth();
+        displayMessage("logedout");
         $scope.removeLocalStorage("password"); //Remove password
+        ref.unauth();
         hideModal("logoutModal");
-        $scope.errorMessage = "Logging out :) ";
     }else {
         $scope.showError = true ;
+        $scope.errorMessage = "Wrong Password";
         displayMessage("Wrong password");
-                $scope.errorMessage = "Wrong Password";
     }
  }
 
