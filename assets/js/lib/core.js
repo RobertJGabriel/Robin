@@ -278,9 +278,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
      function sraper(url) {
-        
         mrscraper(url, function (words2) {
-            console.log(words2 + "hhhhh" + words2.length);
             for (var i = 0; i < words2.length -1 ; i++) {
                 profanityCheck(words2[i], function(response) {
             
@@ -571,7 +569,6 @@ app.controller('controller', function ($scope) {
     */
     function loginInformation(email, id) {
         ref.child("users").startAt(email).endAt(email).once('value', function(snapshot) {
-            console.log(snapshot.val());
             setIpAddress(id.uid);
             $scope.password = $('input[name="loginpassword"]').val();
             localStorage.setItem('password',$('input[name="loginpassword"]').val());
