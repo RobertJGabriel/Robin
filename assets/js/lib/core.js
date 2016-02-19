@@ -184,18 +184,20 @@ app.controller('controller', function ($scope) {
 
             $('.home').removeClass('active');
             $('.iframe').removeClass('active');
-            var tabs = document.getElementById('tabs');
-            var span = document.createElement("section");
-                span.setAttribute("class", "home active ");
-           
-            var span2 = document.createElement("span");
-                
+       
 
-            var title = document.createElement("h1");
-                title.setAttribute("class", "title");
-                title.innerHTML = "https://duckduckgo.com/?q=" + url;
-            span2.appendChild(title);
-            span.appendChild(span2);
+
+            var tabs = document.getElementById('tabs');
+
+
+
+
+            var panel = document.createElement('section');
+                panel.setAttribute("class", "panel panel-default home active ");
+
+            var panelBody = document.createElement('div');
+                panelBody.setAttribute("class", "panel-body");
+
 
             var iframes = document.createElement("iframe");
                 iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
@@ -204,10 +206,22 @@ app.controller('controller', function ($scope) {
                 iframes.setAttribute("id", getAmountOfTabs);
                 iframes.setAttribute("width", window.innerWidth);
                 iframes.setAttribute("height", "100%");
+                
+                panelBody.appendChild(iframes);
+            
+            var panelFooter = document.createElement('div');
+                panelFooter.setAttribute("class", "panel-footer");
+            
+            var title = document.createElement("p");
+                title.setAttribute("class", "title");
+                title.innerHTML = "https://duckduckgo.com/?q=" + url;
+                panelFooter.appendChild(title);
 
-            span.appendChild(iframes);
-            tabs.appendChild(span);
 
+  panel.appendChild(panelBody);
+  panel.appendChild(panelFooter);
+
+            tabs.appendChild(panel);
             $('.iframe.active').on('load', function() { //binds the event 
                 balance();
             });
