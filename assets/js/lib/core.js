@@ -248,13 +248,14 @@ app.controller('controller', function ($scope) {
     function balance(){
 
         var   tempUrl = $('.iframe.active').contents().get(0).location.href ;
-         if ($scope.loggedin) {
+        
+        if ($scope.loggedin) {
             saveCurrentUrl(tempUrl); //Store the url to firebase
             sraper(tempUrl);
-            resizeIframe();
         }
+        
         $scope.searchTerm = tempUrl;
-             
+        resizeIframe();          
     }
 
 
