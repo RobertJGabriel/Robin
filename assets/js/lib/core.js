@@ -28,7 +28,7 @@ app.controller('controller', function ($scope) {
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
     $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
     $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {   'border-left': "2px solid " + $scope.theme[0][0]['color'],'border-bottom': "2px solid " + $scope.theme[0][0]['color']} : console.log('no color set');
-
+    $scope.password = (localStorage.getItem('password') === null) ?  null : localStorage.getItem('password');
 
 
     /**
@@ -569,6 +569,9 @@ app.controller('controller', function ($scope) {
         ref.child("users").startAt(email).endAt(email).once('value', function(snapshot) {
             console.log(snapshot.val());
             setIpAddress(id.uid);
+            $scope.password = $('input[name="loginpassword"]').val();
+            localStorage.setItem('password',$('input[name="loginpassword"]').val());
+        
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -612,11 +615,18 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
    $scope.logout = function() {
-    $scope.banndedUrlsList = [];
+
+console.log(localStorage.getItem('password') + "hi sexy");
+ 
+ if ($('input[name="loginpassword"]').val() === localStorage.getItem('password')){
+        displayMessage("logedout");
+        $scope.banndedUrlsList = [];
         $scope.loggedin = null;
         ref.unauth();
+        $scope.removeLocalStorage("password"); //Remove password
+        hideModal("logoutModal");
     }
-
+ }
 
     /**
     * Check if the user is logged in or not

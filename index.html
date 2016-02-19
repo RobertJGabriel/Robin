@@ -44,7 +44,7 @@
                         </li>
                         <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login">Login</a>
                         </li>
-                        <li ng-show="loggedin"><a ng-click="logout()">Logout</a>
+                        <li ng-show="loggedin"><a data-toggle="modal" data-target="#logoutModal">Logout</a>
                         </li>
                         <li class="divider"></li>
                         <li><a data-toggle="modal" data-target="#welcome">Help</a>
@@ -165,6 +165,44 @@
             </div>
         </div>
     </div>
+
+
+    <div id="logoutModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
+                    </button>
+                    <h4 class="modal-title">Logout</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal" id="login" ng-submit="logout()">
+                        <div ng-show="showError">
+                            <div class="alert alert-dismissible alert-info">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>Heads up!</strong> {{errorMessage}}
+                            </div>
+                        </div>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="inputEmail" class="control-label">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword" name="logoutpassword" placeholder="*********">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <div id="welcome" class="modal fade" tabindex="-1">
