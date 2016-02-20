@@ -181,42 +181,33 @@ app.controller('controller', function ($scope) {
     $scope.createTab = function(url) {
         var getAmountOfTabs = document.getElementsByTagName("iframe").length;
         if (getAmountOfTabs !== $scope.tabsLimit) {
-
+            
             $('.home').removeClass('active');
             $('.iframe').removeClass('active');
-       
-
-
             var tabs = document.getElementById('tabs');
-
-            var panel = document.createElement('section');
-                panel.setAttribute("class", "panel panel-default home active ");
-
-            var panelBody = document.createElement('div');
-                panelBody.setAttribute("class", "panel-body");
+            var span = document.createElement("section");
+                span.setAttribute("class", "home active ");
+          
+            var title = document.createElement("h1");
+                title.setAttribute("class", "title");
+                title.innerHTML = "https://duckduckgo.com/?q=" + url;
+          
+            var divBackdrop = document.createElement("div");
+                divBackdrop.setAttribute("class", "backdrop");
+                divBackdrop.setAttribute("ng-style","themeStyle" );
+                divBackdrop.appendChild(title);
 
             var iframes = document.createElement("iframe");
-                iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms ");
+                iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
                 iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
                 iframes.setAttribute("class", "iframe active  ");
                 iframes.setAttribute("id", getAmountOfTabs);
                 iframes.setAttribute("width", window.innerWidth);
                 iframes.setAttribute("height", "100%");
-                
-                panelBody.appendChild(iframes);
-            
-            var panelFooter = document.createElement('div');
-                panelFooter.setAttribute("class", "panel-footer tabsTemp");
-            
-            var title = document.createElement("p");
-                title.setAttribute("class", "title");
-                title.innerHTML = "https://duckduckgo.com/?q=" + url;
-                panelFooter.appendChild(title);
 
-
-            panel.appendChild(panelBody);
-            panel.appendChild(panelFooter);
-            tabs.appendChild(panel);
+            span.appendChild(divBackdrop);
+            span.appendChild(iframes);
+            tabs.appendChild(span);
 
 
             $('.iframe.active').on('load', function() { //binds the event 
