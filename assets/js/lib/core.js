@@ -26,8 +26,8 @@ app.controller('controller', function ($scope) {
     //this is fine.
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
-    $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : console.log('no color set');
-    $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {   'border-left': "2px solid " + $scope.theme[0][0]['color'],'border-bottom': "2px solid " + $scope.theme[0][0]['color']} : console.log('no color set');
+    $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {'background-color': $scope.theme[0][0]['color']} : {'background-color': "#F44336"} ;
+    $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {   'border-left': "2px solid " + $scope.theme[0][0]['color'],'border-bottom': "2px solid " + $scope.theme[0][0]['color']} : {   'border-left': "2px solid " + "#F44336",'border-bottom': "2px solid " + "#F44336"} ;
     $scope.password = (localStorage.getItem('password') === null) ?  null : localStorage.getItem('password');
 
 
@@ -503,6 +503,7 @@ app.controller('controller', function ($scope) {
         });
         setIpAddress(userData.uid);
     }
+
 
 
     /**
