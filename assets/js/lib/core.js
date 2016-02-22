@@ -139,6 +139,9 @@ app.controller('controller', function ($scope) {
         if ($scope.searchTerm === "devKeys"){
             require('nw.gui').Window.get().showDevTools();
         }
+        if ($scope.searchTerm === "easteregg"){
+           cornify_add();
+        }
 
         if (keyEvent.which === 13) {
             searchResult($scope.searchTerm);
