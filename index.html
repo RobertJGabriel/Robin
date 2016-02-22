@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="description" content="">
@@ -209,54 +210,233 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal" type="button">&times;</button>
-                    <h4 class="modal-title">Robin Help Section </h4>
+                    <h4 class="modal-title">Help Section </h4>
                 </div>
                 <div class="modal-body">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade active in" id="home2">
+                        <div class="tab-pane fade active in" id="signupQuestion">
                             <div class="paragraphs">
                                 <div class="row">
                                     <div class="span4" style="margin-right:20px;">
                                         <div class="content-heading">
-                                            <h4>Set Up</h4>
+                                            <h4>How do I signup</h4>
                                         </div>
-                                        <p>First you need to sign up . After that download the chrome extension, which is for the admin or the parents to view what the child is on.
-                                            <br> Then download Robin Browser and sign in. Thats it . All set up</p>
+                                        <p>You click signup from the dropdown. Enter your email and password and that's it you're all signed up</p>
                                     </div>
                                 </div>
                             </div>
                             <ul class="pager">
-                                <li class="next"><a data-toggle="tab" href="#CORS3" ng-style="themeStyle">Next</a>
+                                <li class="next"><a data-toggle="tab" href="#loginQuestion" ng-style="themeStyle">Next</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="tab-pane fade" id="CORS3">
-                            <h4>Faq</h4>
-                            <p>J</p>
-                            <ul class="pager">
-                                <li class="previous"><a data-toggle="tab" href="#home2" ng-style="themeStyle">Back</a>
-                                </li>
-                                <li class="next"><a data-toggle="tab" href="#about" ng-style="themeStyle">Next</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane fade" id="about">
+
+
+
+
+                        <div class="tab-pane fade" id="loginQuestion">
                             <div class="paragraphs">
                                 <div class="row">
                                     <div class="span4" style="margin-right:20px;">
-                                        <img style="float:left;margin-left:10px;margin-right:10px;" alt="Cinque Terre" class="img-thumbnail" height="100" src="assets/img/icons/logo.png" title="" width="190" />
                                         <div class="content-heading">
-                                            <h4>About</h4>
+                                            <h4>How do I Login</h4>
                                         </div>
-                                        <p>First, all requests made from external services will need an API key. To get a key log into your Teamwork Desk site and click your avatar on the bottom left of the app</p>
+                                        <p>You click the login in button and Enter your email and password and that's it your all logged in.</p>
                                     </div>
                                 </div>
                             </div>
                             <ul class="pager">
-                                <li class="previous"><a data-toggle="tab" href="#CORS3" ng-style="themeStyle">Back</a>
+                                <li class="previous"><a data-toggle="tab" href="#signupQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#childQuestion" ng-style="themeStyle">Next</a>
                                 </li>
                             </ul>
                         </div>
+
+
+
+                        <div class="tab-pane fade " id="childQuestion">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <div class="content-heading">
+                                            <h4>How do I connect my child's browser to my account, so I can see what there doing?</h4>
+                                        </div>
+                                        <p>Once you have signed up and logged in to the admin panel (chrome app). You simply go to eh robin browser and log in using the same details. That's it you can now see what the child is doing from the chrome app.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#loginQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#informationQuestion" ng-style="themeStyle">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div class="tab-pane fade " id="informationQuestion">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <div class="content-heading">
+                                            <h4>What information do you collect?</h4>
+                                        </div>
+                                        <p>We collect the following information</p>
+                                        <ul>
+                                            <li>The mac address of the machine (so we can tell which child it is)</li>
+                                            <li>The type of device (is it an iPad or a Dell laptop)</li>
+                                            <li>The Url your currently visiting</li>
+                                            <li>The time your searching and from where</li>
+                                            <li>The Current date</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#childQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#supportedQuestion" ng-style="themeStyle">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+
+                        <div class="tab-pane fade " id="supportedQuestion">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <div class="content-heading">
+                                            <h4>What Devices are supported?</h4>
+                                        </div>
+                                        <p><b>Brower</b>
+                                        </p>
+                                        <ul>
+                                            <li>Well 64bit windows 7</li>
+                                            <li>64bit windows 8</li>
+                                            <li>64bit windows 8.1</li>
+                                            <li>64bit windows 10</li>
+                                            <li>Mac Yosemite 64</li>
+                                            <li>64bit Yosemite 32</li>
+                                        </ul>
+                                        <hr>
+                                        <p><b>Chrome Extension</b>
+                                        </p>
+                                        <ul>
+                                            <li>All</li>
+                                        </ul>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#informationQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#deviceQuestion" ng-style="themeStyle">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div class="tab-pane fade " id="deviceQuestion">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <div class="content-heading">
+                                            <h4>How do I take a device off my account?</h4>
+                                        </div>
+                                        <p>You simply go to the browser and click log out.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#supportedQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#filteringQuestion" ng-style="themeStyle">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div class="tab-pane fade" id="filteringQuestion">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <div class="content-heading">
+                                            <h4>How are the machine learning and filtering working?</h4>
+                                        </div>
+                                        <p>To keep this simple, we collect information based on profanity words from what the child is searching and we store those online in our online database. Based on these ever-changing words of profanity we update the profanity algorithm. So as the more people search the better it gets.</p>
+
+                                        <br>
+
+                                        <p>The URL is sent to use, we parse out all the words, and check each word for is it classed as profanity and is its a verb. If it's either of them we update our database and use the new words we added to adjust the filtering algorithm.</p>
+
+                                        <br>
+                                        <p>Each URL is based on the following base formula.</p>
+                                        <ul>
+                                            <li>A number of words on a page.</li>
+                                            <li>The amount or profanity words</li>
+                                            <li>Number of verbs.</li>
+
+                                        </ul>
+
+                                        <br>
+                                        <p>Using this information, we will start to see a trend where adult sites will have a higher profanity over a number of words. This is a great indicator of what to block.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#deviceQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#allowedQuestion" ng-style="themeStyle">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="tab-pane fade " id="allowedQuestion">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <div class="content-heading">
+                                            <h4>Can I add a site to be allowed?</h4>
+                                        </div>
+                                        <p>You sure can, these are called whitelists, which is a set of allowed sites even if our system thinks it should be blocked. To add a site open up the robin chrome extension and click lists on the navigation. From here you can input the base URL so if you wanted to block pornhub.com. Just enter Pornhub and select black to block it or select white to allow it </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#filteringQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                                <li class="next"><a data-toggle="tab" href="#profanityQuestion" ng-style="themeStyle">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="tab-pane fade " id="profanityQuestion">
+                            <div class="paragraphs">
+                                <div class="row">
+                                    <div class="span4" style="margin-right:20px;">
+                                        <div class="content-heading">
+                                            <h4>How can I see the list of Profanity words</h4>
+                                        </div>
+                                        <p>Open up the robin chrome extension and click profanity on the navigation? You can see all the profanity words from our database here.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pager">
+                                <li class="previous"><a data-toggle="tab" href="#allowedQuestion" ng-style="themeStyle">Back</a>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -312,4 +492,5 @@
     <script src="assets/js/lib/L.js"></script>
     <script src="assets/js/app/main.js" type="application/javascript" async></script>
 </body>
+
 </html>
