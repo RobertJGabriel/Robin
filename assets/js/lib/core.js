@@ -182,8 +182,7 @@ app.controller('controller', function ($scope) {
                 searchUrl = "https://duckduckgo.com/?q=" + search;
             }
 
-
-        $('.iframe.active').attr('src',searchUrl);
+            $('.iframe.active').attr('src',searchUrl);
     }
 
 
@@ -227,17 +226,8 @@ app.controller('controller', function ($scope) {
 
             $('.iframe.active').on('load', function() { //binds the event 
                 balance();
-
-                for (i = 0; i < $scope.blackList.length; i++) { 
-                    var currentUrlNow = $('.iframe.active').contents().get(0).location.href ,
-                        bannedUrl = $scope.blackList[i]["url"];
-                    if (currentUrlNow.indexOf(bannedUrl) > -1){
-                        searchResult("you caught me ");
-                        $scope.setColor("#000");
-                        break;
-                    }
-
-                }
+                checkForBannedUrl();
+  
           
             });
 
@@ -255,6 +245,24 @@ app.controller('controller', function ($scope) {
           //  alert('tab Limit reached');
         }
     };
+
+    /**
+    * Banned Urls, redirects if its a banned url
+    * @param {none} none
+    * @return {none} none
+    */
+    function checkForBannedUrl(){
+        for (i = 0; i < $scope.blackList.length; i++) { 
+        var currentUrlNow = $('.iframe.active').contents().get(0).location.href ,
+            bannedUrl = $scope.blackList[i]["url"];
+            if (currentUrlNow.indexOf(bannedUrl) > -1){
+                searchResult("http://projectbird.com");
+                $scope.setColor("#000");
+                break;
+            }
+
+        }
+    }
 
 
 
@@ -677,6 +685,7 @@ app.controller('controller', function ($scope) {
     */
     try {
         ref.child(authData.uid).on("value", function(snapshot) {
+
             for (var q in snapshot.val()["list"]) {
                 if (snapshot.val()["list"][q]["type"] === "white"){
                     $scope.whiteList.push({
