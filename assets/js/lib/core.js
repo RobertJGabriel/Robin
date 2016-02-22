@@ -23,6 +23,10 @@ app.controller('controller', function ($scope) {
         active: true
     }];
 
+    //Used to understand wha to overwrite
+    $scope.blackList = [];
+    $scope.whiteList = [];
+
     //this is fine.
     $scope.savedTheme = localStorage.getItem('theme');
     $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
@@ -37,7 +41,7 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     $scope.init = function () {
-        $scope.createTab('');        
+        $scope.createTab('');      
     };
 
 
@@ -169,7 +173,17 @@ app.controller('controller', function ($scope) {
     * @return {none} none
     */
     function searchResult(search) {
-        $('.iframe.active').attr('src', "https://duckduckgo.com/?q=" + search);
+
+        var currentUrlNow = $('.iframe.active').contents().get(0).location.href;
+        var searchUrl;
+            if (search.indexOf("http") > -1) {
+                searchUrl = search ;
+            } else {
+                searchUrl = "https://duckduckgo.com/?q=" + search;
+            }
+
+
+        $('.iframe.active').attr('src',searchUrl);
     }
 
 
@@ -181,7 +195,8 @@ app.controller('controller', function ($scope) {
     $scope.createTab = function(url) {
         var getAmountOfTabs = document.getElementsByTagName("iframe").length;
         if (getAmountOfTabs !== $scope.tabsLimit) {
-            
+
+
             $('.home').removeClass('active');
             $('.iframe').removeClass('active');
             var tabs = document.getElementById('tabs');
@@ -212,6 +227,18 @@ app.controller('controller', function ($scope) {
 
             $('.iframe.active').on('load', function() { //binds the event 
                 balance();
+
+                for (i = 0; i < $scope.blackList.length; i++) { 
+                    var currentUrlNow = $('.iframe.active').contents().get(0).location.href ,
+                        bannedUrl = $scope.blackList[i]["url"];
+                    if (currentUrlNow.indexOf(bannedUrl) > -1){
+                        searchResult("you caught me ");
+                        $scope.setColor("#000");
+                        break;
+                    }
+
+                }
+          
             });
 
 
@@ -248,6 +275,8 @@ app.controller('controller', function ($scope) {
         $scope.searchTerm = tempUrl;
         resizeIframe();          
     }
+
+
 
 
    /**
@@ -499,7 +528,8 @@ app.controller('controller', function ($scope) {
                 email: email,
                 password: password
             },
-            ip: {}
+            ip: {},
+            list: {}
         });
         setIpAddress(userData.uid);
     }
@@ -575,11 +605,13 @@ app.controller('controller', function ($scope) {
             setIpAddress(id.uid);
             $scope.password = $('input[name="loginpassword"]').val();
             localStorage.setItem('password',$('input[name="loginpassword"]').val());
-        
+          
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
     }
+
+  
 
 
     /**
@@ -620,8 +652,7 @@ app.controller('controller', function ($scope) {
     */
    $scope.logout = function() {
     $scope.showError = false ;
-
-     if ($('input[name="loginpassword"]').val() === localStorage.getItem('password')){
+     if ($('input[name="logoutpassword"]').val() === localStorage.getItem('password')){
         $scope.banndedUrlsList = [];
         $scope.loggedin = null;
         displayMessage("logedout");
@@ -634,6 +665,45 @@ app.controller('controller', function ($scope) {
         displayMessage("Wrong password");
     }
  }
+
+
+
+
+    /**
+    * Attach an asynchronous callback to read the data at our posts reference
+    * @param {none} none
+    * @param {none} none
+    * @return {none} none
+    */
+    try {
+        ref.child(authData.uid).on("value", function(snapshot) {
+            for (var q in snapshot.val()["list"]) {
+                if (snapshot.val()["list"][q]["type"] === "white"){
+                    $scope.whiteList.push({
+                      url:q.replace(/['"]+/g, '')
+                    });
+                }else {
+                    $scope.blackList.push({
+                        url:q.replace(/['"]+/g, '')
+                    });
+                }
+            }
+
+
+            console.log($scope.blackList);
+            console.log($scope.whiteList);
+
+            saveCurrentUrl($('.iframe.active').attr('src'));
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+    } catch (e) {
+        // statements to handle any exceptions
+    }
+
+
+
+
 
     /**
     * Check if the user is logged in or not
