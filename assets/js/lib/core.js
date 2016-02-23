@@ -144,7 +144,7 @@ app.controller('controller', function ($scope) {
         }
 
         if (keyEvent.which === 13) {
-            searchResult($scope.searchTerm);
+             $scope.searchResult($scope.searchTerm);
             setPageTitle($scope.searchTerm);
         };
     }
@@ -175,20 +175,24 @@ app.controller('controller', function ($scope) {
     * @param {String} search
     * @return {none} none
     */
-    function searchResult(search) {
-
+      $scope.searchResult = function(search) {
+        console.log(search);
         var currentUrlNow = $('.iframe.active').contents().get(0).location.href;
         var searchUrl;
             if (search.indexOf("http") > -1) {
                 searchUrl = search ;
-            } else if (search.indexOf("assets/") > -1){
+            } else if (search.indexOf("assets") > -1){
+                           console.log("hail santa" + search);
                           searchUrl = search;
+                          console.log(searchUrl);
+            $('.iframe.active').attr('src',searchUrl);
             }else{
+
                 searchUrl = "https://duckduckgo.com/?q=" + search;
             }
-
+console.log(searchUrl);
             $('.iframe.active').attr('src',searchUrl);
-    }
+    };
 
 
     /**
@@ -261,7 +265,7 @@ app.controller('controller', function ($scope) {
         var currentUrlNow = $('.iframe.active').contents().get(0).location.href ,
             bannedUrl = $scope.blackList[i]["url"];
             if (currentUrlNow.indexOf(bannedUrl) > -1){
-                searchResult("http://projectbird.com");
+                 $scope.searchResult("http://projectbird.com");
                 $scope.setColor("#000");
                 break;
             }
