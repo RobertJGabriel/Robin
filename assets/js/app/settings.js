@@ -2,7 +2,9 @@
 var gui = require('nw.gui');
 
 // Create menu
-var menu = new gui.Menu({ type: 'menubar' });
+var menu = new gui.Menu({
+    type: 'menubar'
+});
 
 // Create sub-menu
 var menuItems = new gui.Menu();
@@ -11,7 +13,7 @@ var menuItems = new gui.Menu();
 //menuItems.append(new gui.MenuItem({ label: 'Custom Menu Item 2' }));
 
 // create MacBuiltin
-menu.createMacBuiltin('Robin',{
+menu.createMacBuiltin('Robin', {
     hideEdit: false,
     hideWindow: true
 });
