@@ -181,7 +181,9 @@ app.controller('controller', function ($scope) {
         var searchUrl;
             if (search.indexOf("http") > -1) {
                 searchUrl = search ;
-            } else {
+            } else if (search.indexOf("assets/") > -1){
+                          searchUrl = search;
+            }else{
                 searchUrl = "https://duckduckgo.com/?q=" + search;
             }
 
