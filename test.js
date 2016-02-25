@@ -5,7 +5,7 @@ var chalk = require('chalk');
 
 
 var getText = function (callback) {
-    mrscraper("http://sexetc.org", function (response) {
+    mrscraper("https://www.plannedparenthood.org/educators/implementing-sex-education", function (response) {
         typeof callback === 'function' && callback(response);
     }, function () {
         alert("fail");
@@ -17,8 +17,6 @@ var getText = function (callback) {
 
 var getProfanity = function (word, callback) {
 
-
-
     profanityCheck(word, function (response) {
         if (response === "true") {
             typeof callback === 'function' && callback(word);
@@ -26,9 +24,6 @@ var getProfanity = function (word, callback) {
     }, function () {
         alert("fail");
     });
-
-
-
 
 };
 
@@ -43,22 +38,15 @@ getText(function (words, callback) {
     };
 
 
-
-
-
-
-
-
     setTimeout(function () {
 
-uniqueArray = x.filter(function(elem, pos) {
-    return x.indexOf(elem) == pos;
-})
+
 
 
     console.log("Amount of Words on page :" + chalk.blue(words.length));
-    console.log("Amount of Profonaity words page and Percentage :" + chalk.red(uniqueArray.length));
-    console.log(uniqueArray);
+    console.log("Amount of Profonaity words page and Percentage :" + chalk.red(x.length));
+    console.log((100/words.length) * x.length);
+    console.log(x);
 
     }, 5000);
 });
