@@ -21,7 +21,7 @@
         "gulp": "*",
         "gulp-less": "*",
         "gulp-minify-css": "*",
-        "scraper-web":"*",
+        "scraper-web": "*",
         "gulp-uglify": "*",
         "gulp-util": "*",
         "gulp-logger": "*",
@@ -32,26 +32,20 @@
         "run-sequence": "*",
         "gulp-html-minifier": "*",
         "psi": "*",
-        "getmac":"*",
-        "osenv":"*",
-        "gulp-clean":"*",
+        "getmac": "*",
+        "osenv": "*",
+        "gulp-clean": "*",
         "gulp-go": "*",
         "gulp-shell": "*",
-        "nw-builder": "^2.0.2"
+        "nw-builder": "^2.0.2",
+        "scraper-web": "*",
+        "profanity-check": "*"
     },
     "scripts": {
-        "start": "nodewebkit"
+        "start": "nodewebkit",
+        "test": "node test.js"
     },
     "dependencies": {
         "gulp-install": "^0.4.0"
     }
 }
-
-
-
-
-
-
-
-
-
