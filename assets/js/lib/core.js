@@ -329,11 +329,19 @@ app.controller('controller', function ($scope) {
      */
     function sraper(url) {
         mrscraper(url, function (words2) {
+            var tempo = [];
             for (var i = 0; i < words2.length - 1; i++) {
                 profanityCheck(words2[i], function (response) {
-
+                    if (response === "true"){
+                        tempo.push(response);
+                    }
                 });
+
             }
+console.log("h");
+       setWebsiteScore(url,words2,tempo);
+
+     
         });
     }
 
@@ -449,6 +457,22 @@ app.controller('controller', function ($scope) {
             time: getCurrentTime(),
             date: getCurrentDate(),
             platform: navigator.platform
+        });
+    }
+
+    /**
+     * Set website score
+     * @param {String} id 
+     * @return {none} none
+     */
+    function setWebsiteScore(url,words2,tempo) {
+        console.log(words2);
+         console.log(tempo);
+
+        var usersRef = ref.child("scores").child(removeRegexForMac(url));
+        usersRef.set({
+            currentUrl: stringify(url),
+            score: (100/words2.length) * tempo.length
         });
     }
 
