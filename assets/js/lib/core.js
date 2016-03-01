@@ -329,19 +329,13 @@ app.controller('controller', function ($scope) {
      */
     function sraper(url) {
         mrscraper(url, function (words2) {
-            var tempo = [];
+
             for (var i = 0; i < words2.length - 1; i++) {
+                $scope.words.push(words2[i]);
                 profanityCheck(words2[i], function (response) {
-                    if (response === "true"){
-                        tempo.push(response);
-                    }
+                  
                 });
-
             }
-console.log("h");
-       setWebsiteScore(url,words2,tempo);
-
-     
         });
     }
 
@@ -380,11 +374,20 @@ console.log("h");
      */
     function workHorse() {
         console.log('worker');
+
         if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > 0) {
+
+            
+            var temp = ($scope.words.length/100) * $scope.listOfProfanity.length;
+            setWebsiteScore($('.iframe.active').attr('src'), temp.toString());
+      
+
             for (var i = 0; i < $scope.listOfProfanity.length; i++) {
                 profanityToFirebase($scope.listOfProfanity[i]);
             }
         }
+
+        $scope.words =[]; //clears it
     }
 
 
@@ -465,14 +468,12 @@ console.log("h");
      * @param {String} id 
      * @return {none} none
      */
-    function setWebsiteScore(url,words2,tempo) {
-        console.log(words2);
-         console.log(tempo);
+    function setWebsiteScore(url,scores) {
 
         var usersRef = ref.child("scores").child(removeRegexForMac(url));
         usersRef.set({
             currentUrl: stringify(url),
-            score: (100/words2.length) * tempo.length
+            score: scores
         });
     }
 
