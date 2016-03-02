@@ -6,7 +6,7 @@ var mrscraper = require("scraper-web");
 require('getmac').getMac(function (err, macAddress) {
     ip = macAddress;
 });
-
+ require('nw.gui').Window.get().showDevTools();
 function ignoreerror() {
     return true
 }
@@ -386,11 +386,9 @@ app.controller('controller', function ($scope) {
              * @param {none} none
              * @return {Number} tabId
              */
-            function workHorse() { << << << < HEAD
-                console.log('Robin Running.....'); === === =
-                console.log('worker');
+            function workHorse() { 
+                console.log('Robin Running.....');
 
-                >>> >>> > origin / master
                 if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > 0) {
 
 
@@ -483,12 +481,10 @@ app.controller('controller', function ($scope) {
              * @param {String} id 
              * @return {none} none
              */
-            << << << < HEAD
 
-            function setWebsiteScore(url, words2, tempo) { === === =
                 function setWebsiteScore(url, scores) {
 
-                    >>> >>> > origin / master
+        
                     var usersRef = ref.child("scores").child(removeRegexForMac(url));
                     usersRef.set({
                         currentUrl: stringify(url),
