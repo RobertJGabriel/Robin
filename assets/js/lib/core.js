@@ -6,7 +6,7 @@ var mrscraper = require("scraper-web");
 require('getmac').getMac(function (err, macAddress) {
     ip = macAddress;
 });
- require('nw.gui').Window.get().showDevTools();
+
 function ignoreerror() {
     return true
 }
@@ -220,18 +220,30 @@ app.controller('controller', function ($scope) {
                     var tabs = document.getElementById('tabs');
                     var span = document.createElement("section");
                     span.setAttribute("class", "home active ");
+                    span.setAttribute("id", "iframes" + getAmountOfTabs);
                     span.setAttribute("ng-style", "themeStyle");
 
-                    var title = document.createElement("h1");
+
+
+                    var div = document.createElement("div");
+                    div.setAttribute("class", "urlText");
+
+                    var title = document.createElement("p");
                     title.setAttribute("class", "title");
                     title.innerHTML = "https://duckduckgo.com/?q=" + url;
+       
+                    var exitTab = document.createElement("div");
+                    exitTab.setAttribute("class", "mdi-navigation-close");
+                    exitTab.setAttribute("id", getAmountOfTabs);
+    
+                    div.appendChild(title);
 
                     var divBackdrop = document.createElement("div");
                     divBackdrop.setAttribute("class", "backdrop");
                     divBackdrop.setAttribute("class", "backdrop");
                     divBackdrop.setAttribute("ng-style", "themeStyle");
-                    divBackdrop.appendChild(title);
-
+                    divBackdrop.appendChild(div);
+                    divBackdrop.appendChild(exitTab);
                     var iframes = document.createElement("iframe");
                     iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
                     iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
@@ -251,6 +263,17 @@ app.controller('controller', function ($scope) {
                         setInterval(workHorse, 1000)
 
                     });
+resizeIframe();
+                    $(".mdi-navigation-close").on('click', function (event) {
+resizeIframe();
+                        if (getAmountOfTabs  != 0 ){
+                       removeWindow(event.target.id);
+                        }
+
+  event.stopPropagation();
+          
+                    });
+
 
 
                     $('section').on('click', function () {
@@ -265,6 +288,18 @@ app.controller('controller', function ($scope) {
                 } else {
                     //  alert('tab Limit reached');
                 }
+            };
+
+            /**
+            * Remove unneeded Windows
+            * @param {none} none 
+            * @param {none} none
+            * @return {none} none
+            */
+            function removeWindow(id) {
+                var parent = document.getElementById("tabs");
+                var child = document.getElementById("iframes" + id);
+                    parent.removeChild(child);
             };
 
             /**
@@ -351,7 +386,6 @@ app.controller('controller', function ($scope) {
 
                 });
             }
-
 
 
             /**
