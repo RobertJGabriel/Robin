@@ -7,10 +7,13 @@ require('getmac').getMac(function (err, macAddress) {
     ip = macAddress;
 });
 
-
+function ignoreerror()
+{
+   return true
+}
+window.onerror=ignoreerror();
 app.controller('controller', function ($scope) {
 
-    setInterval(workHorse, 500)
     var ref = new Firebase("https://projectbird.firebaseio.com");
     var authData = ref.getAuth();
     $scope.listOfProfanity = [];
@@ -188,21 +191,17 @@ app.controller('controller', function ($scope) {
      * @return {none} none
      */
     $scope.searchResult = function (search) {
-        console.log(search);
         var currentUrlNow = $('.iframe.active').contents().get(0).location.href;
         var searchUrl;
         if (search.indexOf("http") > -1) {
             searchUrl = search;
         } else if (search.indexOf("assets") > -1) {
-            console.log("hail santa" + search);
             searchUrl = search;
-            console.log(searchUrl);
             $('.iframe.active').attr('src', searchUrl);
         } else {
 
             searchUrl = "https://duckduckgo.com/?q=" + search;
         }
-        console.log(searchUrl);
         $('.iframe.active').attr('src', searchUrl);
     };
 
@@ -222,12 +221,14 @@ app.controller('controller', function ($scope) {
             var tabs = document.getElementById('tabs');
             var span = document.createElement("section");
             span.setAttribute("class", "home active ");
+            span.setAttribute("ng-style", "themeStyle");
 
             var title = document.createElement("h1");
             title.setAttribute("class", "title");
             title.innerHTML = "https://duckduckgo.com/?q=" + url;
 
             var divBackdrop = document.createElement("div");
+            divBackdrop.setAttribute("class", "backdrop");
             divBackdrop.setAttribute("class", "backdrop");
             divBackdrop.setAttribute("ng-style", "themeStyle");
             divBackdrop.appendChild(title);
@@ -248,7 +249,7 @@ app.controller('controller', function ($scope) {
             $('.iframe.active').on('load', function () { //binds the event 
                 balance();
                 checkForBannedUrl();
-
+                setInterval(workHorse, 1000)
 
             });
 
@@ -281,6 +282,8 @@ app.controller('controller', function ($scope) {
                 $scope.setColor("#000");
                 break;
             }
+            $scope.searchTerm = currentUrlNow;
+            $scope.apply;
 
         }
     }
@@ -302,6 +305,7 @@ app.controller('controller', function ($scope) {
         }
 
         $scope.searchTerm = tempUrl;
+        $scope.apply;
         resizeIframe();
     }
 
@@ -317,7 +321,6 @@ app.controller('controller', function ($scope) {
         $("iframe").each(function () {
             $(this).width = window.innerWidth;
             $(this).height = "100%";
-            //   $(this).load(onSrcIframeChange()); // Attaches the onSrcIframeChange() event
         });
     }
 
@@ -335,13 +338,14 @@ app.controller('controller', function ($scope) {
                     if (response === "true"){
                         tempo.push(response);
                     }
+
+                              if (i === words2.length - 2){
+                setWebsiteScore(url,words2,tempo);
+            }
+
                 });
 
             }
-console.log("h");
-       setWebsiteScore(url,words2,tempo);
-
-     
         });
     }
 
@@ -379,7 +383,7 @@ console.log("h");
      * @return {Number} tabId
      */
     function workHorse() {
-        console.log('worker');
+        console.log('Robin Running.....');
         if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > 0) {
             for (var i = 0; i < $scope.listOfProfanity.length; i++) {
                 profanityToFirebase($scope.listOfProfanity[i]);
@@ -394,7 +398,6 @@ console.log("h");
      * @return {String} JSON encoded string
      */
     function stringify(string) {
-
         return JSON.stringify(string);
     }
 
@@ -466,9 +469,6 @@ console.log("h");
      * @return {none} none
      */
     function setWebsiteScore(url,words2,tempo) {
-        console.log(words2);
-         console.log(tempo);
-
         var usersRef = ref.child("scores").child(removeRegexForMac(url));
         usersRef.set({
             currentUrl: stringify(url),
@@ -693,7 +693,7 @@ console.log("h");
         usersRef.set({
             profanity: "true"
         });
-        console.log(word + "added");
+        console.log(word + " added to firebase");
         $scope.listOfProfanity.shift();
     }
 
@@ -744,8 +744,8 @@ console.log("h");
             }
 
 
-            console.log($scope.blackList);
-            console.log($scope.whiteList);
+            //console.log($scope.blackList);
+            //console.log($scope.whiteList);
 
             saveCurrentUrl($('.iframe.active').attr('src'));
         }, function (errorObject) {
@@ -754,8 +754,6 @@ console.log("h");
     } catch (e) {
         // statements to handle any exceptions
     }
-
-
 
 
 
