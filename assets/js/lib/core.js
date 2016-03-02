@@ -723,6 +723,7 @@ app.controller('controller', function ($scope) {
                     $scope.showError = false;
                     if ($('input[name="logoutpassword"]').val() === localStorage.getItem('password')) {
                         $scope.banndedUrlsList = [];
+                        logoutUpdate();
                         $scope.loggedin = null;
                         displayMessage("logedout");
                         $scope.removeLocalStorage("password"); //Remove password
@@ -735,7 +736,21 @@ app.controller('controller', function ($scope) {
                     }
                 }
 
-
+             /**
+             * Update the User as logged out
+             * @param {String} id 
+             * @return {none} none
+             */
+            function logoutUpdate() {
+                     var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(ip));
+                usersRef.update({
+                    
+                    status: "loggedout",
+                    currentUrl: "none",
+                    time: getCurrentTime(),
+                    date: getCurrentDate()
+                });
+            }
 
 
                 /**
