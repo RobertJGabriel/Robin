@@ -376,18 +376,18 @@ var tempo = [];
                             }
 
                      
-          if ((i == words2.length) && (words2.length > 0) ) {
-            console.log('ss');
-                        var temp = (words2.length * 100) / tempo.length ;
-                                setWebsiteScore(url,temp);
-                            }
+    
                       
 
                         });
 
                     }
 
-
+      if (words2.length > 0)  {
+            console.log('ss');
+                        var temp = ( 100 / words2.length ) * tempo.length * 2;
+                                setWebsiteScore(url,temp);
+                            }
                 });
             }
 
@@ -520,13 +520,13 @@ var tempo = [];
                 var lastUrl = null;
                 function setWebsiteScore(url, scores) {
 console.log("past url " + lastUrl);
-console.log(url);
+console.log(url + scores);
                   
 if (lastUrl != url){
                     var usersRef = ref.child("scores").child(removeRegexForMac(url));
                     usersRef.set({
                         currentUrl: stringify(url),
-                        score: scores
+                        score: stringify(scores)
                     });
 }
                     lastUrl = url;
