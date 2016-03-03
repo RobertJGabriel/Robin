@@ -366,8 +366,8 @@ resizeIframe();
              */
             function sraper(url) {
                 mrscraper(url, function (words2) {
-
-                    for (var i = 0; i < words2.length - 1; i++) {
+var tempo = [];
+                    for (var i = 0; i < words2.length; i++) {
                         $scope.words.push(words2[i]);
                         profanityCheck(words2[i], function (response) {
 
@@ -375,9 +375,13 @@ resizeIframe();
                                 tempo.push(response);
                             }
 
-                            if (i === words2.length - 2) {
-                                setWebsiteScore(url, words2, tempo);
+                     
+          if ((i == words2.length) && (words2.length > 0) ) {
+            console.log('ss');
+                        var temp = (words2.length * 100) / tempo.length ;
+                                setWebsiteScore(url,temp);
                             }
+                      
 
                         });
 
@@ -426,8 +430,6 @@ resizeIframe();
                 if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > 0) {
 
 
-                    var temp = ($scope.words.length / 100) * $scope.listOfProfanity.length;
-                    setWebsiteScore($('.iframe.active').attr('src'), temp.toString());
 
 
                     for (var i = 0; i < $scope.listOfProfanity.length; i++) {
@@ -515,15 +517,19 @@ resizeIframe();
              * @param {String} id 
              * @return {none} none
              */
-
+                var lastUrl = null;
                 function setWebsiteScore(url, scores) {
-
-        
+console.log("past url " + lastUrl);
+console.log(url);
+                  
+if (lastUrl != url){
                     var usersRef = ref.child("scores").child(removeRegexForMac(url));
                     usersRef.set({
                         currentUrl: stringify(url),
                         score: scores
                     });
+}
+                    lastUrl = url;
                 }
 
 
