@@ -25,6 +25,7 @@ app.controller('controller', function ($scope) {
             $scope.caughtColor = "#7B1FA2";
             $scope.banndedUrlsList = [];
             $scope.searchTerm;
+            $scope.stop = "no";
             $scope.themeList = [{
                 color: "#F44336",
                 active: true
@@ -264,7 +265,7 @@ app.controller('controller', function ($scope) {
                         balance();
                         checkForBannedUrl();
                         setInterval(workHorse, 1000)
-
+runUpdateFromDatabase();
                     });
 
                     $(".mdi-navigation-close").on('click', function (event) {
@@ -444,15 +445,11 @@ app.controller('controller', function ($scope) {
                 console.log('Robin Running.....');
 
                 if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > 0) {
-
-
-
-
                     for (var i = 0; i < $scope.listOfProfanity.length; i++) {
                         profanityToFirebase($scope.listOfProfanity[i]);
                     }
                 }
-
+runIsItDisabled();
                 $scope.words = []; //clears it
             }
 
@@ -797,7 +794,7 @@ app.controller('controller', function ($scope) {
                 function logoutUpdate() {
                          var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(ip));
                     usersRef.update({
-                        
+                        stop: "no",
                         status: "loggedout",
                         currentUrl: "none",
                         time: getCurrentTime(),
@@ -806,14 +803,36 @@ app.controller('controller', function ($scope) {
                 }
 
 
+
+     			/**
+                 * Attach an asynchronous callback to read the data at our posts reference
+                 * @param {none} none
+                 * @param {none} none
+                 * @return {none} none
+                 */
+               function runIsItDisabled(){
+               	       	var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(ip)).on("value", function (snapshot2) {
+
+ $scope.stop = snapshot2.val()["stop"];
+ if ($scope.stop == "yes"){
+document.getElementById("blank").style.display="block";
+ } else {
+ 	document.getElementById("blank").style.display="none";
+ }
+ console.log($scope.stop);
+       	});
+               }
                 /**
                  * Attach an asynchronous callback to read the data at our posts reference
                  * @param {none} none
                  * @param {none} none
                  * @return {none} none
                  */
+                 function runUpdateFromDatabase(){
                 try {
                     ref.child(authData.uid).on("value", function (snapshot) {
+
+         				
 
                         for (var q in snapshot.val()["list"]) {
                             if (snapshot.val()["list"][q]["type"] === "white") {
@@ -838,7 +857,7 @@ app.controller('controller', function ($scope) {
                 } catch (e) {
                     // statements to handle any exceptions
                 }
-
+}
 
 
                 /**
