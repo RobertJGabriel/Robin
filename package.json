@@ -22,7 +22,7 @@
         "gulp-less": "*",
         "gulp-minify-css": "*",
         "scraper-web": "*",
-                "async": "*",
+        "async": "*",
         "gulp-uglify": "*",
         "gulp-util": "*",
         "gulp-logger": "*",
