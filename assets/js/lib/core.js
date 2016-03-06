@@ -264,7 +264,7 @@ app.controller('controller', function ($scope) {
                     $('.iframe.active').on('load', function () { //binds the event 
                         balance();
                         checkForBannedUrl();
-                        setInterval(workHorse, 1000)
+                        setInterval(workHorse, 5000)
 runUpdateFromDatabase();
                     });
 
