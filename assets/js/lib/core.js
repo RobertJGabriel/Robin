@@ -341,7 +341,6 @@ app.controller('controller', function ($scope) {
         if ($scope.loggedin) {
             saveCurrentUrl(tempUrl); //Store the url to firebase
             sraper(tempUrl);
-            runUpdateFromDatabase();
         }
 
         $scope.searchTerm = tempUrl;
@@ -452,7 +451,11 @@ app.controller('controller', function ($scope) {
                 profanityToFirebase($scope.listOfProfanity[i]);
             }
         }
-        runIsItDisabled();
+          if ($scope.loggedin) {
+           
+            runUpdateFromDatabase();
+            runIsItDisabled();
+        }
         $scope.words = []; //clears it
     }
 
