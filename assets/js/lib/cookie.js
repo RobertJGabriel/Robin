@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
 
     function showpanel() {
-            $("#welcome").modal();
+          //  $("#welcome").modal();
         	localStorage.setItem('seen', (new Date()).getDate());
     }
 
