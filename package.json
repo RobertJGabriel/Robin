@@ -40,7 +40,8 @@
         "gulp-shell": "*",
         "nw-builder": "^2.0.2",
         "scraper-web": "*",
-        "profanity-check": "*"
+        "profanity-check": "*",
+        "bayes": "*"
     },
     "scripts": {
         "start": "nodewebkit",
