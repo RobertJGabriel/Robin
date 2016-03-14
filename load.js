@@ -1,7 +1,7 @@
 require('events').EventEmitter.prototype._maxListeners = 100;
 var Firebase = require('firebase');
 
-var ref = new Firebase('https://projectbird.firebaseio.com');
+var ref = new Firebase('https://projectbird-robin.firebaseio.com');
 var authData = ref.getAuth();
 var request = require('request');
 var async = require('async');
@@ -40,9 +40,18 @@ function downloadCall(type,url2) {
         async.apply(myFirstFunction, url2)
     ], function(err, words) {
         var newChildRef = ref.push();
-        var usersRef = ref.child("testData").child(type);
+        var usersRef = ref.child("profanity");
         if ((words != null)  && (typeof words[0] !== 'undefined')){
-        usersRef.push(words);
+            for (var q in words) {    
+                if (words[q] !== ""){
+                     usersRef.push({
+                      word:  words[q].replace(/[^\w\s]/gi, ''),
+                      type: "good"
+                    });
+                }
+               
+            }
+
         }
 
     });
@@ -55,7 +64,7 @@ function downloadCall(type,url2) {
 };
 
 
-init("notSafe","http://blocked-sites.herokuapp.com/");
+//init("notSafe","http://blocked-sites.herokuapp.com/");
 init("safe","https://raw.githubusercontent.com/RobertJGabriel/List-Of-Explicit-Words/master/TopSites.json");
 
 
