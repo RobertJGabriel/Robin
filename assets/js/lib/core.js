@@ -321,8 +321,7 @@ app.controller('controller', function ($scope) {
             var currentUrlNow = $('.iframe.active').contents().get(0).location.href,
                 bannedUrl = $scope.blackList[i]["url"];
             if (currentUrlNow.indexOf(bannedUrl) > -1) {
-                $scope.searchResult("http://projectbird.com");
-                $scope.setColor("#000");
+               smartCaught();
                 break;
             }
             $scope.searchTerm = currentUrlNow;
@@ -331,6 +330,11 @@ app.controller('controller', function ($scope) {
         }
     }
 
+    function smartCaught(){
+         $scope.searchResult("http://projectbird.com");
+                $scope.setColor("#000");
+                 $scope.apply;
+    }
 
 
     /**
@@ -465,11 +469,9 @@ app.controller('controller', function ($scope) {
         }
        if ($scope.words.length !== 0){
 
-       var temp = classifier.categorize(unique($scope.words).toString());
-       var stateJson = classifier.toJson();
+            var temp = classifier.categorize(unique($scope.words).toString());
 
-        console.log(classifier.toJson());
-
+            if (temp === "negative"){smartCaught();}
             console.log("Current Page is " + temp);
         }
 
