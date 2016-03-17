@@ -36,6 +36,7 @@
         "getmac": "*",
         "osenv": "*",
         "gulp-clean": "*",
+        "firebase":"*",
         "gulp-go": "*",
         "gulp-shell": "*",
         "nw-builder": "^2.0.2",

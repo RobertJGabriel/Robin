@@ -1,302 +1,268 @@
-var app = angular.module('robin', []);
-var osenv = require('osenv');
-var ip = null;
-var user = osenv.user();
-var async = require('async');
-var mrscraper = require("scraper-web");
-var bayes = require('bayes');
-var classifier = bayes();
-require('getmac').getMac(function (err, macAddress) {
-    ip = macAddress;
-});
-       require('nw.gui').Window.get().showDevTools();
-function ignoreerror() {
-    return true;
-}
-window.onerror = ignoreerror();
-app.controller('controller', function ($scope) {
-
-    var ref = new Firebase("https://projectbird-robin.firebaseio.com");
-    var authData = ref.getAuth();
-
-    $scope.listOfProfanityWords = [];
-     $scope.listOfProfanity = [];
-     $scope.listOfGoodWords =[];
-    $scope.words = [];
-    $scope.loggedin = null;
-    $scope.tabsLimit = 6;
-    $scope.caughtColor = "#7B1FA2";
-    $scope.banndedUrlsList = [];
-    $scope.searchTerm = "";
-    $scope.stop = "no";
-    $scope.themeList = [{
-        color: "#F44336",
-        active: true
-            }];
-
-    //Used to understand wha to overwrite
-    $scope.blackList = [];
-    $scope.whiteList = [];
-
-    //this is fine.
-    $scope.savedTheme = localStorage.getItem('theme');
-    $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse($scope.savedTheme) : $scope.themeList;
-    $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {
-        'background-color': $scope.theme[0][0]['color']
-    } : {
-        'background-color': "#F44336"
-    };
-    $scope.themeStyleSides = (localStorage.getItem('theme') !== null) ? {
-        'border-left': "2px solid " + $scope.theme[0][0]['color'],
-        'border-bottom': "2px solid " + $scope.theme[0][0]['color']
-    } : {
-        'border-left': "2px solid " + "#F44336",
-        'border-bottom': "2px solid " + "#F44336"
-    };
-    $scope.password = (localStorage.getItem('password') === null) ? null : localStorage.getItem('password');
+var app = angular.module('robin', []),
+    osenv = require('osenv'),
+    user = osenv.user(),
+    async = require('async'),
+    mrscraper = require("scraper-web"),
+    bayes = require('bayes'),
+    firebase = require('firebase');
+    ref = new firebase('https://projectbird-robin.firebaseio.com'),
+    authData = ref.getAuth(),
+    classifier = bayes(),
+    usersMacAddress = null,
+    macAddress = require('getmac').getMac(function (err, macAddress) { usersMacAddress = macAddress;});
 
 
-    /**
-     * Onload Event for Angular
-     * @param {none} none 
-     * @return {none} none
-     */
-    $scope.init = function () {
-        $scope.createTab('');
-    };
+    app.controller('controller', function ($scope) {
 
 
-    /**
-     * sets current color or theme
-     * @param {String} color 
-     * @return {none} none
-     */
-    $scope.setColor = function (color) {
-        $scope.removeLocalStorage('theme');
-        $scope.theme = [];
-        $scope.theme.push([{
-            color: color,
-            active: true
-                }]);
-        localStorage.setItem('theme', JSON.stringify($scope.theme));
-        $scope.themeStyle = {
-            'background-color': color
+        $scope.listOfProfanityWords = [];
+        $scope.listOfProfanity = [];
+        $scope.listOfGoodWords =[];
+        $scope.words = [];
+        $scope.loggedin = null;
+        $scope.tabsLimit = 6;
+        $scope.caughtColor = "#7B1FA2";
+        $scope.banndedUrlsList = [];
+        $scope.searchTerm = "";
+        $scope.stop = "no";
+        $scope.blackList = [];
+        $scope.whiteList = [];
+        $scope.password = (localStorage.getItem('password') === null) ? null : localStorage.getItem('password');
+
+
+        $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse(localStorage.getItem('theme')) : [{color: "#F44336"}];
+        $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {
+            'background-color': $scope.theme[0][0]['color']
+        } : {
+            'background-color': "#F44336"
+        };
+        
+  
+
+        /**
+         * Onload Event for Angular
+         * @param {none} none 
+         * @return {none} none
+         */
+        $scope.init = function () {
+            $scope.createTab('');
+        };
+
+
+        /**
+         * sets current color or theme
+         * @param {String} color 
+         * @return {none} none
+         */
+        $scope.setColor = function (color) {
+
+            $scope.removeLocalStorage('theme');
+            $scope.theme = [{color: color}];
+            localStorage.setItem('theme', JSON.stringify($scope.theme));
+            $scope.themeStyle = {
+                'background-color': color
+            };
+    
+        };
+
+
+        /**
+         * Remove localstorage by key
+         * @param {String} Key
+         * @return {none} none
+         */
+        $scope.removeLocalStorage = function (key) {
+            localStorage.removeItem(key);
+        };
+
+
+        /**
+         * Show Current tabs in expand view
+         * @param {String} Key
+         * @return {none} none
+         */
+        $scope.showTabs = function (key) {
+            expandTabs();
+        };
+
+
+        /**
+         * Go Back in iframe
+         * @param {none} none
+         * @return {none} none
+         */
+        $scope.goBack = function () {
+            document.getElementById($('.iframe.active').attr('id')).contentWindow.history.back();
 
         };
-        $scope.themeStyleSides = {
-            'border-left': "2px solid " + color,
-            'border-bottom': "2px solid " + color
+
+
+        /**
+         * Go Forword in iframe
+         * @param {none} none
+         * @return {none} none
+         */
+        $scope.goForword = function () {
+            document.getElementById($('.iframe.active').attr('id')).contentWindow.history.forword();
         };
-    };
 
 
-    /**
-     * Remove localstorage by key
-     * @param {String} Key
-     * @return {none} none
-     */
-    $scope.removeLocalStorage = function (key) {
-        localStorage.removeItem(key);
-    };
+        /**
+         * Refresh iframe
+         * @param {none} none
+         * @return {none} none
+         */
+        $scope.refresh = function () {
+            $('.iframe.active').attr('src', $('.iframe.active').attr('src'));
+        };
 
 
-    /**
-     * Show Current tabs in expand view
-     * @param {String} Key
-     * @return {none} none
-     */
-    $scope.showTabs = function (key) {
-        expandTabs();
-    };
+        /**
+         * Go Home in iframe
+         * @param {none} none
+         * @return {none} none
+         */
+        $scope.home = function () {
+            $('.iframe.active').attr('src', 'https://duckduckgo.com/?q=');
+        };
 
 
-    /**
-     * Go Back in iframe
-     * @param {none} none
-     * @return {none} none
-     */
-    $scope.goBack = function () {
-        document.getElementById($('.iframe.active').attr('id')).contentWindow.history.back();
+        /**
+         * Search
+         * @param {object} keyEvent
+         * @return {none} none
+         */
+        $scope.search = function (keyEvent) {
+            if ($scope.searchTerm === "devKeys") {
+                require('nw.gui').Window.get().showDevTools();
+            }
+            if ($scope.searchTerm === "easteregg") {
+                cornify_add();
+            }
 
-    };
-
-
-    /**
-     * Go Forword in iframe
-     * @param {none} none
-     * @return {none} none
-     */
-    $scope.goForword = function () {
-        document.getElementById($('.iframe.active').attr('id')).contentWindow.history.forword();
-    };
-
-
-    /**
-     * Refresh iframe
-     * @param {none} none
-     * @return {none} none
-     */
-    $scope.refresh = function () {
-        $('.iframe.active').attr('src', $('.iframe.active').attr('src'));
-    };
+            if (keyEvent.which === 13) {
+                $scope.searchResult($scope.searchTerm);
+                setPageTitle($scope.searchTerm);
+            }
+        };
 
 
-    /**
-     * Go Home in iframe
-     * @param {none} none
-     * @return {none} none
-     */
-    $scope.home = function () {
-        $('.iframe.active').attr('src', 'https://duckduckgo.com/?q=');
-    };
+        /**
+         * Auto focus the text in input
+         * @param {none} none
+         * @return {none} none
+         */
+        $scope.autoFocus = function () {
+            document.getElementById("searchTerm").select();
+        };
 
 
-    /**
-     * Search
-     * @param {object} keyEvent
-     * @return {none} none
-     */
-    $scope.search = function (keyEvent) {
-        if ($scope.searchTerm === "devKeys") {
-            require('nw.gui').Window.get().showDevTools();
-        }
-        if ($scope.searchTerm === "easteregg") {
-            cornify_add();
+        /**
+         * Set Page title
+         * @param {String} title
+         * @return {none} none
+         */
+        function setPageTitle(title) {
+            document.title = "Robin : " + title;
         }
 
-        if (keyEvent.which === 13) {
-            $scope.searchResult($scope.searchTerm);
-            setPageTitle($scope.searchTerm);
-        }
-    };
 
+        /**
+         * Run search String 
+         * @param {String} search
+         * @return {none} none
+         */
+        $scope.searchResult = function (search) {
+            var currentUrlNow = $('.iframe.active').contents().get(0).location.href;
+            var searchUrl;
+            if (search.indexOf("http") > -1) {
+                searchUrl = search;
+            } else if (search.indexOf("assets") > -1) {
+                searchUrl = search;
+                $('.iframe.active').attr('src', searchUrl);
+            } else {
 
-    /**
-     * Auto focus the text in input
-     * @param {none} none
-     * @return {none} none
-     */
-    $scope.autoFocus = function () {
-        document.getElementById("searchTerm").select();
-    };
-
-
-    /**
-     * Set Page title
-     * @param {String} title
-     * @return {none} none
-     */
-    function setPageTitle(title) {
-        document.title = "Robin : " + title;
-    }
-
-
-    /**
-     * Run search String 
-     * @param {String} search
-     * @return {none} none
-     */
-    $scope.searchResult = function (search) {
-        var currentUrlNow = $('.iframe.active').contents().get(0).location.href;
-        var searchUrl;
-        if (search.indexOf("http") > -1) {
-            searchUrl = search;
-        } else if (search.indexOf("assets") > -1) {
-            searchUrl = search;
+                searchUrl = "https://duckduckgo.com/?q=" + search;
+            }
             $('.iframe.active').attr('src', searchUrl);
-        } else {
-
-            searchUrl = "https://duckduckgo.com/?q=" + search;
-        }
-        $('.iframe.active').attr('src', searchUrl);
-    };
+        };
 
 
-    /**
-     * Create Tab
-     * @param {String} search
-     * @return {none} none
-     */
-    $scope.createTab = function (url) {
-        var getAmountOfTabs = document.getElementsByTagName("iframe").length;
-        if (getAmountOfTabs !== $scope.tabsLimit) {
+        /**
+         * Create Tab
+         * @param {String} search
+         * @return {none} none
+         */
+        $scope.createTab = function (url) {
+            var getAmountOfTabs = document.getElementsByTagName("iframe").length;
+            if (getAmountOfTabs !== $scope.tabsLimit) {
+
+                $('.home').removeClass('active');
+                $('.iframe').removeClass('active');
+                var tabs = document.getElementById('tabs');
+                var span = document.createElement("section");
+                span.setAttribute("class", "home active ");
+                span.setAttribute("id", "iframes" + getAmountOfTabs);
+                span.setAttribute("ng-style", "themeStyle");
+
+                var div = document.createElement("div");
+                div.setAttribute("class", "urlText");
+
+                var title = document.createElement("p");
+                title.setAttribute("class", "title");
+                title.innerHTML = "https://duckduckgo.com/?q=" + url;
+
+                var exitTab = document.createElement("div");
+                exitTab.setAttribute("class", "mdi-navigation-close");
+                exitTab.setAttribute("id", getAmountOfTabs + "s");
+
+                div.appendChild(title);
+
+                var divBackdrop = document.createElement("div");
+                divBackdrop.setAttribute("class", "backdrop");
+                divBackdrop.setAttribute("class", "backdrop");
+                divBackdrop.setAttribute("ng-style", "themeStyle");
+                divBackdrop.appendChild(div);
+                divBackdrop.appendChild(exitTab);
+                var iframes = document.createElement("iframe");
+                iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
+                iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
+                iframes.setAttribute("class", "iframe active  ");
+                iframes.setAttribute("id", getAmountOfTabs);
+                iframes.setAttribute("width", window.innerWidth);
+                iframes.setAttribute("height", "100%");
+
+                span.appendChild(divBackdrop);
+                span.appendChild(iframes);
+                tabs.appendChild(span);
 
 
-            $('.home').removeClass('active');
-            $('.iframe').removeClass('active');
-            var tabs = document.getElementById('tabs');
-            var span = document.createElement("section");
-            span.setAttribute("class", "home active ");
-            span.setAttribute("id", "iframes" + getAmountOfTabs);
-            span.setAttribute("ng-style", "themeStyle");
+                $('.iframe.active').on('load', function () { //binds the event 
+                    balance();
+                    checkForBannedUrl();
+                    setInterval(workHorse, 10000);
+                });
 
+                $(".mdi-navigation-close").on('click', function (event) {
+                    if (getAmountOfTabs !== 0) {
+                        removeWindow(event.target.id);
+                    }
+                    event.stopPropagation();
+                });
 
+                $('section').on('click', function () {
+                    $(this).closest('section').prependTo('.contain');
+                    $('section').removeClass('active');
+                    $('.home.active .iframe').removeClass('active');
+                    $(this).addClass('active');
+                    $('.home.active .iframe').addClass('active');
+                    $('.contain').removeClass('active');
+                });
 
-            var div = document.createElement("div");
-            div.setAttribute("class", "urlText");
-
-            var title = document.createElement("p");
-            title.setAttribute("class", "title");
-            title.innerHTML = "https://duckduckgo.com/?q=" + url;
-
-            var exitTab = document.createElement("div");
-            exitTab.setAttribute("class", "mdi-navigation-close");
-            exitTab.setAttribute("id", getAmountOfTabs + "s");
-
-            div.appendChild(title);
-
-            var divBackdrop = document.createElement("div");
-            divBackdrop.setAttribute("class", "backdrop");
-            divBackdrop.setAttribute("class", "backdrop");
-            divBackdrop.setAttribute("ng-style", "themeStyle");
-            divBackdrop.appendChild(div);
-            divBackdrop.appendChild(exitTab);
-            var iframes = document.createElement("iframe");
-            iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-            iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
-            iframes.setAttribute("class", "iframe active  ");
-            iframes.setAttribute("id", getAmountOfTabs);
-            iframes.setAttribute("width", window.innerWidth);
-            iframes.setAttribute("height", "100%");
-
-            span.appendChild(divBackdrop);
-            span.appendChild(iframes);
-            tabs.appendChild(span);
-
-
-            $('.iframe.active').on('load', function () { //binds the event 
-                balance();
-                checkForBannedUrl();
-                setInterval(workHorse, 10000);
-
-
-            });
-
-            $(".mdi-navigation-close").on('click', function (event) {
-
-                if (getAmountOfTabs !== 0) {
-                    removeWindow(event.target.id);
-                }
-
-                event.stopPropagation();
-
-            });
-
-
-
-            $('section').on('click', function () {
-                $(this).closest('section').prependTo('.contain');
-                $('section').removeClass('active');
-                $('.home.active .iframe').removeClass('active');
-                $(this).addClass('active');
-                $('.home.active .iframe').addClass('active');
-                $('.contain').removeClass('active');
-            });
-
-        } else {
-            //  alert('tab Limit reached');
-        }
-    };
+            } else {
+                //  alert('tab Limit reached');
+            }
+        };
 
     /**
      * Remove unneeded Windows
@@ -475,9 +441,6 @@ app.controller('controller', function ($scope) {
             console.log("Current Page is " + temp);
         }
 
-
-// => 'positive'
-
         $scope.words = []; //clears it
 
     }
@@ -535,7 +498,7 @@ app.controller('controller', function ($scope) {
      */
     function saveCurrentUrl(url) {
         $scope.searchTerm = url;
-        var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(ip));
+        var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(usersMacAddress));
         usersRef.update({
             name: user,
             status: "active",
@@ -553,7 +516,7 @@ app.controller('controller', function ($scope) {
      * @return {none} none
      */
     function setIpAddress(id) {
-        var usersRef = ref.child(id).child("children").child(removeRegexForMac(ip));
+        var usersRef = ref.child(id).child("children").child(removeRegexForMac(usersMacAddress));
         usersRef.set({
             name: user,
             status: "active",
@@ -870,62 +833,48 @@ app.controller('controller', function ($scope) {
      * @param {none} none
      * @return {none} none
      */
-
-        try {
-
-            ref.child(authData.uid).on("child_changed", function (snapshot) {
-console.log("change");
-                for (var q in snapshot.val()["list"]) {
-                    if (snapshot.val()["list"][q]["type"] === "white") {
-                        $scope.whiteList.push({
-                            url: q.replace(/['"]+/g, '')
-                        });
-                    } else {
-                        $scope.blackList.push({
-                            url: q.replace(/['"]+/g, '')
-                        });
-                    }
-                }
-
-                //console.log($scope.blackList);
-                //console.log($scope.whiteList);
-
-                saveCurrentUrl($('.iframe.active').attr('src'));
-            }, function (errorObject) {
-                console.log("The read failed: " + errorObject.code);
-            });
-        } catch (e) {
-            // statements to handle any exceptions
-        }
-    
-
-
     try {
-
-
-        ref.child("profanity").on('child_added', function (snapshot, prevChildKey) {
-
-           for (var q in snapshot.val()) {    
-
-            if (snapshot.val()["type"] === "good") {
-              
-                         $scope.listOfGoodWords.push(snapshot.val()["word"]);
-                         classifier.learn($scope.listOfGoodWords.toString().toLowerCase(), 'positive');
-
-                    } else {
-                
-                      $scope.listOfProfanityWords.push(snapshot.val()["word"]);
-                                  classifier.learn($scope.listOfProfanityWords.toString(), 'negative');
-                    
+        ref.child(authData.uid).on("child_changed", function(snapshot) {
+            console.log("change");
+            for (var q in snapshot.val()["list"]) {
+                if (snapshot.val()["list"][q]["type"] === "white") {
+                    $scope.whiteList.push({
+                        url: q.replace(/['"]+/g, '')
+                    });
+                } else {
+                    $scope.blackList.push({
+                        url: q.replace(/['"]+/g, '')
+                    });
                 }
-          }
-        }, function (errorObject) {
+            }
+            //console.log($scope.blackList);
+            //console.log($scope.whiteList);
+            saveCurrentUrl($('.iframe.active').attr('src'));
+        }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-    }catch (e){
-
+    } catch (e) {
+        // statements to handle any exceptions
     }
-
+    try {
+        ref.child("profanity").on('child_added', function(snapshot,
+            prevChildKey) {
+            for (var q in snapshot.val()) {
+                if (snapshot.val()["type"] === "good") {
+                    $scope.listOfGoodWords.push(snapshot.val()["word"]);
+                    classifier.learn($scope.listOfGoodWords.toString().toLowerCase(),
+                        'positive');
+                } else {
+                    $scope.listOfProfanityWords.push(snapshot.val()[
+                        "word"]);
+                    classifier.learn($scope.listOfProfanityWords.toString(),
+                        'negative');
+                }
+            }
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+    } catch (e) {}
 
 
 
