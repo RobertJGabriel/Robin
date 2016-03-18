@@ -226,7 +226,7 @@ var osenv = require('osenv'),
     }
 
     $scope.closeTab = function ($event){
-      if ($scope.browser.length > 0){
+      if ($scope.browser.length  > 1){
           for(var i = $scope.browser.length - 1; i >= 0; i--){
             console.log($scope.browser[i]["closeId"]  +  "   "  + $event.target.id);
             if($scope.browser[i]["closeId"] == $event.target.id){
