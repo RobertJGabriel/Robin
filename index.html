@@ -58,17 +58,17 @@
 
   <!--  Tabs for Muilipt Browsers or Iframes  -->
   <div class='contain' id="tabs">
-<div ng-repeat="evt in browser">
-    <section class="home active" ng-click="selectTab($event)" id="{{evt.iframeId}}" ng-style="themeStyle">
-      <div class="backdrop" ng-style="themeStyle">
-        <div class="urlText">
-          <p class="title">{{evt.title}}</p>
+    <div ng-repeat="evt in browser">
+      <section class="home active" ng-click="selectTab($event)" id="{{evt.iframeId}}" ng-style="themeStyle">
+        <div class="backdrop" ng-style="themeStyle">
+          <div class="urlText">
+            <p class="title">{{evt.title}}</p>
+          </div>
+          <div class="mdi-navigation-close" ng-click="closeTab($event);$event.stopPropagation();" id="{{evt.closeId}}"></div>
         </div>
-        <div class="mdi-navigation-close" ng-click="closeTab($event);$event.stopPropagation();"  id="{{evt.closeId}}"></div>
-      </div>
-      <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms" ng-src="{{evt.title | trustUrl}}" class="iframe active" id="{{evt.id}}" width="850" height="100%"></iframe>
-    </section>
-</div>
+        <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms" ng-src="{{evt.title | trustUrl}}" class="iframe active" id="{{evt.id}}" width="850" height="100%"></iframe>
+      </section>
+    </div>
 
   </div>
 
