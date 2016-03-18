@@ -1,5 +1,11 @@
-var app = angular.module('robin', []),
-    osenv = require('osenv'),
+var app = angular.module('robin', []).filter('trustUrl', function ($sce) {
+    return function(url) {
+      return $sce.trustAsResourceUrl(url);
+    };
+  });
+
+
+var osenv = require('osenv'),
     user = osenv.user(),
     async = require('async'),
     mrscraper = require("scraper-web"),
@@ -10,7 +16,7 @@ var app = angular.module('robin', []),
     classifier = bayes(),
     usersMacAddress = null,
     macAddress = require('getmac').getMac(function (err, macAddress) { usersMacAddress = macAddress;});
-
+  require('nw.gui').Window.get().showDevTools();
 
     app.controller('controller', function ($scope) {
 
@@ -18,6 +24,7 @@ var app = angular.module('robin', []),
         $scope.listOfProfanityWords = [];
         $scope.listOfProfanity = [];
         $scope.listOfGoodWords =[];
+        $scope.browser = [];
         $scope.words = [];
         $scope.loggedin = null;
         $scope.tabsLimit = 6;
@@ -29,21 +36,19 @@ var app = angular.module('robin', []),
         $scope.whiteList = [];
         $scope.password = (localStorage.getItem('password') === null) ? null : localStorage.getItem('password');
 
-
         $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse(localStorage.getItem('theme')) : [{color: "#F44336"}];
         $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {
             'background-color': $scope.theme[0][0]['color']
         } : {
             'background-color': "#F44336"
         };
-        
-  
+
 
         /**
-         * Onload Event for Angular
-         * @param {none} none 
-         * @return {none} none
-         */
+        * Onload Event for Angular
+        * @param {none} none
+        * @return {none} none
+        */
         $scope.init = function () {
             $scope.createTab('');
         };
@@ -51,7 +56,7 @@ var app = angular.module('robin', []),
 
         /**
          * sets current color or theme
-         * @param {String} color 
+         * @param {String} color
          * @return {none} none
          */
         $scope.setColor = function (color) {
@@ -62,7 +67,7 @@ var app = angular.module('robin', []),
             $scope.themeStyle = {
                 'background-color': color
             };
-    
+
         };
 
 
@@ -168,7 +173,7 @@ var app = angular.module('robin', []),
 
 
         /**
-         * Run search String 
+         * Run search String
          * @param {String} search
          * @return {none} none
          */
@@ -194,88 +199,43 @@ var app = angular.module('robin', []),
          * @return {none} none
          */
         $scope.createTab = function (url) {
-            var getAmountOfTabs = document.getElementsByTagName("iframe").length;
-            if (getAmountOfTabs !== $scope.tabsLimit) {
 
+            if ($scope.browser.length !== $scope.tabsLimit) {
+                var newTab = {id: $scope.browser.length,iframeId:"iframes" + $scope.browser.length, closeId:$scope.browser.length + "s", title:"https://duckduckgo.com/?q=" + url, color:"white"};
+                $scope.browser.push(newTab) ;
                 $('.home').removeClass('active');
                 $('.iframe').removeClass('active');
-                var tabs = document.getElementById('tabs');
-                var span = document.createElement("section");
-                span.setAttribute("class", "home active ");
-                span.setAttribute("id", "iframes" + getAmountOfTabs);
-                span.setAttribute("ng-style", "themeStyle");
 
-                var div = document.createElement("div");
-                div.setAttribute("class", "urlText");
-
-                var title = document.createElement("p");
-                title.setAttribute("class", "title");
-                title.innerHTML = "https://duckduckgo.com/?q=" + url;
-
-                var exitTab = document.createElement("div");
-                exitTab.setAttribute("class", "mdi-navigation-close");
-                exitTab.setAttribute("id", getAmountOfTabs + "s");
-
-                div.appendChild(title);
-
-                var divBackdrop = document.createElement("div");
-                divBackdrop.setAttribute("class", "backdrop");
-                divBackdrop.setAttribute("class", "backdrop");
-                divBackdrop.setAttribute("ng-style", "themeStyle");
-                divBackdrop.appendChild(div);
-                divBackdrop.appendChild(exitTab);
-                var iframes = document.createElement("iframe");
-                iframes.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms");
-                iframes.setAttribute("src", "https://duckduckgo.com/?q=" + url);
-                iframes.setAttribute("class", "iframe active  ");
-                iframes.setAttribute("id", getAmountOfTabs);
-                iframes.setAttribute("width", window.innerWidth);
-                iframes.setAttribute("height", "100%");
-
-                span.appendChild(divBackdrop);
-                span.appendChild(iframes);
-                tabs.appendChild(span);
-
-
-                $('.iframe.active').on('load', function () { //binds the event 
+                $('.iframe.active').on('load', function () { //binds the event
                     balance();
                     checkForBannedUrl();
                     setInterval(workHorse, 10000);
                 });
-
-                $(".mdi-navigation-close").on('click', function (event) {
-                    if (getAmountOfTabs !== 0) {
-                        removeWindow(event.target.id);
-                    }
-                    event.stopPropagation();
-                });
-
-                $('section').on('click', function () {
-                    $(this).closest('section').prependTo('.contain');
-                    $('section').removeClass('active');
-                    $('.home.active .iframe').removeClass('active');
-                    $(this).addClass('active');
-                    $('.home.active .iframe').addClass('active');
-                    $('.contain').removeClass('active');
-                });
-
             } else {
                 //  alert('tab Limit reached');
             }
         };
 
-    /**
-     * Remove unneeded Windows
-     * @param {none} none 
-     * @param {none} none
-     * @return {none} none
-     */
-    function removeWindow(id) {
-
-        var parent = document.getElementById("tabs");
-        var child = document.getElementById("iframes" + id.replace('s', ''));
-        parent.removeChild(child);
+    $scope.selectTab = function ($event){
+        $($event.currentTarget).closest('section').prependTo('.contain');
+        $('section').removeClass('active');
+        $('.home.active .iframe').removeClass('active');
+        $($event.currentTarget).addClass('active');
+        $('.home.active .iframe').addClass('active');
+        $('.contain').removeClass('active');
     }
+
+    $scope.closeTab = function ($event){
+      if ($scope.browser.length > 0){
+          for(var i = $scope.browser.length - 1; i >= 0; i--){
+            console.log($scope.browser[i]["closeId"]  +  "   "  + $event.target.id);
+            if($scope.browser[i]["closeId"] == $event.target.id){
+              $scope.browser.splice(i,1);
+            }
+          }
+        }
+    }
+
 
     /**
      * Banned Urls, redirects if its a banned url
@@ -325,7 +285,7 @@ var app = angular.module('robin', []),
 
 
     /**
-     * Resize the Iframes to the width and height of the window 
+     * Resize the Iframes to the width and height of the window
      * @param {none} none
      * @return {none} none
      */
@@ -349,11 +309,11 @@ var app = angular.module('robin', []),
                     async.apply(myFirstFunction, url),
                     mySecondFunction
                 ], function (err, words, profanity) {
-                  
+
                     $scope.words = words;
             var temp = (100 / words.length) * profanity.length;
-    
-          
+
+
             setWebsiteScore(url, temp);
         });
 
@@ -364,7 +324,7 @@ var app = angular.module('robin', []),
         }
 
         function mySecondFunction(words, callback) {
-           
+
             callback(null, words, getMatch(words, $scope.listOfProfanityWords));
         }
 
@@ -430,7 +390,7 @@ var app = angular.module('robin', []),
             }
         }
           if ($scope.loggedin) {
-           
+
             runIsItDisabled();
         }
        if ($scope.words.length !== 0){
@@ -493,7 +453,7 @@ var app = angular.module('robin', []),
 
     /**
      * Set the current userId in the database.
-     * @param {String} id 
+     * @param {String} id
      * @return {none} none
      */
     function saveCurrentUrl(url) {
@@ -509,10 +469,10 @@ var app = angular.module('robin', []),
         });
     }
 
-    
+
     /**
      * Set the current userId in the database.
-     * @param {String} id 
+     * @param {String} id
      * @return {none} none
      */
     function setIpAddress(id) {
@@ -526,11 +486,11 @@ var app = angular.module('robin', []),
             platform: navigator.platform
         });
     }
-    
+
 
     /**
      * Set website score
-     * @param {String} id 
+     * @param {String} id
      * @return {none} none
      */
     var lastUrl = null;
@@ -549,7 +509,7 @@ var app = angular.module('robin', []),
 
     /**
      * Hand the login information for the robin
-     * @param {none} none 
+     * @param {none} none
      * @param {none} none
      * @return {none} none
      */
@@ -565,7 +525,7 @@ var app = angular.module('robin', []),
 
     /**
      * Hand the signup information for the robin
-     * @param {none} none 
+     * @param {none} none
      * @param {none} none
      * @return {none} none
      */
@@ -694,28 +654,7 @@ var app = angular.module('robin', []),
     }
 
 
-    /**
-     * Checks for profanity
-     * @param {object} callback 
-     * @param {String} word
-     * @return {profanity} returns true or false if the word is classed.
-     */
-    function profanityCheck(word, callback) {
-        $.ajax({
-            url: "http://www.wdyl.com/profanity?q=" + word,
-            async: true,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
 
-                data.response === "true" ? $scope.listOfProfanity.push(word) : null;
-                callback(data.response);
-            },
-            error: function (e) {
-                // alert('error, try again');
-            }
-        });
-    }
 
 
     /**
@@ -734,21 +673,6 @@ var app = angular.module('robin', []),
             console.log("The read failed: " + errorObject.code);
         });
     }
-
-
-    /**
-     * Get profanity words
-     * @param {none} none
-     * @param {none} none
-     * @return {object} snapshot
-     */
-    function getProfanityWords() {
-      
-    }
-
-
-
-
 
     /**
      * Store words that are classed as profanity to the database
@@ -792,7 +716,7 @@ var app = angular.module('robin', []),
 
     /**
      * Update the User as logged out
-     * @param {String} id 
+     * @param {String} id
      * @return {none} none
      */
     function logoutUpdate() {

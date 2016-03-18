@@ -2,346 +2,359 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <title>Robin</title>
-    <link rel="icon" type="image/png" href="assets/img/icons/logo.ico">
-    <link href="assets/css/styles.css" rel="stylesheet">
-    <link href="http://www.justinaguilar.com/animations/css/animations.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <title>Robin</title>
+  <link rel="icon" type="image/png" href="assets/img/icons/logo.ico">
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <link href="http://www.justinaguilar.com/animations/css/animations.css" rel="stylesheet">
 </head>
 
 <body ng-app="robin" ng-controller="controller" data-ng-init="init()">
-    <!-- Fixed navbar -->
-    <div id="blank" style="display:none; position:absolute; background-color:rgba(200, 54, 54, 0.5);z-index:4000;width:100%; height:100%;">
+  <!-- Fixed navbar -->
+  <div id="blank" style="display:none; position:absolute; background-color:rgba(200, 54, 54, 0.5);z-index:4000;width:100%; height:100%;">
+  </div>
+  <nav class="navbar navbar-material-light-blue shadow-z-2" ng-style="themeStyle" style="min-height:50px !important;max-height:50px !important;">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id="back" ng-click="goBack()"><i class="mdi-navigation-arrow-back"></i></a>
+      <a class="navbar-brand" id="forword" ng-click="goForword()"><i class="mdi-navigation-arrow-forward"></i></a>
+      <a class="navbar-brand" id="refresh" ng-click="refresh()"><i class="mdi-navigation-refresh"></i></a>
+      <a class="navbar-brand" id="newTab" ng-click="createTab('apples')"><i class="mdi-image-control-point"></i></a>
+      <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
     </div>
-    <nav class="navbar navbar-material-light-blue shadow-z-2" ng-style="themeStyle" style="min-height:50px !important;max-height:50px !important;">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" id="back" ng-click="goBack()"><i class="mdi-navigation-arrow-back"></i></a>
-            <a class="navbar-brand" id="forword" ng-click="goForword()"><i class="mdi-navigation-arrow-forward"></i></a>
-            <a class="navbar-brand" id="refresh" ng-click="refresh()"><i class="mdi-navigation-refresh"></i></a>
-            <a class="navbar-brand" id="newTab" ng-click="createTab('apples')"><i class="mdi-image-control-point"></i></a>
-            <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
+    <div class="navbar-brand" id="search">
+      <input type="text" id="searchTerm" ng-model="searchTerm" ng-bind="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" ng-click="autoFocus()" placeholder="Search" autofocus>
+    </div>
+
+
+    <div class="navbar-collapse collapse navbar-material-light-blue-collapse" style="height: 50px;">
+
+      <ul class="nav navbar-nav navbar-right" method="post" style="height: 50px;">
+        <li class="dropdown ">
+          <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;"><i class="mdi-action-settings"></i><b class="caret"></b></a>
+          <ul class="dropdown-menu shadow-z-3" id="specialId" style="border-color: white;">
+            <li ng-show="loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a>
+            </li>
+            <li ng-show="!loggedin"><a data-toggle="modal" data-target="#signupModal">Signup</a>
+            </li>
+            <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login">Login</a>
+            </li>
+            <li ng-show="loggedin"><a data-toggle="modal" data-target="#logoutModal">Logout</a>
+            </li>
+            <li class="divider"></li>
+            <li><a ng-click="searchResult('assets/view/help.html')">Help</a> </li>
+          </ul>
+
+      </ul>
+    </div>
+  </nav>
+
+  <!--  Tabs for Muilipt Browsers or Iframes  -->
+  <div class='contain' id="tabs">
+<div ng-repeat="evt in browser">
+    <section class="home active" ng-click="selectTab($event)" id="{{evt.iframeId}}" ng-style="themeStyle">
+      <div class="backdrop" ng-style="themeStyle">
+        <div class="urlText">
+          <p class="title">{{evt.title}}</p>
         </div>
-        <div class="navbar-brand" id="search">
-            <input type="text" id="searchTerm" ng-model="searchTerm" ng-bind="searchTerm" class="form-control col-lg-8" ng-keypress="search($event)" ng-click="autoFocus()" placeholder="Search" autofocus>
+        <div class="mdi-navigation-close" ng-click="closeTab($event);$event.stopPropagation();"  id="{{evt.closeId}}"></div>
+      </div>
+      <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms" ng-src="{{evt.title | trustUrl}}" class="iframe active" id="{{evt.id}}" width="850" height="100%"></iframe>
+    </section>
+</div>
+
+  </div>
+
+  <!--  Floating Button to Create New Tabs Buttons  -->
+  <button class="btn btn-warning btn-fab btn-raised" id="tabs_button" ng-click="showTabs()">
+    <i class="mdi-navigation-apps"></i>
+  </button>
+
+  <!--  Settings Tab  -->
+  <div id="settings-dialog" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal" type="button">&times;</button>
+          <h3 class="modal-title">Settings</h3>
         </div>
+        <div class="modal-body">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active in" id="theme">
 
+              <div class="form-group">
+                <h4>Theme</h4>
+                <ul id="pick_colors">
+                  <li><span class="colors" id="_7F8C8D" ng-click="setColor('#7F8C8D')"><span ng-if="theme[0][0]['color'] === '#7F8C8D'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
-        <div class="navbar-collapse collapse navbar-material-light-blue-collapse" style="height: 50px;">
+                  <li><span class="colors" id="_95A5A6" ng-click="setColor('#95A5A6')"><span ng-if="theme[0][0]['color'] === '#95A5A6'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
-            <ul class="nav navbar-nav navbar-right" method="post" style="height: 50px;">
-                <li class="dropdown ">
-                    <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;"><i class="mdi-action-settings"></i><b class="caret"></b></a>
-                    <ul class="dropdown-menu shadow-z-3" id="specialId" style="border-color: white;">
-                        <li ng-show="loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a>
-                        </li>
-                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#signupModal">Signup</a>
-                        </li>
-                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login">Login</a>
-                        </li>
-                        <li ng-show="loggedin"><a data-toggle="modal" data-target="#logoutModal">Logout</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a ng-click="searchResult('assets/view/help.html')">Help</a> </li>
-                    </ul>
 
-            </ul>
-        </div>
-    </nav>
 
-    <!--  Tabs for Muilipt Browsers or Iframes  -->
-    <div class='contain' id="tabs"></div>
+                  <li><span class="colors" id="_BDC3C7" ng-click="setColor('#BDC3C7')"><span ng-if="theme[0][0]['color'] === '#BDC3C7'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
-    <!--  Floating Button to Create New Tabs Buttons  -->
-    <button class="btn btn-warning btn-fab btn-raised" id="tabs_button" ng-click="showTabs()">
-        <i class="mdi-navigation-apps"></i>
-    </button>
 
-    <!--  Settings Tab  -->
-    <div id="settings-dialog" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" data-dismiss="modal" type="button">&times;</button>
-                    <h3 class="modal-title">Settings</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade active in" id="theme">
+                  <li><span class="colors" id="_C0392B" ng-click="setColor('#C0392B')"><span ng-if="theme[0][0]['color'] === '#C0392B'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
-                            <div class="form-group">
-                                <h4>Theme</h4>
-                                <ul id="pick_colors">
-                                    <li><span class="colors" id="_7F8C8D" ng-click="setColor('#7F8C8D')"><span ng-if="theme[0][0]['color'] === '#7F8C8D'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
-                                    <li><span class="colors" id="_95A5A6" ng-click="setColor('#95A5A6')"><span ng-if="theme[0][0]['color'] === '#95A5A6'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
 
+                  <li><span class="colors" id="_E74C3C" ng-click="setColor('#E74C3C')"><span ng-if="theme[0][0]['color'] === '#E74C3C'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
-                                    <li><span class="colors" id="_BDC3C7" ng-click="setColor('#BDC3C7')"><span ng-if="theme[0][0]['color'] === '#BDC3C7'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
 
-                                    <li><span class="colors" id="_C0392B" ng-click="setColor('#C0392B')"><span ng-if="theme[0][0]['color'] === '#C0392B'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
+                  <li><span class="colors" id="_F39C12" ng-click="setColor('#F39C12')"><span ng-if="theme[0][0]['color'] === '#F39C12'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
 
-                                    <li><span class="colors" id="_E74C3C" ng-click="setColor('#E74C3C')"><span ng-if="theme[0][0]['color'] === '#E74C3C'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
+                  <li><span class="colors" id="_F1C40F" ng-click="setColor('#F1C40F')"><span ng-if="theme[0][0]['color'] === '#F1C40F'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
 
-                                    <li><span class="colors" id="_F39C12" ng-click="setColor('#F39C12')"><span ng-if="theme[0][0]['color'] === '#F39C12'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
+                  <li><span class="colors" id="_8E44AD" ng-click="setColor('#8E44AD')"><span ng-if="theme[0][0]['color'] === '#8E44AD'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
 
+                  <li><span class="colors" id="_CA2C68" ng-click="setColor('#CA2C68')"><span ng-if="theme[0][0]['color'] === '#CA2C68'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
-                                    <li><span class="colors" id="_F1C40F" ng-click="setColor('#F1C40F')"><span ng-if="theme[0][0]['color'] === '#F1C40F'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
 
+                  <li><span class="colors" id="_EA4C88" ng-click="setColor('#EA4C88')"><span ng-if="theme[0][0]['color'] === '#EA4C88'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
-                                    <li><span class="colors" id="_8E44AD" ng-click="setColor('#8E44AD')"><span ng-if="theme[0][0]['color'] === '#8E44AD'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
 
 
-                                    <li><span class="colors" id="_CA2C68" ng-click="setColor('#CA2C68')"><span ng-if="theme[0][0]['color'] === '#CA2C68'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
+                  <li><span class="colors" id="_2C3E50" ng-click="setColor('#2C3E50')"><span ng-if="theme[0][0]['color'] === '#2C3E50'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
 
-                                    <li><span class="colors" id="_EA4C88" ng-click="setColor('#EA4C88')"><span ng-if="theme[0][0]['color'] === '#EA4C88'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
+                  <li><span class="colors" id="_2980B9" ng-click="setColor('#2980B9')"><span ng-if="theme[0][0]['color'] === '#2980B9'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
 
-                                    <li><span class="colors" id="_2C3E50" ng-click="setColor('#2C3E50')"><span ng-if="theme[0][0]['color'] === '#2C3E50'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
+                  <li><span class="colors" id="_3498DB" ng-click="setColor('#3498DB')"><span ng-if="theme[0][0]['color'] === '#3498DB'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
 
-                                    <li><span class="colors" id="_2980B9" ng-click="setColor('#2980B9')"><span ng-if="theme[0][0]['color'] === '#2980B9'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
 
+                  <li><span class="colors" id="_27AE60" ng-click="setColor('#27AE60')"><span ng-if="theme[0][0]['color'] === '#27AE60'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
-                                    <li><span class="colors" id="_3498DB" ng-click="setColor('#3498DB')"><span ng-if="theme[0][0]['color'] === '#3498DB'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
 
 
+                  <li><span class="colors" id="_16A085" ng-click="setColor('#16A085')"><span ng-if="theme[0][0]['color'] === '#16A085'"><i class="mdi-action-done"></i> </span></span>
+                  </li>
 
 
-                                    <li><span class="colors" id="_27AE60" ng-click="setColor('#27AE60')"><span ng-if="theme[0][0]['color'] === '#27AE60'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
 
 
+                </ul>
+              </div>
+              <ul class="pager">
 
+                <li class="next" style="display:none"><a data-toggle="tab" href="#CORS2" ng-style="themeStyle">Blocked Websites</a>
+                </li>
 
-
-                                    <li><span class="colors" id="_16A085" ng-click="setColor('#16A085')"><span ng-if="theme[0][0]['color'] === '#16A085'"><i class="mdi-action-done"></i> </span></span>
-                                    </li>
-
-
-
-
-                                </ul>
-                            </div>
-                            <ul class="pager">
-
-                                <li class="next" style="display:none"><a data-toggle="tab" href="#CORS2" ng-style="themeStyle">Blocked Websites</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <div class="tab-pane fade active" id="CORS2">
-                            <div class="form-group">
-                                <h5 class="modal-title">Block Websites</h5>
-                                <div data-ng-repeat="banndedUrls2  in banndedUrlsList">
-                                    <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2}}">
-                                </div>
-                            </div>
-                            <ul class="pager">
-                                <li class="previous"><a data-toggle="tab" href="#theme" ng-style="themeStyle">Themes</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                    <button class="btn btn-warning " style="display:none" ng-click="clearLocalStorage()">Restart</button>
-                    <button class="btn btn-primary " ng-click="addLocalStorage()">Save</button>
-
-                </div>
+              </ul>
             </div>
-        </div>
-    </div>
-
-
-
-
-    <!-- Login Modal-->
-    <div id="login" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
-                    </button>
-                    <h4 class="modal-title">Login</h4>
+            <div class="tab-pane fade active" id="CORS2">
+              <div class="form-group">
+                <h5 class="modal-title">Block Websites</h5>
+                <div data-ng-repeat="banndedUrls2  in banndedUrlsList">
+                  <input type="text" name="text" class="form-control settings" data-ng-model="banndedUrls2.text" placeholder="{{ banndedUrls2}}">
                 </div>
-
-                <div class="modal-body">
-                    <form class="form-horizontal" id="login" ng-submit="login()">
-                        <div ng-show="showError">
-                            <div class="alert alert-dismissible alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <strong>Heads up!</strong> {{errorMessage}}
-                            </div>
-                        </div>
-                        <fieldset>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Email</label>
-                                    <input type="text" class="form-control" id="inputEmail" name="loginemail" placeholder="applespeed@apple.com">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Password</label>
-                                    <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="*********">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
-                            </div>
-                        </fieldset>
-                    </form>
-
-                </div>
+              </div>
+              <ul class="pager">
+                <li class="previous"><a data-toggle="tab" href="#theme" ng-style="themeStyle">Themes</a>
+                </li>
+              </ul>
             </div>
+          </div>
         </div>
+        <div class="modal-footer">
+
+          <button class="btn btn-warning " style="display:none" ng-click="clearLocalStorage()">Restart</button>
+          <button class="btn btn-primary " ng-click="addLocalStorage()">Save</button>
+
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Logout Modal-->
-    <div id="logoutModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
-                    </button>
-                    <h4 class="modal-title">Logout</h4>
-                </div>
 
-                <div class="modal-body">
-                    <form class="form-horizontal" id="login" ng-submit="logout()">
-                        <div ng-show="showError">
-                            <div class="alert alert-dismissible alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <strong>Heads up!</strong> {{errorMessage}}
-                            </div>
-                        </div>
-                        <fieldset>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Password</label>
-                                    <input type="password" class="form-control" id="inputPassword" name="logoutpassword" placeholder="*********">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
-                            </div>
-                        </fieldset>
-                    </form>
 
-                </div>
+
+  <!-- Login Modal-->
+  <div id="login" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
+          </button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+
+        <div class="modal-body">
+          <form class="form-horizontal" id="login" ng-submit="login()">
+            <div ng-show="showError">
+              <div class="alert alert-dismissible alert-info">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Heads up!</strong> {{errorMessage}}
+              </div>
             </div>
+            <fieldset>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="inputEmail" class="control-label">Email</label>
+                  <input type="text" class="form-control" id="inputEmail" name="loginemail" placeholder="applespeed@apple.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="inputEmail" class="control-label">Password</label>
+                  <input type="password" class="form-control" id="inputPassword" name="loginpassword" placeholder="*********">
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+              </div>
+            </fieldset>
+          </form>
+
         </div>
+      </div>
     </div>
+  </div>
 
+  <!-- Logout Modal-->
+  <div id="logoutModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
+          </button>
+          <h4 class="modal-title">Logout</h4>
+        </div>
 
-
-    <!-- Welcome Modal-->
-    <div id="welcome" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" data-dismiss="modal" type="button">&times;</button>
-                    <h4 class="modal-title">Help Section </h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id="login" ng-submit="logout()">
+            <div ng-show="showError">
+              <div class="alert alert-dismissible alert-info">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Heads up!</strong> {{errorMessage}}
+              </div>
             </div>
+            <fieldset>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="inputEmail" class="control-label">Password</label>
+                  <input type="password" class="form-control" id="inputPassword" name="logoutpassword" placeholder="*********">
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+              </div>
+            </fieldset>
+          </form>
+
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Signup Modal-->
-    <div id="signupModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
-                    </button>
-                    <h4 class="modal-title">Signup</h4>
-                </div>
 
-                <div class="modal-body">
-                    <form class="form-horizontal" id="signup" name="signupForm" ng-submit="signup()">
-                        <div ng-show="showError">
-                            <div class="alert alert-dismissible alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <strong>Heads up!</strong> {{errorMessage}}
-                            </div>
-                        </div>
-                        <fieldset>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Email</label>
-                                    <input type="text" class="form-control" id="inputEmail" name="signupemail" placeholder="example@example.com">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="control-label">Password </label>
-                                    <input type="password" class="form-control" id="inputPassword" name="signuppassword" placeholder="**********">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
-                            </div>
-                        </fieldset>
-                    </form>
 
-                </div>
+  <!-- Welcome Modal-->
+  <div id="welcome" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal" type="button">&times;</button>
+          <h4 class="modal-title">Help Section </h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal-->
+  <div id="signupModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="mdi-content-clear"></i>
+          </button>
+          <h4 class="modal-title">Signup</h4>
+        </div>
+
+        <div class="modal-body">
+          <form class="form-horizontal" id="signup" name="signupForm" ng-submit="signup()">
+            <div ng-show="showError">
+              <div class="alert alert-dismissible alert-info">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Heads up!</strong> {{errorMessage}}
+              </div>
             </div>
+            <fieldset>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="inputEmail" class="control-label">Email</label>
+                  <input type="text" class="form-control" id="inputEmail" name="signupemail" placeholder="example@example.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="inputEmail" class="control-label">Password </label>
+                  <input type="password" class="form-control" id="inputPassword" name="signuppassword" placeholder="**********">
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+              </div>
+            </fieldset>
+          </form>
+
         </div>
+      </div>
     </div>
+  </div>
 
 
 
-    <script src="assets/js/lib/L.js"></script>
-    <script src="assets/js/app/main.js" type="application/javascript" async></script>
+  <script src="assets/js/lib/L.js"></script>
+  <script src="assets/js/app/main.js" type="application/javascript" async></script>
 </body>
 
 </html>
