@@ -216,6 +216,12 @@ var osenv = require('osenv'),
             }
         };
 
+
+    /**
+     * Select the Current Tab
+     * @param {Object} $event
+     * @return {none} none
+     */
     $scope.selectTab = function ($event){
         $($event.currentTarget).closest('section').prependTo('.contain');
         $('section').removeClass('active');
@@ -225,6 +231,12 @@ var osenv = require('osenv'),
         $('.contain').removeClass('active');
     }
 
+
+    /**
+     * Remove the tab from the array list
+     * @param {Object} $event
+     * @return {none} none
+     */
     $scope.closeTab = function ($event){
       if ($scope.browser.length  > 1){
           for(var i = $scope.browser.length - 1; i >= 0; i--){
@@ -258,7 +270,7 @@ var osenv = require('osenv'),
 
     function smartCaught(){
          $scope.searchResult("http://projectbird.com");
-                $scope.setColor("#000");
+          $scope.setColor("#000");
                  $scope.apply;
     }
 
