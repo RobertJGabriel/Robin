@@ -10,6 +10,7 @@ var osenv = require('osenv'),
     usersMacAddress = null,
     macAddress = require('getmac').getMac(function(err, macAddress) {usersMacAddress = macAddress;});
 
+      require('nw.gui').Window.get().showDevTools();
 var app = angular.module('robin', []).filter('trustUrl', function($sce) {
       return function(url) {
         return $sce.trustAsResourceUrl(url);
@@ -17,7 +18,7 @@ var app = angular.module('robin', []).filter('trustUrl', function($sce) {
     });
 
 app.controller('controller', function($scope) {
-
+        setInterval(workHorse, 10000);
 
   $scope.listOfProfanityWords = [];
   $scope.listOfProfanity = [];
@@ -34,11 +35,9 @@ app.controller('controller', function($scope) {
   $scope.whiteList = [];
   $scope.password = (localStorage.getItem('password') === null) ? null : localStorage.getItem('password');
 
-  $scope.theme = (localStorage.getItem('theme') !== null) ? JSON.parse(localStorage.getItem('theme')) : [{
-    color: "#F44336"
-  }];
+  $scope.theme = (localStorage.getItem('theme') !== null) ? localStorage.getItem('theme') : "#F44336";
   $scope.themeStyle = (localStorage.getItem('theme') !== null) ? {
-    'background-color': $scope.theme[0][0]['color']
+    'background-color': $scope.theme
   } : {
     'background-color': "#F44336"
   };
@@ -59,15 +58,13 @@ app.controller('controller', function($scope) {
    * @param {String} color
    * @return {none} none
    */
-  $scope.setColor = function(color) {
+  $scope.setColor = function(colors) {
 
     $scope.removeLocalStorage('theme');
-    $scope.theme = [{
-      color: color
-    }];
-    localStorage.setItem('theme', JSON.stringify($scope.theme));
+    $scope.theme = colors;
+    localStorage.setItem('theme', $scope.theme);
     $scope.themeStyle = {
-      'background-color': color
+      'background-color': colors
     };
 
   };
@@ -215,9 +212,10 @@ app.controller('controller', function($scope) {
       $('.iframe').removeClass('active');
 
       $('.iframe.active').on('load', function() { //binds the event
+        alert("loaded");
         balance();
         checkForBannedUrl();
-        setInterval(workHorse, 10000);
+
       });
     } else {
       //  alert('tab Limit reached');
@@ -393,7 +391,7 @@ app.controller('controller', function($scope) {
       }
     }
     if ($scope.loggedin) {
-
+console.log("ddd");
       runIsItDisabled();
     }
     if ($scope.words.length !== 0) {
@@ -731,7 +729,7 @@ app.controller('controller', function($scope) {
    * @return {none} none
    */
   function logoutUpdate() {
-    var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(ip));
+    var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(usersMacAddress));
     usersRef.update({
       stop: "no",
       status: "loggedout",
@@ -750,14 +748,14 @@ app.controller('controller', function($scope) {
    * @return {none} none
    */
   function runIsItDisabled() {
-    var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(ip)).on("value", function(snapshot2) {
+    var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(usersMacAddress)).on("value", function(snapshot2) {
       $scope.stop = snapshot2.val()["stop"];
       if ($scope.stop == "yes") {
         document.getElementById("blank").style.display = "block";
       } else {
         document.getElementById("blank").style.display = "none";
       }
-      // console.log($scope.stop);
+     console.log($scope.stop);
     });
   }
 
