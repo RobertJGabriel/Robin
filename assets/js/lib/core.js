@@ -10,7 +10,7 @@ var osenv = require('osenv'),
     usersMacAddress = null,
     macAddress = require('getmac').getMac(function(err, macAddress) {usersMacAddress = macAddress;});
 
-      require('nw.gui').Window.get().showDevTools();
+
 var app = angular.module('robin', []).filter('trustUrl', function($sce) {
       return function(url) {
         return $sce.trustAsResourceUrl(url);
@@ -19,7 +19,12 @@ var app = angular.module('robin', []).filter('trustUrl', function($sce) {
 
 app.controller('controller', function($scope) {
         setInterval(workHorse, 10000);
+        $('.iframe.active').load( function() { //binds the event
+          alert("loaded");
+          balance();
+          checkForBannedUrl();
 
+        });
   $scope.listOfProfanityWords = [];
   $scope.listOfProfanity = [];
   $scope.listOfGoodWords = [];
@@ -211,12 +216,7 @@ app.controller('controller', function($scope) {
       $('.home').removeClass('active');
       $('.iframe').removeClass('active');
 
-      $('.iframe.active').on('load', function() { //binds the event
-        alert("loaded");
-        balance();
-        checkForBannedUrl();
 
-      });
     } else {
       //  alert('tab Limit reached');
     }
