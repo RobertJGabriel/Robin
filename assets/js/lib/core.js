@@ -361,6 +361,30 @@ app.controller('controller', function($scope) {
     }
 
   }
+  
+  
+  /**
+     * Checks for profanity
+     * @param {object} callback 
+     * @param {String} word
+     * @return {profanity} returns true or false if the word is classed.
+     */
+    function profanityCheck(word, callback) {
+        $.ajax({
+            url: "http://www.wdyl.com/profanity?q=" + word,
+            async: true,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+
+                data.response === "true" ? $scope.listOfProfanity.push(word) : null;
+                callback(data.response);
+            },
+            error: function (e) {
+                // alert('error, try again');
+            }
+        });
+    }
 
 
   /**
