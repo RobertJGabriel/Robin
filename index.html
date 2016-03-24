@@ -82,7 +82,7 @@
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" ng-style="themeStyle"  style="padding:24px 24px 5px;">
           <button class="close" data-dismiss="modal" type="button">&times;</button>
           <h3 class="modal-title">Settings</h3>
         </div>
@@ -183,10 +183,8 @@
 
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" >
 
-          <button class="btn btn-warning " style="display:none" ng-click="clearLocalStorage()">Restart</button>
-          <button class="btn btn-primary " style="display:none" ng-click="addLocalStorage()">Save</button>
 
         </div>
       </div>
