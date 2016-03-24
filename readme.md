@@ -10,8 +10,10 @@ The child can open the app and browse the internet which includes going back and
 ​The child can change the browser theme to their favorite color. Their information is saved. The web browser will sync every 1 min or on load for new settings for blocked websites from the firebase database. The system will sync the information of the current URL into the firebase.
 
 When a child tries to access a blocked website or URL they will be redirected to the homepage and the color/ theme of the website will be changed to black and cannot be changed back until the admin(parent) resets it from the google chrome extension.
-​
 It will block other browsers from opening if the setting is checked in the chrome extension.
+
+## Chrome (Admin Panel)
+See the repo [here](https://github.com/Projectbird/Robin)
 
 # Installation
 ```
