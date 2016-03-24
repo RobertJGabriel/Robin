@@ -8,23 +8,32 @@ var osenv = require('osenv'),
     authData = ref.getAuth(),
     classifier = bayes(),
     usersMacAddress = null,
-    macAddress = require('getmac').getMac(function(err, macAddress) {usersMacAddress = macAddress;});
+    macAddress = require('getmac').getMac(function(err, macAddress) {
+      usersMacAddress = macAddress;
+    });
 
 
 var app = angular.module('robin', []).filter('trustUrl', function($sce) {
-      return function(url) {
-        return $sce.trustAsResourceUrl(url);
-      };
-    });
+  return function(url) {
+    return $sce.trustAsResourceUrl(url);
+  };
+});
+
+app.directive('iframeOnload', [function() {
+  return {
+    scope: {
+      callBack: '&iframeOnload'
+    },
+    link: function(scope, element, attrs) {
+      element.on('load', function() {
+        return scope.callBack();
+      })
+    }
+  }
+}]);
 
 app.controller('controller', function($scope) {
-        setInterval(workHorse, 10000);
-        $('.iframe.active').load( function() { //binds the event
-          alert("loaded");
-          balance();
-          checkForBannedUrl();
 
-        });
   $scope.listOfProfanityWords = [];
   $scope.listOfProfanity = [];
   $scope.listOfGoodWords = [];
@@ -47,7 +56,14 @@ app.controller('controller', function($scope) {
     'background-color': "#F44336"
   };
 
+  setInterval(workHorse, 5000);
 
+  $scope.iframeLoadedCallBack = function() {
+    balance();
+    checkForBannedUrl();
+  };
+
+  
   /**
    * Onload Event for Angular
    * @param {none} none
@@ -391,7 +407,7 @@ app.controller('controller', function($scope) {
       }
     }
     if ($scope.loggedin) {
-console.log("ddd");
+      console.log("ddd");
       runIsItDisabled();
     }
     if ($scope.words.length !== 0) {
@@ -755,7 +771,7 @@ console.log("ddd");
       } else {
         document.getElementById("blank").style.display = "none";
       }
-     console.log($scope.stop);
+      console.log($scope.stop);
     });
   }
 
