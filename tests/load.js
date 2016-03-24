@@ -24,7 +24,7 @@ function init(type,url23) {
                 console.log(url[i].site);
                 downloadCall(type,"http" + "://" + url[i].site);
             }
-           
+
             if (i == url.length-1){
             	console.log(chalk.green('Finished Import'));
             }
@@ -42,14 +42,14 @@ function downloadCall(type,url2) {
         var newChildRef = ref.push();
         var usersRef = ref.child("profanity");
         if ((words != null)  && (typeof words[0] !== 'undefined')){
-            for (var q in words) {    
+            for (var q in words) {
                 if (words[q] !== ""){
                      usersRef.push({
                       word:  words[q].replace(/[^\w\s]/gi, ''),
                       type: "good"
                     });
                 }
-               
+
             }
 
         }
@@ -66,6 +66,3 @@ function downloadCall(type,url2) {
 
 //init("notSafe","http://blocked-sites.herokuapp.com/");
 init("safe","https://raw.githubusercontent.com/RobertJGabriel/List-Of-Explicit-Words/master/TopSites.json");
-
-
-

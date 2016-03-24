@@ -21,7 +21,7 @@ function init(type, url23) {
             if (type == "notSafe") {
                 downloadCall(type, "http" + "://" + url[i].domain);
             } else {
-                
+
                 downloadCall(type, "http" + "://" + url[i].site);
             }
             if (i == url.length - 1) {
@@ -75,5 +75,3 @@ classifier.learn(listOfGood.toString(),"positive");
 
 
     console.log(chalk.red(classifier.categorize(('gayporn').toLowerCase())));
-
-
