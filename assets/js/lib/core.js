@@ -1,16 +1,16 @@
-var osenv = require('osenv'),
-    user = osenv.user(),
-    async = require('async'),
-    mrscraper = require("scraper-web"),
-    bayes = require('bayes'),
-    firebase = require('firebase');
-    ref = new firebase('https://projectbird-robin.firebaseio.com'),
-    authData = ref.getAuth(),
-    classifier = bayes(),
-    usersMacAddress = null,
-    macAddress = require('getmac').getMac(function(err, macAddress) {
-      usersMacAddress = macAddress;
-    });
+var osenv = require('osenv');
+var user = osenv.user();
+var async = require('async');
+var mrscraper = require("scraper-web");
+var bayes = require('bayes');
+var firebase = require('firebase');
+var ref = new firebase('https://projectbird-robin.firebaseio.com');
+var authData = ref.getAuth();
+var classifier = bayes();
+var usersMacAddress = null;
+var macAddress = require('getmac').getMac(function(err, macAddress) {
+  usersMacAddress = macAddress;
+});
 
 
 var app = angular.module('robin', []).filter('trustUrl', function($sce) {
@@ -63,7 +63,7 @@ app.controller('controller', function($scope) {
     checkForBannedUrl();
   };
 
-  
+
   /**
    * Onload Event for Angular
    * @param {none} none
@@ -361,30 +361,30 @@ app.controller('controller', function($scope) {
     }
 
   }
-  
-  
-  /**
-     * Checks for profanity
-     * @param {object} callback 
-     * @param {String} word
-     * @return {profanity} returns true or false if the word is classed.
-     */
-    function profanityCheck(word, callback) {
-        $.ajax({
-            url: "http://www.wdyl.com/profanity?q=" + word,
-            async: true,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
 
-                data.response === "true" ? $scope.listOfProfanity.push(word) : null;
-                callback(data.response);
-            },
-            error: function (e) {
-                // alert('error, try again');
-            }
-        });
-    }
+
+  /**
+   * Checks for profanity
+   * @param {object} callback
+   * @param {String} word
+   * @return {profanity} returns true or false if the word is classed.
+   */
+  function profanityCheck(word, callback) {
+    $.ajax({
+      url: "http://www.wdyl.com/profanity?q=" + word,
+      async: true,
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
+
+        data.response === "true" ? $scope.listOfProfanity.push(word) : null;
+        callback(data.response);
+      },
+      error: function(e) {
+        // alert('error, try again');
+      }
+    });
+  }
 
 
   /**
