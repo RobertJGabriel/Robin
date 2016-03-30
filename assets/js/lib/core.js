@@ -47,6 +47,7 @@ app.controller('controller', function($scope) {
   $scope.stop = "no";
   $scope.blackList = [];
   $scope.whiteList = [];
+  $scope.searchEngine = "https://duckduckgo.com/?q=";
   $scope.password = (localStorage.getItem('password') === null) ? null : localStorage.getItem('password');
 
   $scope.theme = (localStorage.getItem('theme') !== null) ? localStorage.getItem('theme') : "#F44336";
@@ -148,7 +149,7 @@ app.controller('controller', function($scope) {
    * @return {none} none
    */
   $scope.home = function() {
-    $('.iframe.active').attr('src', 'https://duckduckgo.com/?q=');
+    $('.iframe.active').attr('src',   $scope.searchEngine );
   };
 
 
@@ -207,7 +208,7 @@ app.controller('controller', function($scope) {
       $('.iframe.active').attr('src', searchUrl);
     } else {
 
-      searchUrl = "https://duckduckgo.com/?q=" + search;
+      searchUrl =   $scope.searchEngine + search;
     }
     $('.iframe.active').attr('src', searchUrl);
   };
@@ -225,7 +226,7 @@ app.controller('controller', function($scope) {
         id: $scope.browser.length,
         iframeId: "iframes" + $scope.browser.length,
         closeId: $scope.browser.length + "s",
-        title: "https://duckduckgo.com/?q=" + url,
+        title:   $scope.searchEngine  + url,
         color: "white"
       };
       $scope.browser.push(newTab);
@@ -279,7 +280,7 @@ app.controller('controller', function($scope) {
   function checkForBannedUrl() {
     for (i = 0; i < $scope.blackList.length; i++) {
       var currentUrlNow = $('.iframe.active').contents().get(0).location.href,
-        bannedUrl = $scope.blackList[i]["url"];
+      bannedUrl = $scope.blackList[i]["url"];
       if (currentUrlNow.indexOf(bannedUrl) > -1) {
         smartCaught();
         break;
@@ -388,7 +389,7 @@ app.controller('controller', function($scope) {
 
 
   /**
-   * Checks for matching items in arras
+   * Checks for matching items in arrays
    * @param {array} array
    * @param {array} array
    * @return {array} matching strings

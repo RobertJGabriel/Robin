@@ -58,13 +58,14 @@
 
   <!--  Tabs for Muilipt Browsers or Iframes  -->
   <div class='contain' id="tabs">
-    <div ng-repeat="evt in browser">
-      <section class="home active" ng-click="selectTab($event)" id="{{evt.iframeId}}" ng-style="themeStyle">
-        <div class="backdrop" ng-style="themeStyle">
+    <div class="expandOpen"ng-repeat="evt in browser">
+      <section class="home active expandOpen" ng-click="selectTab($event)" id="{{evt.iframeId}}" >
+        <div class="backdrop" >
           <div class="urlText">
             <p class="title">{{evt.title}}</p>
           </div>
-          <div class="mdi-navigation-close" ng-click="closeTab($event);$event.stopPropagation();" id="{{evt.closeId}}"></div>
+          <div class="mdi-navigation-close" ng-click="closeTab($event);$event.stopPropagation();" id="{{evt.closeId}}" style="font-size: 18px;
+        line-height: 18px;"></div>
         </div>
         <iframe active sandbox="allow-same-origin allow-scripts allow-popups allow-forms" ng-src="{{evt.title | trustUrl}}" class="iframe active" iframe-onload="iframeLoadedCallBack()"id="{{evt.id}}" width="850" height="100%"></iframe>
       </section>
@@ -73,7 +74,7 @@
   </div>
 
   <!--  Floating Button to Create New Tabs Buttons  -->
-  <button class="btn btn-warning btn-fab btn-raised" id="tabs_button" ng-click="showTabs()">
+  <button class="btn btn-warning btn-fab btn-raised" ng-style="themeStyle" id="tabs_button" ng-click="showTabs()">
     <i class="mdi-navigation-apps"></i>
   </button>
 
@@ -82,7 +83,7 @@
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" ng-style="themeStyle"  style="padding:24px 24px 5px;">
+        <div class="modal-header" >
           <button class="close" data-dismiss="modal" type="button">&times;</button>
           <h3 class="modal-title">Settings</h3>
         </div>
@@ -99,82 +100,44 @@
                   <li><span class="colors" id="_95A5A6" ng-click="setColor('#95A5A6')"><span ng-if="theme === '#95A5A6'"><i class="mdi-action-done"></i> </span></span>
                   </li>
 
-
-
                   <li><span class="colors" id="_BDC3C7" ng-click="setColor('#BDC3C7')"><span ng-if="theme === '#BDC3C7'"><i class="mdi-action-done"></i> </span></span>
                   </li>
-
 
                   <li><span class="colors" id="_C0392B" ng-click="setColor('#C0392B')"><span ng-if="theme === '#C0392B'"><i class="mdi-action-done"></i> </span></span>
                   </li>
 
-
-
-
                   <li><span class="colors" id="_E74C3C" ng-click="setColor('#E74C3C')"><span ng-if="theme === '#E74C3C'"><i class="mdi-action-done"></i> </span></span>
                   </li>
-
-
-
 
                   <li><span class="colors" id="_F39C12" ng-click="setColor('#F39C12')"><span ng-if="theme === '#F39C12'"><i class="mdi-action-done"></i> </span></span>
                   </li>
 
-
-
-
                   <li><span class="colors" id="_F1C40F" ng-click="setColor('#F1C40F')"><span ng-if="theme === '#F1C40F'"><i class="mdi-action-done"></i> </span></span>
                   </li>
-
-
 
                   <li><span class="colors" id="_8E44AD" ng-click="setColor('#8E44AD')"><span ng-if="theme === '#8E44AD'"><i class="mdi-action-done"></i> </span></span>
                   </li>
 
-
-
                   <li><span class="colors" id="_CA2C68" ng-click="setColor('#CA2C68')"><span ng-if="theme === '#CA2C68'"><i class="mdi-action-done"></i> </span></span>
                   </li>
-
-
 
                   <li><span class="colors" id="_EA4C88" ng-click="setColor('#EA4C88')"><span ng-if="theme === '#EA4C88'"><i class="mdi-action-done"></i> </span></span>
                   </li>
 
-
-
-
                   <li><span class="colors" id="_2C3E50" ng-click="setColor('#2C3E50')"><span ng-if="theme === '#2C3E50'"><i class="mdi-action-done"></i> </span></span>
                   </li>
-
-
-
 
                   <li><span class="colors" id="_2980B9" ng-click="setColor('#2980B9')"><span ng-if="theme === '#2980B9'"><i class="mdi-action-done"></i> </span></span>
                   </li>
 
-
-
-
                   <li><span class="colors" id="_3498DB" ng-click="setColor('#3498DB')"><span ng-if="theme === '#3498DB'"><i class="mdi-action-done"></i> </span></span>
                   </li>
-
-
-
-
 
                   <li><span class="colors" id="_27AE60" ng-click="setColor('#27AE60')"><span ng-if="theme === '#27AE60'"><i class="mdi-action-done"></i> </span></span>
                   </li>
 
-
-
-
-
                   <li><span class="colors" id="_16A085" ng-click="setColor('#16A085')"><span ng-if="theme === '#16A085'"><i class="mdi-action-done"></i> </span></span>
                   </li>
-
-
-
 
                 </ul>
               </div>
