@@ -9,7 +9,6 @@
   <title>Robin</title>
   <link rel="icon" type="image/png" href="assets/img/icons/logo.ico">
   <link href="assets/css/styles.css" rel="stylesheet">
-  <link href="http://www.justinaguilar.com/animations/css/animations.css" rel="stylesheet">
 </head>
 
 <body ng-app="robin" ng-controller="controller" data-ng-init="init()">
@@ -26,7 +25,7 @@
       <a class="navbar-brand" id="back" ng-click="goBack()"><i class="mdi-navigation-arrow-back"></i></a>
       <a class="navbar-brand" id="forword" ng-click="goForword()"><i class="mdi-navigation-arrow-forward"></i></a>
       <a class="navbar-brand" id="refresh" ng-click="refresh()"><i class="mdi-navigation-refresh"></i></a>
-      <a class="navbar-brand" id="newTab" ng-click="createTab('apples')"><i class="mdi-image-control-point"></i></a>
+      <a class="navbar-brand" id="newTab" ng-click="createTab('apples')"><i class="mdi-content-add"></i></a>
       <a class="navbar-brand" id="home" ng-click="home()"><i class="mdi-action-home"></i></a>
     </div>
     <div class="navbar-brand" id="search">
@@ -38,7 +37,7 @@
 
       <ul class="nav navbar-nav navbar-right" method="post" style="height: 50px;">
         <li class="dropdown ">
-          <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;"><i class="mdi-action-settings"></i><b class="caret"></b></a>
+          <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;"><i class="mdi-navigation-menu"></i><b class="caret"></b></a>
           <ul class="dropdown-menu shadow-z-3" id="specialId" style="border-color: white;">
             <li ng-show="loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a>
             </li>
@@ -60,7 +59,7 @@
   <div class='contain' id="tabs">
     <div class="expandOpen"ng-repeat="evt in browser">
       <section class="home active expandOpen" ng-click="selectTab($event)" id="{{evt.iframeId}}" >
-        <div class="backdrop" >
+        <div class="backdrop" style="background-color:#E5E5E5;">
           <div class="urlText">
             <p class="title">{{evt.title}}</p>
           </div>
