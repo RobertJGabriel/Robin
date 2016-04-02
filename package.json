@@ -48,7 +48,7 @@
   "scripts": {
     "start": "nodewebkit",
     "test": "node test.js",
-    "load": "node load.js"
+    "load": "node tests/badWords.js"
   },
   "dependencies": {
     "gulp-install": "^0.4.0"

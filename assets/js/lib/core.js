@@ -441,11 +441,11 @@ app.controller('controller', function($scope) {
 
       var temp = classifier.classify(unique($scope.words).toString());
       var k = classifier.getClassifications(unique($scope.words).toString());
-      var positiveScore = k[0]["value"].toFixed(10);
-      var negativeScore = k[1]["value"].toFixed(10);
-      var higher = Math.max(negativeScore,positiveScore);
-console.log(positiveScore + " " +  negativeScore + " " + higher.toFixed(10));
-      if (higher === negativeScore){
+      var positiveScore = k[0]["value"].toFixed(20);
+      var negativeScore = k[1]["value"].toFixed(20);
+ var higher = Math.max(negativeScore,positiveScore);
+          console.log(positiveScore + " " +  negativeScore + " " + higher.toFixed(20) );
+      if (higher.toFixed(20) === negativeScore){
         temp = "negative"
   smartCaught();
 }else {
