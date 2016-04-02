@@ -6,8 +6,10 @@ var bayes = require('bayes');
 var firebase = require('firebase');
 var ref = new firebase('https://projectbird-robin.firebaseio.com');
 var authData = ref.getAuth();
-var classifier = bayes();
+//var classifier = bayes();
 var usersMacAddress = null;
+var natural = require('natural');
+var classifier = new natural.BayesClassifier();
 var macAddress = require('getmac').getMac(function(err, macAddress) {
   usersMacAddress = macAddress;
 });
@@ -437,11 +439,19 @@ app.controller('controller', function($scope) {
     }
     if ($scope.words.length !== 0) {
 
-      var temp = classifier.categorize(unique($scope.words).toString());
+      var temp = classifier.classify(unique($scope.words).toString());
+      var k = classifier.getClassifications(unique($scope.words).toString());
+      var positiveScore = k[0]["value"].toFixed(10);
+      var negativeScore = k[1]["value"].toFixed(10);
+      var higher = Math.max(negativeScore,positiveScore);
+console.log(positiveScore + " " +  negativeScore + " " + higher.toFixed(10));
+      if (higher === negativeScore){
+        temp = "negative"
+  smartCaught();
+}else {
+  temp = "positive";
+}
 
-      if (temp === "negative") {
-        smartCaught();
-      }
       console.log("Current Page is " + temp);
     }
 
@@ -836,13 +846,16 @@ app.controller('controller', function($scope) {
       for (var q in snapshot.val()) {
         if (snapshot.val()["type"] === "good") {
           $scope.listOfGoodWords.push(snapshot.val()["word"]);
-          classifier.learn($scope.listOfGoodWords.toString().toLowerCase(),
+          classifier.addDocument(snapshot.val()["word"].toLowerCase(),
             'positive');
+            classifier.train();
         } else {
           $scope.listOfProfanityWords.push(snapshot.val()[
             "word"]);
-          classifier.learn($scope.listOfProfanityWords.toString(),
+          classifier.addDocument(snapshot.val()["word"],
             'negative');
+
+            classifier.train();
         }
       }
     }, function(errorObject) {
