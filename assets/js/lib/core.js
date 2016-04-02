@@ -151,7 +151,7 @@ app.controller('controller', function($scope) {
    * @return {none} none
    */
   $scope.home = function() {
-    $('.iframe.active').attr('src',   $scope.searchEngine );
+    $('.iframe.active').attr('src', $scope.searchEngine);
   };
 
 
@@ -210,7 +210,7 @@ app.controller('controller', function($scope) {
       $('.iframe.active').attr('src', searchUrl);
     } else {
 
-      searchUrl =   $scope.searchEngine + search;
+      searchUrl = $scope.searchEngine + search;
     }
     $('.iframe.active').attr('src', searchUrl);
   };
@@ -228,7 +228,7 @@ app.controller('controller', function($scope) {
         id: $scope.browser.length,
         iframeId: "iframes" + $scope.browser.length,
         closeId: $scope.browser.length + "s",
-        title:   $scope.searchEngine  + url,
+        title: $scope.searchEngine + url,
         color: "white"
       };
       $scope.browser.push(newTab);
@@ -282,7 +282,7 @@ app.controller('controller', function($scope) {
   function checkForBannedUrl() {
     for (i = 0; i < $scope.blackList.length; i++) {
       var currentUrlNow = $('.iframe.active').contents().get(0).location.href,
-      bannedUrl = $scope.blackList[i]["url"];
+        bannedUrl = $scope.blackList[i]["url"];
       if (currentUrlNow.indexOf(bannedUrl) > -1) {
         smartCaught();
         break;
@@ -294,7 +294,7 @@ app.controller('controller', function($scope) {
   }
 
   function smartCaught() {
-    $scope.searchResult("http://projectbird.com");
+    $scope.searchResult("http://duckduckgo.com/");
     $scope.setColor("#000");
     $scope.apply;
   }
@@ -443,15 +443,14 @@ app.controller('controller', function($scope) {
       var k = classifier.getClassifications(unique($scope.words).toString());
       var positiveScore = k[0]["value"].toFixed(20);
       var negativeScore = k[1]["value"].toFixed(20);
- var higher = Math.max(negativeScore,positiveScore);
-          console.log(positiveScore + " " +  negativeScore + " " + higher.toFixed(20) );
-      if (higher.toFixed(20) === negativeScore){
+      var higher = Math.max(negativeScore, positiveScore);
+      console.log(positiveScore + " " + negativeScore + " " + higher.toFixed(20));
+      if (higher.toFixed(20) === negativeScore) {
         temp = "negative"
-  smartCaught();
-}else {
-  temp = "positive";
-}
-
+        smartCaught();
+      } else {
+        temp = "positive";
+      }
       console.log("Current Page is " + temp);
     }
 
@@ -848,14 +847,14 @@ app.controller('controller', function($scope) {
           $scope.listOfGoodWords.push(snapshot.val()["word"]);
           classifier.addDocument(snapshot.val()["word"].toLowerCase(),
             'positive');
-            classifier.train();
+          classifier.train();
         } else {
           $scope.listOfProfanityWords.push(snapshot.val()[
             "word"]);
           classifier.addDocument(snapshot.val()["word"],
             'negative');
 
-            classifier.train();
+          classifier.train();
         }
       }
     }, function(errorObject) {
