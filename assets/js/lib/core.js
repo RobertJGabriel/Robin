@@ -451,6 +451,8 @@ app.controller('controller', function($scope) {
       } else {
         temp = "positive";
       }
+
+      setWebsiteScore( $('.iframe.active').contents().get(0).location.href ,higher.toFixed(20));
       console.log("Current Page is " + temp);
     }
 
