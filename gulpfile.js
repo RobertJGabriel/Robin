@@ -30,11 +30,10 @@ gulp.task('build', ['less', 'clean', 'scripts'], function() {
     zip: false
 
   });
-  //Log stuff you want
-  nw.on('log', console.log);
+
   // Build returns a promise
   nw.build().then(function() {
-    console.log(chalk.green('All Done.... <3'));
+    console.log(chalk.green('All Done.... ') + chalk.red("  <3"));
   }).catch(function(error) {
     console.error(error);
   });
