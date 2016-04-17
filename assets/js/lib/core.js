@@ -851,11 +851,8 @@ app.controller('controller', function($scope) {
             'positive');
           classifier.train();
         } else {
-          $scope.listOfProfanityWords.push(snapshot.val()[
-            "word"]);
-          classifier.addDocument(snapshot.val()["word"],
-            'negative');
-
+          $scope.listOfProfanityWords.push(snapshot.val()["word"]);
+          classifier.addDocument(snapshot.val()["word"].toLowerCase(),'negative');
           classifier.train();
         }
       }
