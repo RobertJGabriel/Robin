@@ -350,7 +350,7 @@ app.controller('controller', function($scope) {
       var temp = (100 / words.length) * profanity.length;
 
 
-      setWebsiteScore(url, temp);
+    //  setWebsiteScore(url, temp);
     });
 
     function myFirstFunction(urls, callback) {
@@ -446,14 +446,14 @@ app.controller('controller', function($scope) {
       var higher = Math.max(negativeScore, positiveScore);
       console.log(positiveScore + " " + negativeScore + " " + higher.toFixed(20));
       if (higher.toFixed(20) === negativeScore) {
-        temp = "negative"
+        type = "negative"
         smartCaught();
       } else {
-        temp = "positive";
+        type = "positive";
       }
 
-      setWebsiteScore( $('.iframe.active').contents().get(0).location.href ,higher.toFixed(20));
-      console.log("Current Page is " + temp);
+      setWebsiteScore($('.iframe.active').contents().get(0).location.href, higher.toFixed(20),type);
+      console.log("Current Page is " + type);
     }
 
     $scope.words = []; //clears it
@@ -555,13 +555,13 @@ app.controller('controller', function($scope) {
    * @return {none} none
    */
   var lastUrl = null;
-
-  function setWebsiteScore(url, scores) {
+  function setWebsiteScore(url, scores,type) {
     if (lastUrl != url) {
       var usersRef = ref.child("scores").child(removeRegexForMac(url));
       usersRef.set({
         currentUrl: stringify(url),
-        score: stringify(scores)
+        score: stringify(scores),
+        classed: stringify(type)
       });
     }
     lastUrl = url;
