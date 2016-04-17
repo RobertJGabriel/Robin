@@ -45,10 +45,11 @@
             </li>
             <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login">Login</a>
             </li>
-            <li ng-show="loggedin"><a data-toggle="modal" data-target="#logoutModal">Logout</a>
-            </li>
-            <li class="divider"></li>
             <li><a ng-click="searchResult('assets/view/help.html')">Help</a> </li>
+            <li class="divider" ng-style="themeStyle"></li>
+            <li ng-show="loggedin"><a data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+
+
           </ul>
 
       </ul>
@@ -57,16 +58,16 @@
 
   <!--  Tabs for Muilipt Browsers or Iframes  -->
   <div class='contain' id="tabs">
-    <div class="expandOpen"ng-repeat="evt in browser">
-      <section class="home active expandOpen" ng-click="selectTab($event)" id="{{evt.iframeId}}" >
+    <div class="expandOpen" ng-repeat="evt in browser">
+      <section class="home active expandOpen" ng-click="selectTab($event)" id="{{evt.iframeId}}">
         <div class="backdrop" style="background-color:#E5E5E5;">
           <div class="urlText">
             <p class="title">{{evt.title}}</p>
           </div>
           <div class="mdi-navigation-close" ng-click="closeTab($event);$event.stopPropagation();" id="{{evt.closeId}}" style="font-size: 18px;
-        line-height: 18px;"></div>
+        line-height: 18px;margin-top:2em;"></div>
         </div>
-        <iframe active sandbox="allow-same-origin allow-scripts allow-popups allow-forms" ng-src="{{evt.title | trustUrl}}" class="iframe active" iframe-onload="iframeLoadedCallBack()"id="{{evt.id}}" width="850" height="100%"></iframe>
+        <iframe active sandbox="allow-same-origin allow-scripts allow-popups allow-forms" ng-src="{{evt.title | trustUrl}}" class="iframe active" iframe-onload="iframeLoadedCallBack()" id="{{evt.id}}" width="850" height="100%"></iframe>
       </section>
     </div>
 
@@ -82,7 +83,7 @@
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" >
+        <div class="modal-header">
           <button class="close" data-dismiss="modal" type="button">&times;</button>
           <h3 class="modal-title">Settings</h3>
         </div>
@@ -140,12 +141,19 @@
 
                 </ul>
               </div>
-
+              <div class="form-group">
+                  <h4>Demos & Charts</h4>
+                <ul>
+                  <li><a  style="background-color:black;"ng-click="searchResult('assets/view/charts.html')">Chart</a> </li>
+                  <li><a  style="background-color:black;"ng-click="searchResult('assets/view/bad.html')">Bad</a> </li>
+                  <li><a  style="background-color:black;"ng-click="searchResult('assets/view/good.html')">Good</a> </li>
+                </ul>
+              </div>
             </div>
 
           </div>
         </div>
-        <div class="modal-footer" >
+        <div class="modal-footer">
 
 
         </div>

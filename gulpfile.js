@@ -16,15 +16,17 @@ var gulpgo = require('gulp-go');
 var shell = require('gulp-shell');
 var NwBuilder = require('nw-builder');
 var clean = require('gulp-clean');
-
+var chalk = require('chalk');
 
 
 gulp.task('build', ['less', 'clean', 'scripts'], function() {
+  console.log(chalk.red('Starting.....'));
   var nw = new NwBuilder({
     files: ['*', 'assets/css/**', 'assets/js/**', 'assets/view/**', 'assets/img/**', 'assets/fonts/**', 'node_modules/**'], // use the glob format
     platforms: ['osx32', 'osx64', 'win64'],
     macIcns: "assets/img/icons/logo.icns",
     version: "0.12.0",
+    quiet: true,
     zip: false
 
   });
@@ -32,10 +34,11 @@ gulp.task('build', ['less', 'clean', 'scripts'], function() {
   nw.on('log', console.log);
   // Build returns a promise
   nw.build().then(function() {
-    console.log('all done!');
+    console.log(chalk.green('All Done.... <3'));
   }).catch(function(error) {
     console.error(error);
   });
+
 });
 
 gulp.task('less', function() {
