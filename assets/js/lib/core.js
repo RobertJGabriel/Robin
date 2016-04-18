@@ -411,7 +411,7 @@ app.controller('controller', function($scope) {
   /**
    * Expand and view all tabs
    * @param {none} none
-   * @return {none} nonehttp://www.buzzfeed.com/mjs538/the-68-words-you-cant-say-on-tv#.nbvLJyL2m
+   * @return {none} none
    */
   function expandTabs() {
     $('section').scrollTop(54);
@@ -561,7 +561,8 @@ app.controller('controller', function($scope) {
       usersRef.set({
         currentUrl: stringify(url),
         score: stringify(scores),
-        classed: stringify(type)
+        classed: stringify(type),
+        date:getCurrentDate()
       });
     }
     lastUrl = url;
