@@ -4,137 +4,137 @@
 @width0: 320px; // Appears 2 times
 @width3: 100%; // Appears 2 times
 * {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-#search{
-        width: 100vh;
-        min-width: 50vh;
-        max-width: 480px;
-        margin-right: 20px;
-        margin-left:20px;
+#search {
+  width: 100vh;
+  min-width: 50vh;
+  max-width: 480px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 .header {
-    margin-left: 10px;
-    margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-
-.title
-{
-    font-size: 13px !important;
+.title {
+  font-size: 13px !important;
 }
-.urlText
-{
-      width: 89%;
+.urlText {
+  width: 89%;
   float: left;
   /* background-color: red; */
   line-height: 25px;
   padding-left: 10px;
   height: 100%;
 }
-
 body {
-    background: #e5e5e5;
+  background: #e5e5e5;
 }
 input[type="text"] {
-    border-radius: 2px;
-    border: 0;
-    display: inline-block;
-    font-size: 14px;
-    height: 28px;
-    line-height: 20px;
-    padding: 4px;
-    &:focus {
-        outline: none;
-    }
+  border-radius: 2px;
+  border: 0;
+  display: inline-block;
+  font-size: 14px;
+  height: 28px;
+  line-height: 20px;
+  padding: 4px;
+  &:focus {
+    outline: none;
+  }
 }
 .searchcontainer {
-    -webkit-transition: all 0.2s ease-out;
-    background: @color0;
-    border-radius: 3px;
-    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
-    display: inline-block;
-    height: 50px;
-    left: 30px;
-    overflow: hidden;
-    padding: 15px 15px;
-    position: absolute;
-    top: 30px;
-    transition: all 0.2s ease-out;
-    width: @width0;
+  -webkit-transition: all 0.2s ease-out;
+  background: @color0;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  height: 50px;
+  left: 30px;
+  overflow: hidden;
+  padding: 15px;
+  position: absolute;
+  top: 30px;
+  transition: all 0.2s ease-out;
+  width: @width0;
 }
 .searchcontainer.expand {
-    -webkit-transition: all 0.2s ease-out;
-    height: 320px;
-    transition: all 0.2s ease-out;
+  -webkit-transition: all 0.2s ease-out;
+  height: 320px;
+  transition: all 0.2s ease-out;
 }
 .searchsmall {
-    left: 0;
-    padding: 12px 15px;
-    position: absolute;
-    top: 0;
-    width: @width3;
-    z-index: 50;
+  left: 0;
+  padding: 12px 15px;
+  position: absolute;
+  top: 0;
+  width: @width3;
+  z-index: 50;
 }
 .searchscale {
-    -webkit-transform: scale(1, 1);
-    -webkit-transition: all 0.1s ease 0.15s;
-    background: #fabb3b;
-    border-radius: 100%;
-    display: inline-block;
-    height: 60px;
-    left: 50%;
-    margin-left: -15px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    top: -20%;
-    transform: scale(1, 1);
-    transition: all 0.1s ease 0.15s;
-    width: 60px;
+  -webkit-transform: scale(1, 1);
+  -webkit-transition: all 0.1s ease 0.15s;
+  background: #fabb3b;
+  border-radius: 100%;
+  display: inline-block;
+  height: 60px;
+  left: 50%;
+  margin-left: -15px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  top: -20%;
+  transform: scale(1, 1);
+  transition: all 0.1s ease 0.15s;
+  width: 60px;
 }
 .searchscale.expand {
-    -webkit-transform: scale(15, 15);
-    -webkit-transition: all 0.4s ease-out 0.05s;
-    border-radius: 100%;
-    opacity: 1;
-    transform: scale(15, 15);
-    transition: all 0.4s ease-out 0.05s;
+  -webkit-transform: scale(15, 15);
+  -webkit-transition: all 0.4s ease-out 0.05s;
+  border-radius: 100%;
+  opacity: 1;
+  transform: scale(15, 15);
+  transition: all 0.4s ease-out 0.05s;
 }
 .searchdet {
-    background: #transparent;
-    display: none;
-    left: 0;
-    padding: 15px;
-    position: absolute;
-    top: 50px;
-    width: @width0;
+  background: #transparent;
+  display: none;
+  left: 0;
+  padding: 15px;
+  position: absolute;
+  top: 50px;
+  width: @width0;
 }
 .searchdet.on {
-    -webkit-animation: fadeInDownSmall 0.4s;
-    animation: fadeInDownSamll 0.4s;
-    display: inline-block;
+  -webkit-animation: fadeInDownSmall 0.4s;
+  animation: fadeInDownSamll 0.4s;
+  display: inline-block;
 }
 .searchtoggler {
-    -webkit-transition: all 0.2s ease-out;
-    background: #ba68c8;
-    border-radius: 50%;
-    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
-    color: @color0;
-    cursor: pointer;
-    dispaly: inline-block;
-    font-size: 24px;
-    font-weight: bold;
-    height: 40px;
-    left: 360px;
-    line-height: 40px;
-    position: absolute;
-    text-align: center;
-    top: 30px;
-    transition: all 0.2s ease-out;
-    width: 40px;
+  -webkit-transition: all 0.2s ease-out;
+  background: #ba68c8;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
+  color: @color0;
+  cursor: pointer;
+  dispaly: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  height: 40px;
+  left: 360px;
+  line-height: 40px;
+  position: absolute;
+  text-align: center;
+  top: 30px;
+  transition: all 0.2s ease-out;
+  width: 40px;
 }
 .searchtoggler.active {
-    -webkit-transform: rotate(135deg);
-   transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+#specialId >li , #specialId >li >a{
+  font-size: 13px !important;
 }
