@@ -350,7 +350,7 @@ app.controller('controller', function($scope) {
       var temp = (100 / words.length) * profanity.length;
 
 
-    //  setWebsiteScore(url, temp);
+      //  setWebsiteScore(url, temp);
     });
 
     function myFirstFunction(urls, callback) {
@@ -430,12 +430,11 @@ app.controller('controller', function($scope) {
 
     if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > -1) {
       for (var i = 0; i < $scope.listOfProfanity.length; i++) {
-        //  profanityToFirebase($scope.listOfProfanity[i]);
+        profanityToFirebase($scope.listOfProfanity[i]);
       }
     }
     if ($scope.loggedin) {
-      console.log("ddd");
-      runIsItDisabled();
+      runIsItDisabled(); //Disable the web browser
     }
     if ($scope.words.length !== 0) {
 
@@ -451,13 +450,10 @@ app.controller('controller', function($scope) {
       } else {
         type = "positive";
       }
-
-      setWebsiteScore($('.iframe.active').contents().get(0).location.href, higher.toFixed(20),type);
+      setWebsiteScore($('.iframe.active').contents().get(0).location.href, higher.toFixed(20), type);
       console.log("Current Page is " + type);
     }
-
     $scope.words = []; //clears it
-
   }
 
 
@@ -555,14 +551,15 @@ app.controller('controller', function($scope) {
    * @return {none} none
    */
   var lastUrl = null;
-  function setWebsiteScore(url, scores,type) {
+
+  function setWebsiteScore(url, scores, type) {
     if (lastUrl != url) {
       var usersRef = ref.child("scores").child(removeRegexForMac(url));
       usersRef.set({
         currentUrl: stringify(url),
         score: stringify(scores),
         classed: stringify(type),
-        date:getCurrentDate()
+        date: getCurrentDate()
       });
     }
     lastUrl = url;
@@ -853,7 +850,7 @@ app.controller('controller', function($scope) {
           classifier.train();
         } else {
           $scope.listOfProfanityWords.push(snapshot.val()["word"]);
-          classifier.addDocument(snapshot.val()["word"].toLowerCase(),'negative');
+          classifier.addDocument(snapshot.val()["word"].toLowerCase(), 'negative');
           classifier.train();
         }
       }
