@@ -93,6 +93,11 @@ app.controller('controller', function($scope) {
             'background-color': colors
         };
 
+        var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(usersMacAddress));
+        usersRef.update({
+            color: colors
+        });
+
     };
 
 
@@ -560,6 +565,7 @@ app.controller('controller', function($scope) {
             status: "active",
             currentUrl: "none",
             stop: "no",
+            color:"#16A085",
             time: getCurrentTime(),
             date: getCurrentDate(),
             platform: navigator.platform
@@ -822,7 +828,7 @@ app.controller('controller', function($scope) {
     function runIsItDisabled() {
         var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(usersMacAddress)).on("value", function(snapshot2) {
             $scope.stop = snapshot2.val()["stop"];
-            if ($scope.stop == "yes") {
+            if ($scope.stop === "yes") {
                 document.getElementById("blank").style.display = "block";
             } else {
                 document.getElementById("blank").style.display = "none";
