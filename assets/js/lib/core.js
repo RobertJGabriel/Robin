@@ -320,6 +320,25 @@ app.controller('controller', function($scope) {
         if ($scope.loggedin) {
             saveCurrentUrl(tempUrl); //Store the url to firebase
             parser(tempUrl);
+
+            if ($scope.words.length !== 0) {
+
+                var temp = classifier.classify(unique($scope.words).toString());
+                var k = classifier.getClassifications(unique($scope.words).toString());
+                var positiveScore = k[0]["value"].toFixed(20);
+                var negativeScore = k[1]["value"].toFixed(20);
+                var higher = Math.max(negativeScore, positiveScore);
+                console.log(positiveScore + " " + negativeScore + " " + higher.toFixed(20));
+                if (higher.toFixed(20) === negativeScore) {
+                    type = "negative"
+                    smartCaught();
+                } else {
+                    type = "positive";
+                }
+                setWebsiteScore($('.iframe.active').contents().get(0).location.href, higher.toFixed(20), type);
+                console.log("Current Page is " + type);
+            }
+            $scope.words = []; //clears it
         }
 
         $scope.searchTerm = tempUrl;
@@ -460,24 +479,7 @@ app.controller('controller', function($scope) {
         if ($scope.loggedin) {
             runIsItDisabled(); //Disable the web browser
         }
-        if ($scope.words.length !== 0) {
 
-            var temp = classifier.classify(unique($scope.words).toString());
-            var k = classifier.getClassifications(unique($scope.words).toString());
-            var positiveScore = k[0]["value"].toFixed(20);
-            var negativeScore = k[1]["value"].toFixed(20);
-            var higher = Math.max(negativeScore, positiveScore);
-            console.log(positiveScore + " " + negativeScore + " " + higher.toFixed(20));
-            if (higher.toFixed(20) === negativeScore) {
-                type = "negative"
-                smartCaught();
-            } else {
-                type = "positive";
-            }
-            setWebsiteScore($('.iframe.active').contents().get(0).location.href, higher.toFixed(20), type);
-            console.log("Current Page is " + type);
-        }
-        $scope.words = []; //clears it
 
         workHorses = setInterval(workHorse, 1000);
     }
