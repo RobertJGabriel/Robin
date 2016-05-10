@@ -66,9 +66,55 @@ app.controller('controller', function($scope) {
     $scope.iframeLoadedCallBack = function() {
         balance();
         checkForBannedUrl();
+
+        setTimeout(function() {
+
+
+            if ($scope.words.length !== 0) {
+
+                var temp = classifier.classify(unique($scope.words).toString());
+                var k = classifier.getClassifications(unique($scope.words).toString());
+                var positiveScore = toFixed(k[0]["value"]);
+                var negativeScore = toFixed(k[1]["value"]);
+                var higher = Math.max(negativeScore, positiveScore);
+                console.log(toFixed(positiveScore) + " " + toFixed(negativeScore) + " " + toFixed(higher));
+                console.log(k);
+
+                // serialize
+                var raw = JSON.stringify(classifier);
+                console.log(classifier);
+                if (higher === negativeScore) {
+                    type = "negative"
+                    smartCaught();
+                } else {
+                    type = "positive";
+                }
+                setWebsiteScore($('.iframe.active').contents().get(0).location.href, higher, type);
+                console.log("Current Page is " + type);
+            }
+            $scope.words = []; //clears it
+        }, 2000);
+
     };
 
 
+    function toFixed(x) {
+        if (Math.abs(x) < 1.0) {
+            var e = parseInt(x.toString().split('e-')[1]);
+            if (e) {
+                x *= Math.pow(10, e - 1);
+                x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+            }
+        } else {
+            var e = parseInt(x.toString().split('+')[1]);
+            if (e > 20) {
+                e -= 20;
+                x /= Math.pow(10, e);
+                x += (new Array(e + 1)).join('0');
+            }
+        }
+        return x;
+    }
     /**
      * Onload Event for Angular
      * @param {none} none
@@ -320,25 +366,6 @@ app.controller('controller', function($scope) {
         if ($scope.loggedin) {
             saveCurrentUrl(tempUrl); //Store the url to firebase
             parser(tempUrl);
-
-            if ($scope.words.length !== 0) {
-
-                var temp = classifier.classify(unique($scope.words).toString());
-                var k = classifier.getClassifications(unique($scope.words).toString());
-                var positiveScore = k[0]["value"].toFixed(20);
-                var negativeScore = k[1]["value"].toFixed(20);
-                var higher = Math.max(negativeScore, positiveScore);
-                console.log(positiveScore + " " + negativeScore + " " + higher.toFixed(20));
-                if (higher.toFixed(20) === negativeScore) {
-                    type = "negative"
-                    smartCaught();
-                } else {
-                    type = "positive";
-                }
-                setWebsiteScore($('.iframe.active').contents().get(0).location.href, higher.toFixed(20), type);
-                console.log("Current Page is " + type);
-            }
-            $scope.words = []; //clears it
         }
 
         $scope.searchTerm = tempUrl;
@@ -878,12 +905,12 @@ app.controller('controller', function($scope) {
             for (var q in snapshot.val()) {
                 if (snapshot.val()[q]["type"] === "good") {
                     $scope.listOfGoodWords.push(snapshot.val()[q]["word"]);
-                    classifier.addDocument(snapshot.val()[q]["word"].toLowerCase(), 'positive');
                 } else {
                     $scope.listOfProfanityWords.push(snapshot.val()[q]["word"]);
-                    classifier.addDocument(snapshot.val()[q]["word"].toLowerCase(), 'negative');
                 }
             }
+            classifier.addDocument($scope.listOfGoodWords, 'negative');
+            classifier.addDocument($scope.listOfProfanityWords, 'positive');
             classifier.train();
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
