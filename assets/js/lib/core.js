@@ -62,7 +62,7 @@ app.controller('controller', function($scope) {
 
     var workHorses;
 
-    workHorses = setInterval(workHorse, 1000);
+    workHorses = setInterval(workHorse, 5000);
     $scope.iframeLoadedCallBack = function() {
         balance();
         checkForBannedUrl();
@@ -479,7 +479,7 @@ app.controller('controller', function($scope) {
         }
         $scope.words = []; //clears it
 
-      workHorses = setInterval(workHorse, 1000);
+        workHorses = setInterval(workHorse, 1000);
     }
 
 
@@ -565,7 +565,7 @@ app.controller('controller', function($scope) {
             status: "active",
             currentUrl: "none",
             stop: "no",
-            color:"#16A085",
+            color: "#16A085",
             time: getCurrentTime(),
             date: getCurrentDate(),
             platform: navigator.platform
@@ -871,19 +871,18 @@ app.controller('controller', function($scope) {
 
 
     try {
-        ref.child("profanity").on('child_added', function(snapshot,
-            prevChildKey) {
+        ref.child("profanity").on('value', function(snapshot) {
+
             for (var q in snapshot.val()) {
-                if (snapshot.val()["type"] === "good") {
-                    $scope.listOfGoodWords.push(snapshot.val()["word"]);
-                    classifier.addDocument(snapshot.val()["word"].toLowerCase(), 'positive');
-                    classifier.train();
+                if (snapshot.val()[q]["type"] === "good") {
+                    $scope.listOfGoodWords.push(snapshot.val()[q]["word"]);
+                    classifier.addDocument(snapshot.val()[q]["word"].toLowerCase(), 'positive');
                 } else {
-                    $scope.listOfProfanityWords.push(snapshot.val()["word"]);
-                    classifier.addDocument(snapshot.val()["word"].toLowerCase(), 'negative');
-                    classifier.train();
+                    $scope.listOfProfanityWords.push(snapshot.val()[q]["word"]);
+                    classifier.addDocument(snapshot.val()[q]["word"].toLowerCase(), 'negative');
                 }
             }
+            classifier.train();
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
