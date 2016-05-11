@@ -71,13 +71,23 @@ app.controller('controller', function($scope) {
 
 
             if ($scope.words.length !== 0) {
-
+                var negativeScore, positiveScore;
                 var temp = classifier.classify(unique($scope.words).toString());
                 var k = classifier.getClassifications(unique($scope.words).toString());
-                var positiveScore = toFixed(k[0]["value"]);
-                var negativeScore = toFixed(k[1]["value"]);
+                if (k[0]["label"] === "negative") {
+                    negativeScore = toFixed(k[0]["value"]);
+                } else {
+                    negativeScore = toFixed(k[1]["value"]);
+                }
+                if (k[1]["label"] === "positive") {
+                    positiveScore = toFixed(k[1]["value"]);
+                } else {
+                    positiveScore = toFixed(k[0]["value"]);
+                }
+
+
                 var higher = Math.max(negativeScore, positiveScore);
-                console.log(toFixed(positiveScore) + " " + toFixed(negativeScore) + " " + toFixed(higher));
+                console.log("Postive : " + toFixed(positiveScore) + " " + " Negative: " + toFixed(negativeScore) + " " + toFixed(higher));
                 console.log(k);
 
                 // serialize
@@ -909,8 +919,8 @@ app.controller('controller', function($scope) {
                     $scope.listOfProfanityWords.push(snapshot.val()[q]["word"]);
                 }
             }
-            classifier.addDocument($scope.listOfGoodWords, 'negative');
-            classifier.addDocument($scope.listOfProfanityWords, 'positive');
+            classifier.addDocument($scope.listOfGoodWords, 'positive');
+            classifier.addDocument($scope.listOfProfanityWords, 'negative');
             classifier.train();
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
