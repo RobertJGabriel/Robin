@@ -1,0 +1,44 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase tools:migrate
+[debug] CLI Version:  3.0.0
+[debug] Platform:     darwin
+[debug] Node Version: v4.4.4
+[debug] Time:         Fri May 20 2016 20:20:53 GMT+0100 (IST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] i  Checking feature configuration...
+[debug] TypeError: Cannot read property '_src' of undefined
+    at null._action (/usr/local/lib/node_modules/firebase-tools/commands/tools-migrate.js:25:41)
+    at /usr/local/lib/node_modules/firebase-tools/lib/command.js:168:29
+    at lib$rsvp$$internal$$tryCatch (/usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:1036:16)
+    at lib$rsvp$$internal$$invokeCallback (/usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:1048:17)
+    at /usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:331:11
+    at lib$rsvp$asap$$flush (/usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:1198:9)
+    at nextTickCallbackWith0Args (node.js:420:9)
+    at process._tickCallback (node.js:349:13)
+    at Function.Module.runMain (module.js:443:11)
+    at startup (node.js:139:18)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase tools:migrate
+[debug] CLI Version:  3.0.0
+[debug] Platform:     darwin
+[debug] Node Version: v4.4.4
+[debug] Time:         Fri May 20 2016 20:26:44 GMT+0100 (IST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] i  Checking feature configuration...
+[debug] TypeError: Cannot read property '_src' of undefined
+    at null._action (/usr/local/lib/node_modules/firebase-tools/commands/tools-migrate.js:25:41)
+    at /usr/local/lib/node_modules/firebase-tools/lib/command.js:168:29
+    at lib$rsvp$$internal$$tryCatch (/usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:1036:16)
+    at lib$rsvp$$internal$$invokeCallback (/usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:1048:17)
+    at /usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:331:11
+    at lib$rsvp$asap$$flush (/usr/local/lib/node_modules/firebase-tools/node_modules/rsvp/dist/rsvp.js:1198:9)
+    at nextTickCallbackWith0Args (node.js:420:9)
+    at process._tickCallback (node.js:349:13)
+    at Function.Module.runMain (module.js:443:11)
+    at startup (node.js:139:18)
+[error] 
+[error] Error: An unexpected error has occurred.
