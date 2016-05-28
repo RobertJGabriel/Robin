@@ -13,7 +13,7 @@ var classifier = new natural.BayesClassifier();
 var macAddress = require('getmac').getMac(function(err, macAddress) {
     usersMacAddress = macAddress;
 });
-
+  require('nw.gui').Window.get().showDevTools();
 
 var app = angular.module('robin', []).filter('trustUrl', function($sce) {
     return function(url) {
