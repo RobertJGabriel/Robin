@@ -1,57 +1,57 @@
 {
-    "name": "Robin",
-    "main": "index.html",
-    "icon": "assets/img/icons/icon.icns",
-    "description": "Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.",
-    "version": "0.6.1",
-    "window": {
-        "title": "Robin",
-        "frame": true,
-        "toolbar": false,
-        "width": 850,
-        "height": 500,
-        "position": "mouse",
-        "min_width": 850,
-        "min_height": 500
-    },
-    "webkit": {
-        "plugin": true
-    },
-    "devDependencies": {
-        "gulp": "*",
-        "gulp-less": "*",
-        "gulp-minify-css": "*",
-        "scraper-web": "*",
-        "async": "*",
-        "gulp-uglify": "*",
-        "gulp-util": "*",
-        "gulp-logger": "*",
-        "gulp-rename": "*",
-        "chalk": "*",
-        "natural": "*",
-        "gulp-imagemin": "*",
-        "imagemin-pngquant": "*",
-        "run-sequence": "*",
-        "gulp-html-minifier": "*",
-        "psi": "*",
-        "getmac": "*",
-        "osenv": "*",
-        "gulp-clean": "*",
-        "firebase": "*",
-        "gulp-go": "*",
-        "gulp-shell": "*",
-        "nw-builder": "^2.0.2",
-        "scraper-web": "*",
-        "profanity-check": "*",
-        "bayes": "*"
-    },
-    "scripts": {
-        "start": "nodewebkit",
-        "test": "node test.js",
-        "load": "node tests/load.js",
-        "remove": "node tests/remove.js"
-    },
-    "dependencies": {
-        "gulp-install": "^0.4.0"
-    }
+  "name": "Robin",
+  "main": "index.html",
+  "icon": "assets/img/icons/icon.icns",
+  "description": "Robin is light weight award winning web browser. It is designed for low-end machines and for Teachers and Parents to block website and terms.",
+  "version": "0.6.1",
+  "window": {
+    "title": "Robin",
+    "frame": true,
+    "toolbar": false,
+    "width": 850,
+    "height": 500,
+    "position": "mouse",
+    "min_width": 850,
+    "min_height": 500
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-less": "*",
+    "gulp-minify-css": "*",
+    "scraper-web": "*",
+    "async": "*",
+    "gulp-uglify": "*",
+    "gulp-util": "*",
+    "gulp-logger": "*",
+    "gulp-rename": "*",
+    "chalk": "*",
+    "natural": "*",
+    "gulp-imagemin": "*",
+    "imagemin-pngquant": "*",
+    "run-sequence": "*",
+    "gulp-html-minifier": "*",
+    "psi": "*",
+    "getmac": "*",
+    "osenv": "*",
+    "gulp-clean": "*",
+    "firebase": "3.0.0",
+    "gulp-go": "*",
+    "gulp-shell": "*",
+    "nw-builder": "^2.0.2",
+    "profanity-check": "*",
+    "bayes": "*"
+  },
+  "scripts": {
+    "start": "nodewebkit",
+    "test": "node test.js",
+    "load": "node tests/load.js",
+    "remove": "node tests/remove.js"
+  },
+  "dependencies": {
+    "firebase": "^3.0.4",
+    "gulp-install": "^0.4.0"
+  }
 }
