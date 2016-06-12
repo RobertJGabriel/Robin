@@ -502,6 +502,17 @@ app.controller('controller', function($scope) {
     function workHorse() {
 
         console.log('Robin Running.....');
+        console.log($scope.loggedin);
+
+             firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                  $scope.loggedin = user.uid;
+                console.log("User " + user.uid + " is logged in with " + user.provider);
+              } else {
+                $scope.loggedin = null;
+                console.log("User is logged out");
+              }
+            });
         $scope.listOfProfanity = unique($scope.listOfProfanity); // from webpage
         clearInterval(workHorses);
         if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > -1) {
@@ -657,7 +668,7 @@ app.controller('controller', function($scope) {
   error ? errorCodes(error) : displayMessage("Just logging you in"), loginInformation($('input[name="loginemail"]').val(), authData), hideModal("login");
    var errorCode = error.code;
    var errorMessage = error.message;
-   // ...
+
  });
     };
 
