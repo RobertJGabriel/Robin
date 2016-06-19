@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "firebase": "^3.0.4",
-    "gulp-install": "^0.4.0"
+    "gulp-install": "^0.4.0",
+    "nodewebkit": "^0.11.6"
   }
 }
