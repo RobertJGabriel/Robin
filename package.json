@@ -46,9 +46,7 @@
   },
   "scripts": {
     "start": "nodewebkit",
-    "test": "node test.js",
-    "load": "node tests/load.js",
-    "remove": "node tests/remove.js"
+    "test": "node tests/badWords.js"
   },
   "dependencies": {
     "firebase": "^3.0.4",

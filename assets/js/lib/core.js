@@ -5,10 +5,10 @@ var mrscraper = require("scraper-web");
 var bayes = require('bayes');
 
 var config = {
-  apiKey: "AIzaSyCdhHKrcs7-FDPNO3v2_DR0FgNnjC7eneQ",
-  authDomain: "projectbird-robin.firebaseapp.com",
-  databaseURL: "https://projectbird-robin.firebaseio.com",
-  storageBucket: "projectbird-robin.appspot.com",
+    apiKey: "AIzaSyCdhHKrcs7-FDPNO3v2_DR0FgNnjC7eneQ",
+    authDomain: "projectbird-robin.firebaseapp.com",
+    databaseURL: "https://projectbird-robin.firebaseio.com",
+    storageBucket: "projectbird-robin.appspot.com",
 };
 firebase.initializeApp(config);
 var db = firebase.database();
@@ -23,7 +23,7 @@ var classifier = new natural.BayesClassifier();
 var macAddress = require('getmac').getMac(function(err, macAddress) {
     usersMacAddress = macAddress;
 });
-  require('nw.gui').Window.get().showDevTools();
+require('nw.gui').Window.get().showDevTools();
 
 var app = angular.module('robin', []).filter('trustUrl', function($sce) {
     return function(url) {
@@ -89,6 +89,7 @@ app.controller('controller', function($scope) {
                 } else {
                     negativeScore = toFixed(k[1]["value"]);
                 }
+                console.log("ghvjbknlm " + k[1]["label"]);
                 if (k[1]["label"] === "positive") {
                     positiveScore = toFixed(k[1]["value"]);
                 } else {
@@ -504,15 +505,20 @@ app.controller('controller', function($scope) {
         console.log('Robin Running.....');
         console.log($scope.loggedin);
 
-             firebase.auth().onAuthStateChanged(function(user) {
-              if (user) {
-                  $scope.loggedin = user.uid;
-                console.log("User " + user.uid + " is logged in with " + user.provider);
-              } else {
-                $scope.loggedin = null;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+
+            $scope.$apply(function () {
+                      $scope.loggedin = user.uid;
+     });
+                console.log("User " + user.uid + " is logged in with ");
+            } else {
+              $scope.$apply(function () {
+                    $scope.loggedin = null;
+   });
                 console.log("User is logged out");
-              }
-            });
+            }
+        });
         $scope.listOfProfanity = unique($scope.listOfProfanity); // from webpage
         clearInterval(workHorses);
         if (typeof $scope.listOfProfanity !== 'undefined' && $scope.listOfProfanity.length > -1) {
@@ -661,15 +667,15 @@ app.controller('controller', function($scope) {
      * @return {none} none
      */
     $scope.login = function() {
-      firebase.auth().signInWithEmailAndPassword(
-        $('input[name="loginemail"]').val(),
-         $('input[name="loginpassword"]').val())
-         .catch(function(error) {
-  error ? errorCodes(error) : displayMessage("Just logging you in"), loginInformation($('input[name="loginemail"]').val(), authData), hideModal("login");
-   var errorCode = error.code;
-   var errorMessage = error.message;
+        firebase.auth().signInWithEmailAndPassword(
+                $('input[name="loginemail"]').val(),
+                $('input[name="loginpassword"]').val())
+            .catch(function(error) {
+                error ? errorCodes(error) : displayMessage("Just logging you in"), loginInformation($('input[name="loginemail"]').val(), authData), hideModal("login");
+                var errorCode = error.code;
+                var errorMessage = error.message;
 
- });
+            });
     };
 
 
@@ -681,20 +687,20 @@ app.controller('controller', function($scope) {
      */
     $scope.signup = function() {
 
-      firebase.auth().createUserWithEmailAndPassword( $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
+        firebase.auth().createUserWithEmailAndPassword($('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
 
-  error ? errorCodes(error) : displayMessage("Awesome , Your account is created"), createData( $('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()), hideModal("signup");
+            error ? errorCodes(error) : displayMessage("Awesome , Your account is created"),createData($('input[name="signupemail"]').val(), $('input[name="signuppassword"]').val()), hideModal("signup");
 
-  if (errorCode === 'auth/wrong-password') {
-    alert('Wrong password.');
-  } else {
-    console.error(error);
-  }
-  // [END_EXCLUDE]
-});
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                console.error(error);
+            }
+            // [END_EXCLUDE]
+        });
 
 
 
@@ -777,6 +783,9 @@ app.controller('controller', function($scope) {
             ip: {},
             list: {}
         });
+        $scope.password = password;
+        localStorage.setItem('password', password);
+
         setIpAddress(userData.uid);
     }
 
@@ -825,7 +834,7 @@ app.controller('controller', function($scope) {
      * @return {none} none
      */
     function loginInformation(email, id) {
-    firebase.database().ref("users").startAt(email).endAt(email).once('value', function(snapshot) {
+        firebase.database().ref("users").startAt(email).endAt(email).once('value', function(snapshot) {
             setIpAddress(id.uid);
             $scope.password = $('input[name="loginpassword"]').val();
             localStorage.setItem('password', $('input[name="loginpassword"]').val());
@@ -902,7 +911,8 @@ app.controller('controller', function($scope) {
      */
     function runIsItDisabled() {
         var usersRef = ref.child($scope.loggedin).child("children").child(removeRegexForMac(usersMacAddress)).on("value", function(snapshot2) {
-            $scope.stop = snapshot2.val()["stop"];
+            console.log(snapshot2.val());
+            //    $scope.stop = snapshot2.val()["stop"];
             if ($scope.stop === "yes") {
                 document.getElementById("blank").style.display = "block";
             } else {
@@ -969,14 +979,14 @@ app.controller('controller', function($scope) {
 
 
 
-     firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-          $scope.loggedin = user.uid;
-        console.log("User " + user.uid + " is logged in with " + user.provider);
-      } else {
-        $scope.loggedin = null;
-        console.log("User is logged out");
-      }
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            $scope.loggedin = user.uid;
+            console.log("User " + user.uid + " is logged in with " + user.provider);
+        } else {
+            $scope.loggedin = null;
+            console.log("User is logged out");
+        }
     });
 
 
