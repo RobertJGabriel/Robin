@@ -43,13 +43,13 @@
                 <li class="dropdown ">
                     <a href="index.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 50px;"><i class="mdi-navigation-more-vert"></i></a>
                     <ul class="dropdown-menu shadow-z-3" id="specialId" style="border-color: white;">
-                        <li ng-show="loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a></li>
+                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#settings-dialog" id="settingsButton">Settings</a></li>
                         <li ng-show="!loggedin"><a data-toggle="modal" data-target="#signupModal">Signup</a></li>
                         <li ng-show="!loggedin"><a data-toggle="modal" data-target="#login">Login</a></li>
-                        <li ng-show="loggedin"><a ng-click="searchResult('assets/view/help.html')">Help</a> </li>
+                        <li ng-show="!loggedin"><a ng-click="searchResult('assets/view/help.html')">Help</a> </li>
 
-                        <li ng-show="loggedin" class="divider" ng-style="themeStyle"></li>
-                        <li ng-show="loggedin"><a data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+                        <li ng-show="!loggedin" class="divider" ng-style="themeStyle"></li>
+                        <li ng-show="!loggedin"><a data-toggle="modal" data-target="#logoutModal">Logout</a></li>
 
                         <li ng-show="!loggedin"><a ng-click="searchResult('assets/view/help.html')">Help</a> </li>
 
@@ -76,8 +76,8 @@
 
     </div>
 
-    <!--  Floating Button to Create New Tabs Buttons  -->
-    <button class="btn btn-warning btn-fab btn-raised" ng-style="themeStyle" id="tabs_button" ng-click="showTabs()">
+    <!--  Floating Button to Create New Tabs   -->
+    <button  draggable="true" class="btn btn-warning btn-fab btn-raised" ng-style="themeStyle" id="tabs_button" ng-click="showTabs()">
         <i class="mdi-navigation-apps"></i>
     </button>
 
@@ -97,49 +97,49 @@
                             <div class="form-group">
                                 <h4>Theme</h4>
                                 <ul id="pick_colors">
-                                    <li><span class="colors" id="_7F8C8D" ng-click="setColor('#7F8C8D')"><span ng-if="theme === '#7F8C8D'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_7F8C8D" ng-click="setColor('#7F8C8D')"><span ng-if="theme === '#7F8C8D'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_95A5A6" ng-click="setColor('#95A5A6')"><span ng-if="theme === '#95A5A6'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_95A5A6" data-ripple-color="red" ng-click="setColor('#95A5A6')"><span ng-if="theme === '#95A5A6'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_BDC3C7" ng-click="setColor('#BDC3C7')"><span ng-if="theme === '#BDC3C7'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_BDC3C7" data-ripple-color="#F0F0F0" ng-click="setColor('#BDC3C7')"><span ng-if="theme === '#BDC3C7'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_C0392B" ng-click="setColor('#C0392B')"><span ng-if="theme === '#C0392B'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_C0392B" data-ripple-color="#F0F0F0" ng-click="setColor('#C0392B')"><span ng-if="theme === '#C0392B'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_E74C3C" ng-click="setColor('#E74C3C')"><span ng-if="theme === '#E74C3C'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_E74C3C" data-ripple-color="#F0F0F0" ng-click="setColor('#E74C3C')"><span ng-if="theme === '#E74C3C'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_F39C12" ng-click="setColor('#F39C12')"><span ng-if="theme === '#F39C12'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_F39C12" data-ripple-color="#F0F0F0" ng-click="setColor('#F39C12')"><span ng-if="theme === '#F39C12'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_F1C40F" ng-click="setColor('#F1C40F')"><span ng-if="theme === '#F1C40F'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_F1C40F" data-ripple-color="#F0F0F0" ng-click="setColor('#F1C40F')"><span ng-if="theme === '#F1C40F'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_8E44AD" ng-click="setColor('#8E44AD')"><span ng-if="theme === '#8E44AD'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_8E44AD" data-ripple-color="#F0F0F0" ng-click="setColor('#8E44AD')"><span ng-if="theme === '#8E44AD'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_CA2C68" ng-click="setColor('#CA2C68')"><span ng-if="theme === '#CA2C68'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_CA2C68" data-ripple-color="#F0F0F0" ng-click="setColor('#CA2C68')"><span ng-if="theme === '#CA2C68'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_EA4C88" ng-click="setColor('#EA4C88')"><span ng-if="theme === '#EA4C88'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_EA4C88" data-ripple-color="#F0F0F0" ng-click="setColor('#EA4C88')"><span ng-if="theme === '#EA4C88'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_2C3E50" ng-click="setColor('#2C3E50')"><span ng-if="theme === '#2C3E50'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_2C3E50" data-ripple-color="#F0F0F0" ng-click="setColor('#2C3E50')"><span ng-if="theme === '#2C3E50'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_2980B9" ng-click="setColor('#2980B9')"><span ng-if="theme === '#2980B9'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_2980B9" data-ripple-color="#F0F0F0" ng-click="setColor('#2980B9')"><span ng-if="theme === '#2980B9'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_3498DB" ng-click="setColor('#3498DB')"><span ng-if="theme === '#3498DB'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_3498DB"  ng-click="setColor('#3498DB')"><span ng-if="theme === '#3498DB'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_27AE60" ng-click="setColor('#27AE60')"><span ng-if="theme === '#27AE60'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_27AE60"  data-ripple-color="#F0F0F0"ng-click="setColor('#27AE60')"><span ng-if="theme === '#27AE60'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
-                                    <li><span class="colors" id="_16A085" ng-click="setColor('#16A085')"><span ng-if="theme === '#16A085'"><i class="mdi-action-done"></i> </span></span>
+                                    <li><span class="colors withripple" data-ripple-color="red" id="_16A085"  data-ripple-color="#F0F0F0" ng-click="setColor('#16A085')"><span ng-if="theme === '#16A085'"><i class="mdi-action-done"></i> </span></span>
                                     </li>
 
                                 </ul>
